@@ -7,16 +7,16 @@ let polls = [
     _id: "sampleId1",
     title: "test poll1",
     options: [
-      { prompt: "option1", votesReceived: 0 },
-      { prompt: "option2", votesReceived: 3 },
+      { prompt: "option1", votes: 0 },
+      { prompt: "option2", votes: 3 },
     ],
   },
   {
     _id: "sampleId2",
     title: "test poll2",
     options: [
-      { prompt: "option1", votesReceived: 3 },
-      { prompt: "option2", votesReceived: 5 },
+      { prompt: "option1", votes: 3 },
+      { prompt: "option2", votes: 5 },
     ],
   },
 ];
@@ -31,11 +31,13 @@ router.get("/:pollId", (req, res) => {
 });
 
 router.post("/create-poll", (req, res) => {
-  let newPoll = req.body;
+  let newPoll = { title: req.body.title };
+  newPoll.options = req.body.options.map((value) => {
+    return { prompt: value, votes: 0 };
+  });
   newPoll._id = uuid();
   polls.push(newPoll);
-
-  res.json({ success: true });
+  res.json({ newPoll });
 });
 
 module.exports = router;
