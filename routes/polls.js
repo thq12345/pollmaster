@@ -4,7 +4,7 @@ const uuid = require("uuid").v4;
 
 let polls = [
   {
-    _id: "sampleId1",
+    _id: "123",
     title: "test poll1",
     options: [
       { prompt: "option1", votes: 0 },
@@ -23,11 +23,21 @@ let polls = [
 
 // search for poll with Id
 router.get("/:pollId", (req, res) => {
-  res.send(
-    polls.filter((el) => {
-      return el._id === req.params.pollId;
-    })
-  );
+  let poll = polls.filter((el) => {
+    return el._id === req.params.pollId;
+  })[0];
+  res.json(poll);
+});
+
+router.get("/:pollId/vote", (req, res) => {
+  let votedOptionIdx = req.query.optionIdx;
+  for (let i = 0; i < polls.length; i++) {
+    if (polls[i]._id === req.params.pollId) {
+      polls[i].options[votedOptionIdx].votes += 1;
+    }
+  }
+  console.log(JSON.stringify(polls[0].options));
+  res.send(JSON.stringify({ message: "Successfully voted" }));
 });
 
 router.post("/create-poll", (req, res) => {
@@ -37,7 +47,7 @@ router.post("/create-poll", (req, res) => {
   });
   newPoll._id = uuid();
   polls.push(newPoll);
-  res.json({ newPoll });
+  res.json({ message: "Successfully started your poll" });
 });
 
 module.exports = router;
