@@ -1,8 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import "../stylesheets/pollOption.css";
 
 const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePollOption }) => {
+  const styles = {
+    deletePollOptionButton: {
+      marginTop: "1em",
+      padding: "0 0.75em",
+      height: "2em",
+      alignSelf: "center",
+    },
+    buttonPlaceholder: {
+      width: "2.5em",
+    },
+    pollOption: {
+      display: "flex",
+    },
+    pollOptionField: {
+      width: "90%",
+      marginLeft: "1em",
+    },
+  };
+
   let [value, setValue] = useState(defaultValue);
 
   const onValueChange = (event) => {
@@ -15,21 +33,21 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePol
   }, [defaultValue]);
 
   return (
-    <div className="poll-option">
+    <div style={styles.pollOption}>
       {index !== 0 ? (
         <Button
           onClick={() => {
             onDeletePollOption(index);
           }}
-          className="delete-poll-option-button"
+          style={styles.deletePollOptionButton}
           variant="danger"
         >
           <i className="fas fa-minus"></i>
         </Button>
       ) : (
-        <div className="button-placeholder"></div>
+        <div style={styles.buttonPlaceholder}></div>
       )}
-      <div className="poll-option-field">
+      <div style={styles.pollOptionField}>
         <Form.Group className="mb-3" controlId={`pollOption-${index}`}>
           <Form.Label>Option {index + 1}</Form.Label>
           <Form.Control

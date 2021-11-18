@@ -1,10 +1,21 @@
 import React, { useState, useRef } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import "../stylesheets/createPoll.css";
 import PollOptionInput from "../components/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 
 const CreatePollPage = () => {
+  const styles = {
+    form: {
+      border: "2px solid rgba(0, 0, 0, 0.2)",
+    },
+    pollOptions: {
+      marginBottom: "1em",
+    },
+    addPollOptionsButton: {
+      borderRadius: "50%",
+    },
+  };
+
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
   let formRef = useRef();
@@ -71,17 +82,17 @@ const CreatePollPage = () => {
     <main>
       <Container>
         <h1>Create new poll</h1>
-        <Form ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
+        <Form style={styles.form} ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
           <div className="p-4">
             <Form.Group className="mb-3" controlId="pollTitle">
               <Form.Label>Poll Title / Question</Form.Label>
               <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
             </Form.Group>
 
-            <div id="pollOptions">
+            <div style={styles.pollOptions}>
               {renderPollOptions()}
 
-              <Button onClick={addPollOptions} style={{ borderRadius: "50%" }}>
+              <Button onClick={addPollOptions} style={styles.addPollOptionsButton}>
                 <i className="fas fa-plus"></i>
               </Button>
             </div>

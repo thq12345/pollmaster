@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Container, ListGroup, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
-import "../stylesheets/pollPage.css";
+// import "../stylesheets/pollPage.css";
 
 const PollPage = () => {
+  const styles = {
+    selectedOption: {
+      backgroundColor: "rgba(0, 100, 150, 0.3)",
+    },
+  };
+
   let params = useParams();
   let [poll, setPoll] = useState(null);
   let [selectedIdx, setSelectedIdx] = useState(-1);
@@ -35,7 +41,7 @@ const PollPage = () => {
     return poll.options.map((el, idx) => {
       return (
         <ListGroup.Item
-          id={selectedIdx === idx ? "selectedOption" : null}
+          style={selectedIdx === idx ? styles.selectedOption : null}
           onClick={() => {
             handleSelectOption(idx);
           }}

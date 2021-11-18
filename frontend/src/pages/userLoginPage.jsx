@@ -3,9 +3,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
-import "../stylesheets/loginPage.css";
+// import classes from "../stylesheets/loginPage.css";
 
 const UserLoginPage = () => {
+  const styles = {
+    form: {
+      border: "2px solid rgba(0, 0, 0, 0.2)",
+      borderRadius: "4px",
+      padding: "14px 18px",
+    },
+    eyeButton: {
+      background: "none",
+    },
+    mainContainer: {
+      width: "400px",
+    },
+  };
+
   const [passwordShown, setPasswordShown] = useState(false);
   const [validated, setValidated] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
@@ -50,9 +64,16 @@ const UserLoginPage = () => {
 
   return (
     <main>
-      <Container>
+      <Container style={styles.mainContainer}>
         <h2>Login</h2>
-        <Form className="rounded form" noValidate validated={validated} ref={loginFormRef} onSubmit={submitHandler}>
+        <Form
+          // className={`rounded ${classes.form}`}
+          style={styles.form}
+          noValidate
+          validated={validated}
+          ref={loginFormRef}
+          onSubmit={submitHandler}
+        >
           <Form.Group className="mb-3" controlId="userEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control required autoComplete="on" type="email" name="email" placeholder="Enter email" />
@@ -70,7 +91,8 @@ const UserLoginPage = () => {
                 placeholder="Password"
               />
               <button
-                id="eyeButton"
+                // id="eyeButton"
+                style={styles.eyeButton}
                 onClick={(e) => {
                   togglePassword(e);
                 }}
