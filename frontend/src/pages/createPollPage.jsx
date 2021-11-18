@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import "../stylesheets/createPoll.css";
-import PollOption from "../components/pollOption";
+import PollOptionInput from "../components/pollOptionInput";
+import ToastMessage from "../components/toastMessage";
 
-const CreatePoll = () => {
+const CreatePollPage = () => {
   let [options, setOptions] = useState([""]);
+  let [message, setMessage] = useState(null);
   let formRef = useRef();
 
   const handleOptionValueChange = (idx, value) => {
@@ -24,7 +26,7 @@ const CreatePoll = () => {
   const renderPollOptions = () => {
     return options.map((el, idx) => {
       return (
-        <PollOption
+        <PollOptionInput
           key={idx}
           defaultValue={el}
           onOptionValueChange={handleOptionValueChange}
@@ -52,7 +54,6 @@ const CreatePoll = () => {
         data[key] = val;
       }
     });
-    console.log(JSON.stringify(data));
     let res = await fetch("/api/polls/create-poll", {
       method: "POST",
       headers: {
@@ -62,6 +63,7 @@ const CreatePoll = () => {
     });
     if (res.ok) {
       let json = await res.json();
+      setMessage(json.message);
     }
   };
 
@@ -70,26 +72,29 @@ const CreatePoll = () => {
       <Container>
         <h1>Create new poll</h1>
         <Form ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
-          <Form.Group className="mb-3" controlId="pollTitle">
-            <Form.Label>Poll Title / Question</Form.Label>
-            <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
-          </Form.Group>
+          <div className="p-4">
+            <Form.Group className="mb-3" controlId="pollTitle">
+              <Form.Label>Poll Title / Question</Form.Label>
+              <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
+            </Form.Group>
 
-          <div id="pollOptions">
-            {renderPollOptions()}
+            <div id="pollOptions">
+              {renderPollOptions()}
 
-            <Button onClick={addPollOptions} style={{ borderRadius: "50%" }}>
-              <i className="fas fa-plus"></i>
-            </Button>
+              <Button onClick={addPollOptions} style={{ borderRadius: "50%" }}>
+                <i className="fas fa-plus"></i>
+              </Button>
+            </div>
           </div>
 
-          <div>
+          <div className="p-4">
             <Button type="submit">Submit</Button>
           </div>
         </Form>
+        {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Success" /> : null}
       </Container>
     </main>
   );
 };
 
-export default CreatePoll;
+export default CreatePollPage;

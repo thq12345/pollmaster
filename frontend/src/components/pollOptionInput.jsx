@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "../stylesheets/pollOption.css";
 
-const PollOption = ({ defaultValue, onOptionValueChange, index, onDeletePollOption }) => {
+const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePollOption }) => {
   let [value, setValue] = useState(defaultValue);
 
   const onValueChange = (event) => {
@@ -46,4 +46,4 @@ const PollOption = ({ defaultValue, onOptionValueChange, index, onDeletePollOpti
   );
 };
 
-export default PollOption;
+export default PollOptionInput;

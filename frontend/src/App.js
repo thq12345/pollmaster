@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 import Homepage from "./pages/homepage";
-import CreatePoll from "./pages/createPoll";
+import CreatePollPage from "./pages/createPollPage";
+import PollPage from "./pages/pollPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/polls/new-poll" element={<CreatePoll />} />
+          <Route path="/polls/new-poll" element={<CreatePollPage />} />
+          <Route path="/polls/:pollId" element={<PollPage />} />
           <Route path="/" element={<Homepage />} />
         </Routes>
       </Router>
