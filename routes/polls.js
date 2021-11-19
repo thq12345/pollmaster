@@ -36,7 +36,6 @@ router.get("/:pollId/vote", (req, res) => {
       polls[i].options[votedOptionIdx].votes += 1;
     }
   }
-  console.log(JSON.stringify(polls[0].options));
   res.send(JSON.stringify({ message: "Successfully voted" }));
 });
 
@@ -47,7 +46,7 @@ router.post("/create-poll", (req, res) => {
   });
   newPoll._id = uuid();
   polls.push(newPoll);
-  res.json({ message: "Successfully started your poll" });
+  res.json({ message: "Successfully started your poll", newPollId: newPoll._id });
 });
 
 module.exports = router;
