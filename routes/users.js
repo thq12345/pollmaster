@@ -10,18 +10,33 @@ const adminUser = {
 
 
 //create new users
-router.post("/", async (req, res) => {
+router.post("/registration", async (req, res) => {
+  let data = {};
+  let userObejct = {      
+    _id: req.body.email,
+    password: req.body.password
+  };
+  let statusCode = 200;
+  try {
+    data.user = {
+      email: req.body.email
+    };
+    console.log("user created");
 
+  } catch (err) {
+    statusCode = 500;
+    data.message = err.message;
+  }
+
+  res.status(statusCode).send(JSON.stringify(data));
 });
 
 // GET users login
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   let data = {};
   let statusCode = 200;
-
   try {
-    let users;
-
+    //    let users;
     let user = adminUser;
     if (user && user.password === req.body.password) {
       data.user = {

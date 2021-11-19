@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
-// import classes from "../stylesheets/loginPage.css";
 
 const UserLoginPage = () => {
   const styles = {
@@ -47,16 +46,17 @@ const UserLoginPage = () => {
       formData.forEach((val, key) => {
         data[key] = val;
       });
-      let json = JSON.stringify(data);
       let userInput = await fetch("/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: json,
+        body: JSON.stringify(data),
       });
       //login successful
       if (userInput.ok) {
         let result = await userInput.json();
         sessionStorage.setItem("user", JSON.stringify(result.user));
+      } else {
+        e.preventDefault();
       }
     }
     setValidated(true);
@@ -77,12 +77,12 @@ const UserLoginPage = () => {
           <Form.Group className="mb-3" controlId="userEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control required autoComplete="on" type="email" name="email" placeholder="Enter email" />
-            <Form.Control.Feedback type="invalid">Please enter an email address</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Please enter a correct email address</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="userPassword">
             <Form.Label>Password</Form.Label>
-            <InputGroup>
+            <InputGroup hasValidation>
               <Form.Control
                 required
                 autoComplete="on"
@@ -100,7 +100,7 @@ const UserLoginPage = () => {
                 {eye}
               </button>
             </InputGroup>
-            <Form.Control.Feedback type="invalid"> Please enter a password</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid"> Please enter a correct password</Form.Control.Feedback>
           </Form.Group>
 
           <Button variant="primary" type="submit">
