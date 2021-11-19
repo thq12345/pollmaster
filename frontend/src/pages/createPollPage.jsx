@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import PollOptionInput from "../components/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   form: {
@@ -20,7 +20,8 @@ const CreatePollPage = () => {
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
   let formRef = useRef();
-  let [redirect, setRedirect] = useState(null);
+  // let [redirect, setRedirect] = useState(null);
+  let navigate = useNavigate();
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
@@ -77,14 +78,13 @@ const CreatePollPage = () => {
     if (res.ok) {
       let json = await res.json();
       setMessage(json.message);
-      setRedirect(`/polls/${json.newPollId}`);
+      navigate(`/polls/${json.newPollId}`);
     }
   };
 
   return (
     <main>
       <Container>
-        {redirect ? <Redirect to={redirect} /> : null}
         <h1>Create new poll</h1>
         <Form style={styles.form} ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
           <div className="p-4">
