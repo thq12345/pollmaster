@@ -2,23 +2,25 @@ import React, { useState, useRef } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import PollOptionInput from "../components/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
+import { Redirect } from "react-router-dom";
+
+const styles = {
+  form: {
+    border: "2px solid rgba(0, 0, 0, 0.2)",
+  },
+  pollOptions: {
+    marginBottom: "1em",
+  },
+  addPollOptionsButton: {
+    borderRadius: "50%",
+  },
+};
 
 const CreatePollPage = () => {
-  const styles = {
-    form: {
-      border: "2px solid rgba(0, 0, 0, 0.2)",
-    },
-    pollOptions: {
-      marginBottom: "1em",
-    },
-    addPollOptionsButton: {
-      borderRadius: "50%",
-    },
-  };
-
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
   let formRef = useRef();
+  let [redirect, setRedirect] = useState(null);
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
@@ -75,12 +77,14 @@ const CreatePollPage = () => {
     if (res.ok) {
       let json = await res.json();
       setMessage(json.message);
+      setRedirect(`/polls/${json.newPollId}`);
     }
   };
 
   return (
     <main>
       <Container>
+        {redirect ? <Redirect to={redirect} /> : null}
         <h1>Create new poll</h1>
         <Form style={styles.form} ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
           <div className="p-4">
