@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePollOption }) => {
-  const styles = {
-    deletePollOptionButton: {
-      marginTop: "1em",
-      padding: "0 0.75em",
-      height: "2em",
-      alignSelf: "center",
-    },
-    buttonPlaceholder: {
-      width: "2.5em",
-    },
-    pollOption: {
-      display: "flex",
-    },
-    pollOptionField: {
-      width: "90%",
-      marginLeft: "1em",
-    },
-  };
+const styles = {
+  deletePollOptionButton: {
+    marginTop: "1em",
+    padding: "0 0.75em",
+    height: "2em",
+    alignSelf: "center",
+  },
+  buttonPlaceholder: {
+    width: "2.5em",
+  },
+  pollOption: {
+    display: "flex",
+  },
+  pollOptionField: {
+    width: "90%",
+    marginLeft: "1em",
+  },
+};
 
+const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, onDeletePollOption }) => {
   let [value, setValue] = useState(defaultValue);
 
   const onValueChange = (event) => {
@@ -34,7 +34,7 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePol
 
   return (
     <div style={styles.pollOption}>
-      {index !== 0 ? (
+      {deletable ? (
         <Button
           onClick={() => {
             onDeletePollOption(index);
@@ -58,6 +58,7 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, index, onDeletePol
             name="options"
             placeholder="What does this option mean?"
           />
+          <Form.Control.Feedback type="invalid">The option prompt cannot be empty</Form.Control.Feedback>
         </Form.Group>
       </div>
     </div>
