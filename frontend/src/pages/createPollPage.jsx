@@ -19,6 +19,7 @@ const styles = {
 const CreatePollPage = () => {
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
+  let [validated, setValidated] = useState(false);
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
   let navigate = useNavigate();
@@ -44,6 +45,7 @@ const CreatePollPage = () => {
           key={idx}
           defaultValue={el}
           onOptionValueChange={handleOptionValueChange}
+          deletable={options.length > 1}
           index={idx}
           onDeletePollOption={handleDeletePollOption}
         />
@@ -59,6 +61,10 @@ const CreatePollPage = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setValidated(true);
+    let form = e.currentTarget;
+    if (!form.checkValidity()) return;
+
     let formData = new FormData(formRef.current);
     let data = {};
     formData.forEach((val, key) => {
@@ -86,23 +92,28 @@ const CreatePollPage = () => {
     <main>
       <Container>
         <h1>Create new poll</h1>
-        <Form style={styles.form} ref={formRef} className="rounded" onSubmit={handleFormSubmit}>
-          <div className="p-4">
+        <Form
+          style={styles.form}
+          noValidate
+          validated={validated}
+          ref={formRef}
+          className="rounded"
+          onSubmit={handleFormSubmit}
+        >
+          <div className="p-4 mb-2">
             <Form.Group className="mb-3" controlId="pollTitle">
               <Form.Label>Poll Title / Question</Form.Label>
               <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
+              <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
             </Form.Group>
 
-            <div style={styles.pollOptions}>
-              {renderPollOptions()}
-
-              <Button onClick={addPollOptions} style={styles.addPollOptionsButton}>
-                <i className="fas fa-plus"></i>
-              </Button>
-            </div>
+            <div style={styles.pollOptions}>{renderPollOptions()}</div>
+            <Button onClick={addPollOptions} style={styles.addPollOptionsButton}>
+              <i className="fas fa-plus"></i>
+            </Button>
           </div>
 
-          <div className="p-4">
+          <div className="ps-4 mb-4">
             <Button type="submit">Submit</Button>
           </div>
         </Form>

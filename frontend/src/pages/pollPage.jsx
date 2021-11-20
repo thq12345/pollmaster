@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Container, ListGroup, Button } from "react-bootstrap";
+import { Container, ListGroup, Button, Row, Col, ProgressBar } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { useParams } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
+// import { Link } from "react-router-dom";
+import BackButton from "../components/backButton";
 // import useLocalStorage from "../hooks/useLocalStorage";
 
-const PollPage = () => {
-  const styles = {
-    title: {
-      textAlign: "center",
-    },
-    selectedOption: {
-      backgroundColor: "rgba(0, 100, 150, 0.3)",
-    },
-    voteCount: { display: "inline-block", float: "right" },
-  };
+const styles = {
+  title: {
+    textAlign: "center",
+    marginBottom: "1em",
+  },
+  selectedOption: {
+    backgroundColor: "rgba(0, 100, 150, 0.3)",
+  },
+  voteCount: { display: "inline-block", float: "right" },
+  backButton: {
+    marginLeft: "2em",
+  },
+};
 
+const PollPage = () => {
   let params = useParams();
   let pollId = params.pollId;
   let user = null;
@@ -72,6 +80,10 @@ const PollPage = () => {
   };
 
   const renderPollOptions = () => {
+    let totalVotes = poll.options.reduce((acc, curr) => acc + curr.votes, 0);
+    let votesRatio = poll.options.map((el) => {
+      return Math.round((el.votes * 100) / totalVotes);
+    });
     return poll.options.map((el, idx) => {
       return (
         <ListGroup.Item
@@ -81,8 +93,17 @@ const PollPage = () => {
           }}
           key={idx}
         >
-          <div style={{ display: "inline-block" }}>{el.prompt}</div>
-          {votedIdx !== -1 ? <div style={styles.voteCount}>{el.votes}</div> : null}
+          <div>{el.prompt}</div>
+          {votedIdx !== -1 ? (
+            <Row>
+              <Col style={{ padding: "5px 0 5px 1em" }}>
+                <ProgressBar now={votesRatio[idx]} style={{ height: "100%" }} />
+              </Col>
+              <Col xs={1}>
+                <div style={styles.voteCount}>{el.votes}</div>
+              </Col>
+            </Row>
+          ) : null}
         </ListGroup.Item>
       );
     });
@@ -91,12 +112,30 @@ const PollPage = () => {
   return (
     <main>
       <Container>
+        <div style={styles.backButton}>
+          <BackButton to="/polls" />
+        </div>
         <h1 style={styles.title}>{poll ? poll.title : "This is a poll page"}</h1>
         <div style={{ width: "70%", margin: "0 auto" }}>
           <ListGroup style={{ marginBottom: "2em" }}>{poll ? renderPollOptions() : null}</ListGroup>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Button disabled={votedIdx !== -1} onClick={handleVote}>
               Vote
+            </Button>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "3em" }}>
+          <div>
+            <div style={{ textAlign: "center" }}>Share this poll:</div>
+
+            <div>{window.location.href}</div>
+            <Button
+              style={{ padding: "0 0.5em", marginLeft: "47%" }}
+              onClick={async () => {
+                await navigator.clipboard.writeText(window.location.href);
+              }}
+            >
+              <FontAwesomeIcon icon={faCopy} />
             </Button>
           </div>
         </div>
