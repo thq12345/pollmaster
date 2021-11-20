@@ -1,8 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import PollOptionInput from "../components/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
-import { useNavigate } from "react-router-dom";
+import BackButton from "../components/backButton";
 
 const styles = {
   form: {
@@ -16,10 +19,14 @@ const styles = {
   },
 };
 
+const PUBLICMSG = "This poll will be visible in the list of all polls";
+const UNLISTEDMSG = "This poll will not appear in the list of all polls, but still accessible through the URL";
+
 const CreatePollPage = () => {
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
   let [validated, setValidated] = useState(false);
+  let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
   let navigate = useNavigate();
@@ -91,7 +98,10 @@ const CreatePollPage = () => {
   return (
     <main>
       <Container>
-        <h1>Create new poll</h1>
+        <BackButton to="/" />
+        <h1 style={{ textAlign: "center" }} className="mb-3">
+          Create new poll
+        </h1>
         <Form
           style={styles.form}
           noValidate
@@ -109,11 +119,36 @@ const CreatePollPage = () => {
 
             <div style={styles.pollOptions}>{renderPollOptions()}</div>
             <Button onClick={addPollOptions} style={styles.addPollOptionsButton}>
-              <i className="fas fa-plus"></i>
+              <FontAwesomeIcon icon={faPlus} />
             </Button>
           </div>
 
-          <div className="ps-4 mb-4">
+          <div style={{ width: "15em", margin: "0 auto" }}>
+            <Form.Group className="mb-3" controlId="publicity">
+              <Form.Label
+                style={{ whiteSpace: "nowrap", alignSelf: "center", paddingTop: "0.5em", marginRight: "1em" }}
+              >
+                Poll visibility
+              </Form.Label>
+              <Form.Select
+                name="public"
+                onChange={(e) => {
+                  if (e.currentTarget.value === "true") {
+                    setPublicityMsg(PUBLICMSG);
+                  } else {
+                    setPublicityMsg(UNLISTEDMSG);
+                  }
+                }}
+                aria-label="Select publicity"
+              >
+                <option value={true}>Public</option>
+                <option value={false}>Unlisted</option>
+              </Form.Select>
+              <Form.Text>{publicityMsg}</Form.Text>
+            </Form.Group>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }} className="ps-4 mb-4">
             <Button type="submit">Submit</Button>
           </div>
         </Form>

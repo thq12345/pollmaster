@@ -22,29 +22,35 @@ const styles = {
   },
 };
 
+const hasExpired = (unixTime) => {
+  return unixTime < new Date().getTime();
+};
+
 const PollPage = () => {
   let params = useParams();
   let pollId = params.pollId;
   let user = null;
   let [poll, setPoll] = useState(null);
   let participatedPolls = user ? user.participatedPolls : JSON.parse(localStorage.getItem("participatedPolls"));
-  // let [updateInterval, setUpdateInterval] = useState(null);
+  let [updateInterval, setUpdateInterval] = useState(null);
   let votedIdx = participatedPolls && participatedPolls[pollId] !== undefined ? participatedPolls[pollId] : -1;
   let [selectedIdx, setSelectedIdx] = useState(votedIdx);
   let [message, setMessage] = useState(null);
+  let [success, setSuccess] = useState(null);
+  let [expired, setExpired] = useState(false);
 
   const getPollInfo = async (pollId) => {
     let res = await fetch(`/api/polls/${pollId}`);
     if (res.ok) {
       let json = await res.json();
       setPoll(json);
+      setExpired(hasExpired(json.ttl));
     }
   };
 
   // get poll info on page load
   useEffect(() => {
     getPollInfo(pollId);
-    // setUpdateInterval(null);
   }, []);
 
   useEffect(() => {
@@ -55,19 +61,29 @@ const PollPage = () => {
   }, [pollId, votedIdx]);
 
   const autoUpdatePollInfo = (pollId) => {
-    setInterval(async () => {
+    let interval = setInterval(async () => {
       getPollInfo(pollId);
     }, 5000);
-    // setUpdateInterval(interval);
+    setUpdateInterval(interval);
   };
 
   const handleSelectOption = (idx) => {
-    if (votedIdx !== -1) return;
+    if (expired || votedIdx !== -1) return;
     setSelectedIdx(idx);
   };
 
+  const handleRedirect = () => {
+    if (updateInterval) {
+      clearInterval(updateInterval);
+      setUpdateInterval(null);
+    }
+  };
+
   const handleVote = async () => {
-    if (selectedIdx === -1) return;
+    if (selectedIdx === -1) {
+      setMessage("Please select one of the options to vote");
+      return;
+    }
     let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}`);
     if (res.ok) {
       let participated = participatedPolls || {};
@@ -75,7 +91,7 @@ const PollPage = () => {
       localStorage.setItem("participatedPolls", JSON.stringify(participated));
       let json = await res.json();
       await getPollInfo(pollId);
-      setMessage(json.message);
+      setSuccess(json.message);
     }
   };
 
@@ -94,7 +110,7 @@ const PollPage = () => {
           key={idx}
         >
           <div>{el.prompt}</div>
-          {votedIdx !== -1 ? (
+          {expired || votedIdx !== -1 ? (
             <Row>
               <Col style={{ padding: "5px 0 5px 1em" }}>
                 <ProgressBar now={votesRatio[idx]} style={{ height: "100%" }} />
@@ -109,20 +125,30 @@ const PollPage = () => {
     });
   };
 
+  const renderVoteButton = () => {
+    if (expired) {
+      return <div style={{ fontSize: "1.5em" }}>This poll has already ended</div>;
+    } else if (votedIdx !== -1) {
+      return <Button disabled>You have voted</Button>;
+    } else {
+      return (
+        <Button disabled={votedIdx !== -1} onClick={handleVote}>
+          Vote
+        </Button>
+      );
+    }
+  };
+
   return (
     <main>
       <Container>
         <div style={styles.backButton}>
-          <BackButton to="/polls" />
+          <BackButton onRedirect={handleRedirect} to="/polls" />
         </div>
         <h1 style={styles.title}>{poll ? poll.title : "This is a poll page"}</h1>
         <div style={{ width: "70%", margin: "0 auto" }}>
           <ListGroup style={{ marginBottom: "2em" }}>{poll ? renderPollOptions() : null}</ListGroup>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button disabled={votedIdx !== -1} onClick={handleVote}>
-              Vote
-            </Button>
-          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>{renderVoteButton()}</div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "3em" }}>
           <div>
@@ -139,7 +165,8 @@ const PollPage = () => {
             </Button>
           </div>
         </div>
-        {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Success" /> : null}
+        {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Info" /> : null}
+        {success ? <ToastMessage show={true} message={success} setMessage={setSuccess} type="Success" /> : null}
       </Container>
     </main>
   );
