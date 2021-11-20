@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const uuid = require("uuid").v4;
-const pollsRaw = require("../MOCK_DATA.json");
+const pollsRaw = require("../poll master.json");
 
 let polls = pollsRaw.map((el) => {
   let options = [];
@@ -19,6 +19,7 @@ let polls = pollsRaw.map((el) => {
     totalVotes: totalVotes,
     public: el.public,
     createdAt: el.createdAt,
+    ttl: el.ttl,
   };
 });
 
@@ -58,18 +59,20 @@ router.get("/:pollId/vote", (req, res) => {
   for (let i = 0; i < polls.length; i++) {
     if (polls[i]._id === req.params.pollId) {
       polls[i].options[votedOptionIdx].votes += 1;
+      polls[i].totalVotes++;
     }
   }
   res.send(JSON.stringify({ message: "Successfully voted" }));
 });
 
 router.post("/create-poll", (req, res) => {
-  let newPoll = { title: req.body.title };
+  let newPoll = { title: req.body.title, public: req.body.public === "true" };
   newPoll.options = req.body.options.map((value) => {
     return { prompt: value, votes: 0 };
   });
   newPoll._id = uuid();
   polls.push(newPoll);
+  console.log(newPoll);
   res.json({ message: "Successfully started your poll", newPollId: newPoll._id });
 });
 

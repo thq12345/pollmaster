@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const styles = {
   deletePollOptionButton: {
@@ -42,7 +44,7 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
           style={styles.deletePollOptionButton}
           variant="danger"
         >
-          <i className="fas fa-minus"></i>
+          <FontAwesomeIcon icon={faMinus} />
         </Button>
       ) : (
         <div style={styles.buttonPlaceholder}></div>
