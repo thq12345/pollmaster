@@ -7,10 +7,12 @@ import PollsListPage from "./pages/pollsListPage";
 import UserLoginPage from "./pages/userLoginPage";
 import UserRegistrationPage from "./pages/userRegistrationPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavigationBar from "./components/navBar";
 
 function App() {
   return (
     <div className="App">
+      <NavigationBar/>
       <Router>
         <Routes>
           <Route path="/polls/new-poll" element={<CreatePollPage />} />
