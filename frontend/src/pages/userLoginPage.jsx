@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const UserLoginPage = () => {
+const UserLoginPage = ({ setLogin }) => {
   const styles = {
     form: {
       border: "2px solid rgba(0, 0, 0, 0.2)",
@@ -18,7 +19,7 @@ const UserLoginPage = () => {
       width: "400px",
     },
   };
-
+  const navigate = useNavigate();
   const [passwordShown, setPasswordShown] = useState(false);
   const [validated, setValidated] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
@@ -27,7 +28,6 @@ const UserLoginPage = () => {
   //Show password when check box
   const togglePassword = (e) => {
     e.preventDefault();
-
     setPasswordShown(!passwordShown);
   };
 
@@ -55,6 +55,8 @@ const UserLoginPage = () => {
       if (userInput.ok) {
         let result = await userInput.json();
         sessionStorage.setItem("user", JSON.stringify(result.user));
+        setLogin(true);
+        navigate("/");
       } else {
         e.preventDefault();
       }

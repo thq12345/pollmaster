@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { stringify } from "uuid";
 
-const UserRegistrationPage = () => {
+const UserRegistrationPage = ({ setLogin }) => {
   const styles = {
     form: {
       border: "2px solid rgba(0, 0, 0, 0.2)",
@@ -32,6 +33,13 @@ const UserRegistrationPage = () => {
     });
 
     if (registrationInput.ok) {
+      let result = await registrationInput.json();
+      let userObejct = {
+        firstName: result.user.firstName,
+        _id: result.user._id,
+      };
+      sessionStorage.setItem("user", JSON.stringify(userObejct));
+      setLogin(true);
       navigate("/");
     }
   };
@@ -42,6 +50,16 @@ const UserRegistrationPage = () => {
         <h1>Registration</h1>
 
         <Form style={styles.form} ref={registrationFormRef} onSubmit={submitHandler}>
+          <Form.Group className="mb-3" controlId="registrationFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control required name="firstName" type="text" placeholder="First Name" />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="registrationLastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control required name="lastName" type="text" placeholder="Last Name" />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="registrationEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control required name="email" type="email" placeholder="Email Address" />

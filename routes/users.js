@@ -3,7 +3,7 @@ const router = express.Router();
 
 const adminUser = {
   firstName: "John",
-  lastNmae: "Doe",
+  lastName: "Doe",
   _id: "1@1.com",
   password: "1"
 };
@@ -14,13 +14,13 @@ router.post("/registration", async (req, res) => {
   let data = {};
   let userObejct = {      
     _id: req.body.email,
+    firstName: req.body.firstName,
+    lastName:req.body.lastName,
     password: req.body.password
   };
   let statusCode = 200;
   try {
-    data.user = {
-      email: req.body.email
-    };
+    data.user = userObejct;
     console.log("user created");
 
   } catch (err) {
@@ -41,8 +41,8 @@ router.post("/login", async (req, res) => {
     if (user && user.password === req.body.password) {
       data.user = {
         firstName: user.firstName,
-        lastNmae: user.lastNmae,
-        email: user._id,
+        lastName: user.lastNamae,
+        _id: user._id,
       };
     } else {
       statusCode = 500;

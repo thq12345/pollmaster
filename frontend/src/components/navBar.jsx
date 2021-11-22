@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import { Navbar, Nav, Container, Form, FormControl, Button } from "react-bootstrap";
 import GuestGreeting from "./guestGreeting";
 import UserGreeting from "./userGreeting";
+import { useNavigate } from "react-router";
 
-const NavigationBar = () => {
+const NavigationBar = ({ userIsLogin, userLogout }) => {
   const styles = {
     userStyle: {
       marginLeft: "0",
     },
   };
-  const [userIsLogin, setLogin] = useState(false);
-  const changeLoginStatus = () => {
-    setLogin(!userIsLogin);
-  };
   const guestGreeting = <GuestGreeting />;
-  const userGreeting = <UserGreeting onClick={changeLoginStatus} />;
+  const userGreeting = <UserGreeting onLogout={userLogout} />;
+  let [searchText, setSearchText] = useState("");
+
+  let getSearchId = (val) => {
+    setSearchText(val.target.value);
+  };
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
@@ -26,8 +28,17 @@ const NavigationBar = () => {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/polls/new-poll">Create poll</Nav.Link>
             <Form className="d-flex">
-              <Button variant="outline-success">Join</Button>
-              <FormControl type="search" placeholder="Poll ID #" className="me-2" aria-label="Search" />
+              <Button href={`/polls/${searchText}`} variant="outline-success">
+                Join
+              </Button>
+              <FormControl
+                value={searchText}
+                onChange={getSearchId}
+                type="search"
+                placeholder="Poll ID #"
+                className="me-2"
+                aria-label="Search"
+              />
             </Form>
           </Nav>
           {userIsLogin ? userGreeting : guestGreeting}
