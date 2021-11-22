@@ -16,7 +16,8 @@ router.post("/registration", async (req, res) => {
     _id: req.body.email,
     firstName: req.body.firstName,
     lastName:req.body.lastName,
-    password: req.body.password
+    password: req.body.password,
+    pollCreated: [],
   };
   let statusCode = 200;
   try {
@@ -43,6 +44,7 @@ router.post("/login", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastNamae,
         _id: user._id,
+        pollCreated: user.pollCreated,
       };
     } else {
       statusCode = 500;
@@ -56,5 +58,6 @@ router.post("/login", async (req, res) => {
   res.status(statusCode).send(JSON.stringify(data));
   
 });
+
 
 module.exports = router;
