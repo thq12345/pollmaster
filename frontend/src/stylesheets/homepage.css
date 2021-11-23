@@ -1,0 +1,9 @@
+.Homepage .title {
+  text-align: center;
+}
+.Homepage .prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 35em;
+}

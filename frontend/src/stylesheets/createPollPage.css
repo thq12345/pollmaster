@@ -1,0 +1,32 @@
+.CreatePollPage .title {
+  text-align: center;
+}
+
+.CreatePollPage .form {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.CreatePollPage .poll-options {
+  margin-bottom: 1em;
+}
+
+.CreatePollPage .add-poll-options-button {
+  border-radius: 50%;
+}
+
+.CreatePollPage .general-options-div {
+  width: 15em;
+  margin: 0 auto;
+}
+
+.CreatePollPage .genral-options-label {
+  white-space: nowrap;
+  align-self: center;
+  padding-top: 0.5em;
+  margin-right: 1em;
+}
+
+.CreatePollPage .submit-button-div {
+  display: flex;
+  justify-content: center;
+}

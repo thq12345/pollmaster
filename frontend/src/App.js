@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import { Container } from "react-bootstrap";
 import Homepage from "./pages/homepage";
 import CreatePollPage from "./pages/createPollPage";
 import PollPage from "./pages/pollPage";
@@ -22,17 +23,21 @@ function App() {
   return (
     <div className="App">
       <NavigationBar userIsLogin={userIsLogin} userLogout={userLogout} />
-      <Router>
-        <Routes>
-          <Route path="/polls/new-poll" element={<CreatePollPage hasUser={userIsLogin} />} />
-          <Route path="/polls/:pollId" element={<PollPage />} />
-          <Route path="/polls" element={<PollsListPage />} />
-          <Route path="/login" element={<UserLoginPage setLogin={setLogin} />} />
-          <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
-          <Route path="/not-found" element={<NotFound to="/" />} />
-          <Route path="/" element={<Homepage />} />
-        </Routes>
-      </Router>
+      <main>
+        <Container>
+          <Router>
+            <Routes>
+              <Route path="/polls/new-poll" element={<CreatePollPage hasUser={userIsLogin} />} />
+              <Route path="/polls/:pollId" element={<PollPage />} />
+              <Route path="/polls" element={<PollsListPage />} />
+              <Route path="/login" element={<UserLoginPage setLogin={setLogin} />} />
+              <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
+              <Route path="/not-found" element={<NotFound to="/" />} />
+              <Route path="/" element={<Homepage />} />
+            </Routes>
+          </Router>
+        </Container>
+      </main>
     </div>
   );
 }
