@@ -5,7 +5,9 @@ const adminUser = {
   firstName: "John",
   lastName: "Doe",
   _id: "1@1.com",
-  password: "1"
+  password: "1",
+  createdPolls: ["c38ad53b-3fec-49a2-812e-00cf1b328077", "1ab97963-b1e4-48ed-98fb-25201a10abea"],
+  votedPolls: ["701b6e27-f612-4e86-ba79-aaafa451c3b2", "4d470e08-7906-413d-af41-53e17842054c"],
 };
 
 
@@ -17,7 +19,8 @@ router.post("/registration", async (req, res) => {
     firstName: req.body.firstName,
     lastName:req.body.lastName,
     password: req.body.password,
-    pollCreated: [],
+    createdPolls: [],
+    votedPolls:[],
   };
   let statusCode = 200;
   try {
@@ -44,7 +47,8 @@ router.post("/login", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastNamae,
         _id: user._id,
-        pollCreated: user.pollCreated,
+        createdPolls: user.createdPolls,
+        votedPolls: user.votedPolls,
       };
     } else {
       statusCode = 500;

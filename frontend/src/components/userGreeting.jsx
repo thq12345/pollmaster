@@ -8,8 +8,7 @@ const UserGreeting = (props) => {
 
   return (
     <Nav>
-      <Navbar.Text>Hi, {user.firstName}</Navbar.Text>
-      <Nav.Link href="">My polls</Nav.Link>
+      <Nav.Link href="/profile">My Profile</Nav.Link>
       <Nav.Link onClick={(event) => props.onLogout(event.target)}>
         <FontAwesomeIcon icon={faSignOutAlt} />
         Sign out

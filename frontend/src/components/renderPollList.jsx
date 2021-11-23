@@ -40,13 +40,29 @@ const styles = {
 const findDaysRemaining = (endTime) => {
   return Math.ceil((endTime - new Date()) / 1000 / 60 / 60 / 24);
 };
-const RenderPollList = () => {
+//takes in an array of ID and display them in the list
+const RenderPollList = ({ pollIdList }) => {
   let [pollList, setPollList] = useState([]);
   let [hoverIdx, setHoverIdx] = useState(-1);
   let [sortIndex, setSortIndex] = useState("ttl");
   let [sortOrder, setSortOrder] = useState(-1);
   let navigate = useNavigate();
 
+  /*
+    The purpose of pullIDList is to display the list of polls 
+    in the user.createdPoll and user.votedPolls
+
+    Option 1:
+      if(pollIdList){
+        const listToDisplay = {}
+        for id in pollIdList:
+          res = query/fetch the ID
+          listToDisplay.append(res)
+      }
+    
+    Option 2:
+      query from all the list in res below
+  */
   const getPollList = async () => {
     let res = await fetch("/api/polls");
     if (res.ok) {
