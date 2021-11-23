@@ -1,0 +1,24 @@
+.PollPage .title {
+  text-align: center;
+  margin-bottom: 1em;
+}
+.PollPage .selected-option {
+  background-color: rgba(0, 100, 150, 0.3);
+}
+.PollPage .vote-count {
+  /* display: inline-block; */
+  float: right;
+}
+.PollPage .back-button {
+  margin-left: 2em;
+}
+
+.PollPage .copy-poll-link-button {
+  padding: 0 0.5em;
+  margin-left: 47%;
+}
+
+.PollPage .center {
+  display: flex;
+  justify-content: center;
+}
