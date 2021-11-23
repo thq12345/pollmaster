@@ -46,6 +46,8 @@ const UserLoginPage = ({ setLogin }) => {
       formData.forEach((val, key) => {
         data[key] = val;
       });
+      //initialnize the poll
+      data["postCreated"] = [];
       let userInput = await fetch("/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
