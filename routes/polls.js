@@ -48,29 +48,50 @@ router.get("/", (req, res) => {
 
 // search for poll with Id
 router.get("/:pollId", (req, res) => {
+  let statusCode = 200;
+  let data = {};
+
   let poll = polls.filter((el) => {
     return el._id === req.params.pollId;
-  })[0];
-  res.json(poll);
+  });
+
+  if (poll.length === 0) {
+    statusCode = 404;
+    data = { message: "Poll not found" };
+  }
+  data = poll[0];
+  res.status(statusCode).json(data);
 });
 
 router.get("/:pollId/vote", (req, res) => {
-  let votedOptionIdx = req.query.optionIdx;
-  for (let i = 0; i < polls.length; i++) {
-    if (polls[i]._id === req.params.pollId) {
-      polls[i].options[votedOptionIdx].votes += 1;
-      polls[i].totalVotes++;
+  let statusCode = 200;
+  let message = "Vote requested";
+  try {
+    let votedOptionIdx = req.query.optionIdx;
+    for (let i = 0; i < polls.length; i++) {
+      if (polls[i]._id === req.params.pollId) {
+        polls[i].options[votedOptionIdx].votes += 1;
+        polls[i].totalVotes++;
+      }
     }
+    message = "Successfully voted";
+  } catch (e) {
+    statusCode = 500;
+    message = "Vote failed";
   }
-  res.send(JSON.stringify({ message: "Successfully voted" }));
+  res.status(statusCode).json({ message: message });
 });
 
 router.post("/create-poll", (req, res) => {
-  let newPoll = { title: req.body.title, public: req.body.public === "true" };
+  let newPoll = { owner: req.body.owner, title: req.body.title, public: req.body.public === "true" };
   newPoll.options = req.body.options.map((value) => {
     return { prompt: value, votes: 0 };
   });
   newPoll._id = uuid();
+
+  let currTime = new Date().getTime();
+  newPoll.createdAt = currTime;
+  newPoll.ttl = currTime + 1000 * 60 * 60 * 24 * 30;
   polls.push(newPoll);
   console.log(newPoll);
   res.json({ message: "Successfully started your poll", newPollId: newPoll._id });

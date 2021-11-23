@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Navbar, Nav, Container, Form, FormControl, Button } from "react-bootstrap";
 import GuestGreeting from "./guestGreeting";
 import UserGreeting from "./userGreeting";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 const NavigationBar = ({ userIsLogin, userLogout }) => {
-  const styles = {
-    userStyle: {
-      marginLeft: "0",
-    },
-  };
+  // const styles = {
+  //   userStyle: {
+  //     marginLeft: "0",
+  //   },
+  // };
   const guestGreeting = <GuestGreeting />;
   const userGreeting = <UserGreeting onLogout={userLogout} />;
   let [searchText, setSearchText] = useState("");
@@ -28,7 +28,7 @@ const NavigationBar = ({ userIsLogin, userLogout }) => {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/polls/new-poll">Create poll</Nav.Link>
             <Form className="d-flex">
-              <Button href={`/polls/${searchText}`} variant="outline-success">
+              <Button href={searchText ? `/polls/${searchText}` : "#"} variant="outline-success">
                 Join
               </Button>
               <FormControl

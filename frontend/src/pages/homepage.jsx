@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
+import SearchBar from "../components/searchBar";
 
 const Homepage = () => {
   const styles = {
@@ -25,9 +26,13 @@ const Homepage = () => {
             </Link>
           </Col>
           <Col style={styles.prompt} xs={6}>
-            <Link className="btn btn-primary" to="/polls">
-              Join a poll
-            </Link>
+            <div>
+              <Link className="btn btn-primary mb-2" to="/polls">
+                Join a public poll
+              </Link>
+              <div className="mb-2">Or search for a poll</div>
+              <SearchBar />
+            </div>
           </Col>
         </Row>
       </Container>

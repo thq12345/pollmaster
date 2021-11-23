@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +22,7 @@ const styles = {
 const PUBLICMSG = "This poll will be visible in the list of all polls";
 const UNLISTEDMSG = "This poll will not appear in the list of all polls, but still accessible through the URL";
 
-const CreatePollPage = () => {
+const CreatePollPage = ({ hasUser }) => {
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
   let [validated, setValidated] = useState(false);
@@ -30,6 +30,17 @@ const CreatePollPage = () => {
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
   let navigate = useNavigate();
+
+  const handleRedirect = (to) => {
+    navigate(to);
+  };
+
+  useEffect(() => {
+    if (!hasUser) {
+      // setRedirect("/login");
+      handleRedirect("/login");
+    }
+  }, [hasUser]);
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
@@ -81,6 +92,7 @@ const CreatePollPage = () => {
         data[key] = val;
       }
     });
+    data.owner = JSON.parse(sessionStorage.getItem("user"))._id;
     let res = await fetch("/api/polls/create-poll", {
       method: "POST",
       headers: {
@@ -123,6 +135,7 @@ const CreatePollPage = () => {
             </Button>
           </div>
 
+          <hr />
           <div style={{ width: "15em", margin: "0 auto" }}>
             <Form.Group className="mb-3" controlId="publicity">
               <Form.Label
