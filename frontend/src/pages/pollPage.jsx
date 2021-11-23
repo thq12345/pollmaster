@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Container, ListGroup, Button, Row, Col, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
-// import { Link } from "react-router-dom";
 import BackButton from "../components/backButton";
 // import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -37,14 +36,26 @@ const PollPage = () => {
   let [selectedIdx, setSelectedIdx] = useState(votedIdx);
   let [message, setMessage] = useState(null);
   let [success, setSuccess] = useState(null);
+  let [error, setError] = useState(null);
   let [expired, setExpired] = useState(false);
+  let navigate = useNavigate();
 
   const getPollInfo = async (pollId) => {
-    let res = await fetch(`/api/polls/${pollId}`);
-    if (res.ok) {
-      let json = await res.json();
-      setPoll(json);
-      setExpired(hasExpired(json.ttl));
+    try {
+      let res = await fetch(`/api/polls/${pollId}`);
+      if (res.ok) {
+        let json = await res.json();
+        setPoll(json);
+        setExpired(hasExpired(json.ttl));
+      } else {
+        if (res.status === 404) {
+          navigate("/not-found");
+        } else {
+          setError("Server connection lost");
+        }
+      }
+    } catch (e) {
+      setError(e.message);
     }
   };
 
@@ -54,7 +65,6 @@ const PollPage = () => {
   }, []);
 
   useEffect(() => {
-    // if (updateInterval) clearInterval(updateInterval);
     if (votedIdx !== -1) {
       autoUpdatePollInfo(pollId);
     }
@@ -84,14 +94,18 @@ const PollPage = () => {
       setMessage("Please select one of the options to vote");
       return;
     }
-    let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}`);
-    if (res.ok) {
-      let participated = participatedPolls || {};
-      participated[pollId] = selectedIdx;
-      localStorage.setItem("participatedPolls", JSON.stringify(participated));
-      let json = await res.json();
-      await getPollInfo(pollId);
-      setSuccess(json.message);
+    try {
+      let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}`);
+      if (res.ok) {
+        let participated = participatedPolls || {};
+        participated[pollId] = selectedIdx;
+        localStorage.setItem("participatedPolls", JSON.stringify(participated));
+        let json = await res.json();
+        await getPollInfo(pollId);
+        setSuccess(json.message);
+      }
+    } catch (e) {
+      setError(e.message);
     }
   };
 
@@ -139,12 +153,9 @@ const PollPage = () => {
     }
   };
 
-  return (
-    <main>
-      <Container>
-        <div style={styles.backButton}>
-          <BackButton onRedirect={handleRedirect} to="/polls" />
-        </div>
+  const renderPoll = () => {
+    return (
+      <>
         <h1 style={styles.title}>{poll ? poll.title : "This is a poll page"}</h1>
         <div style={{ width: "70%", margin: "0 auto" }}>
           <ListGroup style={{ marginBottom: "2em" }}>{poll ? renderPollOptions() : null}</ListGroup>
@@ -165,8 +176,25 @@ const PollPage = () => {
             </Button>
           </div>
         </div>
+      </>
+    );
+  };
+
+  // const renderNotFound = () => {
+  //   handleRedirect();
+  //   return <NotFound to="/" />;
+  // };
+
+  return (
+    <main>
+      <Container>
+        <div style={styles.backButton}>
+          <BackButton onRedirect={handleRedirect} to="/polls" />
+        </div>
+        {renderPoll()}
         {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Info" /> : null}
         {success ? <ToastMessage show={true} message={success} setMessage={setSuccess} type="Success" /> : null}
+        {error ? <ToastMessage show={true} message={error} setMessage={setError} type="Error" /> : null}
       </Container>
     </main>
   );

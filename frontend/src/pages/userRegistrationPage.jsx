@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { stringify } from "uuid";
 
 const UserRegistrationPage = ({ setLogin }) => {
   const styles = {

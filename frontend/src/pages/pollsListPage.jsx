@@ -7,7 +7,7 @@ import BackButton from "../components/backButton";
 
 const styles = {
   hover: {
-    backgroundColor: "rgba(0, 100, 0, 0.2)",
+    backgroundColor: "rgba(0, 100, 150, 0.3)",
     padding: "0.5em 1em",
   },
   noHover: {
@@ -35,9 +35,9 @@ const sortFcn = (a, b, sortIndex, order) => {
 //   return order * (a.createdAt - b.createdAt);
 // };
 
-const renderDateString = (unixTime) => {
-  return new Date(unixTime).toLocaleDateString();
-};
+// const renderDateString = (unixTime) => {
+//   return new Date(unixTime).toLocaleDateString();
+// };
 
 const findDaysRemaining = (endTime) => {
   return Math.ceil((endTime - new Date()) / 1000 / 60 / 60 / 24);
