@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, ListGroup } from "react-bootstrap";
-import { useNavigate } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import BackButton from "../components/backButton";
-import RenderPollList from "../components/renderPollList";
+import PollList from "../components/pollList";
 
 // const styles = {
 //   hover: {
@@ -45,23 +41,23 @@ import RenderPollList from "../components/renderPollList";
 // };
 
 const PollsListPage = () => {
-  //   let [pollList, setPollList] = useState([]);
+  let [pollList, setPollList] = useState([]);
   //   let [hoverIdx, setHoverIdx] = useState(-1);
   //   let [sortIndex, setSortIndex] = useState("ttl");
   //   let [sortOrder, setSortOrder] = useState(-1);
   //   let navigate = useNavigate();
 
-  //   const getPollList = async () => {
-  //     let res = await fetch("/api/polls");
-  //     if (res.ok) {
-  //       let json = await res.json();
-  //       setPollList(json);
-  //     }
-  //   };
+  const getPollList = async () => {
+    let res = await fetch("/api/polls");
+    if (res.ok) {
+      let json = await res.json();
+      setPollList(json);
+    }
+  };
 
-  //   useEffect(() => {
-  //     getPollList();
-  //   }, []);
+  useEffect(() => {
+    getPollList();
+  }, []);
 
   //   const handleHover = (idx) => {
   //     setHoverIdx(idx);
@@ -129,17 +125,16 @@ const PollsListPage = () => {
   //   };
 
   return (
-    <main>
-      <Container>
-        <div style={{ marginLeft: "2em" }}>
-          <BackButton to="/" />
-        </div>
-        <h1 style={{ textAlign: "center" }}>Vote in some of the polls</h1>
-        <hr className="mb-5" />
-        <RenderPollList />
-        {/* <div style={{ width: "70%", margin: "0 auto" }}>
+    <div className="PollListPage">
+      <div style={{ marginLeft: "2em" }}>
+        <BackButton to="/" />
+      </div>
+      <h1 style={{ textAlign: "center" }}>Vote in some of the polls</h1>
+      <hr className="mb-5" />
+      <PollList polls={pollList} />
+      {/* <div style={{ width: "70%", margin: "0 auto" }}>
           <div> */}
-        {/* <div style={{ display: "inline-flex", marginRight: "1em" }}>Sort</div>
+      {/* <div style={{ display: "inline-flex", marginRight: "1em" }}>Sort</div>
             <ListGroup horizontal style={{ display: "inline-flex", whiteSpace: "nowrap" }}>
               <ListGroup.Item
                 action
@@ -183,9 +178,8 @@ const PollsListPage = () => {
             </ListGroup>
           </div>
           <ListGroup>{renderPollList()}</ListGroup> */}
-        {/* </div> */}
-      </Container>
-    </main>
+      {/* </div> */}
+    </div>
   );
 };
 
