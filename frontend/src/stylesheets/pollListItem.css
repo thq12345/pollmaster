@@ -1,0 +1,23 @@
+.PollListItem {
+  padding: 0.5em 1em;
+}
+
+.PollListItem.hover {
+  background-color: rgba(0, 100, 150, 0.3);
+}
+
+.PollListItem.expired {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.PollListItem.expired-hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.PollListItem .inline-block {
+  display: inline-block;
+}
+
+.PollListItem .float-right {
+  float: right;
+}

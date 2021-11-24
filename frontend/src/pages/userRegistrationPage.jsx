@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const UserRegistrationPage = ({ setLogin }) => {
@@ -44,40 +44,38 @@ const UserRegistrationPage = ({ setLogin }) => {
   };
 
   return (
-    <main>
-      <Container style={styles.mainContainer}>
-        <h1>Registration</h1>
+    <div style={styles.mainContainer}>
+      <h1>Registration</h1>
 
-        <Form style={styles.form} ref={registrationFormRef} onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="registrationFirstName">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control required name="firstName" type="text" placeholder="First Name" />
-          </Form.Group>
+      <Form style={styles.form} ref={registrationFormRef} onSubmit={submitHandler}>
+        <Form.Group className="mb-3" controlId="registrationFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control required name="firstName" type="text" placeholder="First Name" />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registrationLastName">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control required name="lastName" type="text" placeholder="Last Name" />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="registrationLastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control required name="lastName" type="text" placeholder="Last Name" />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registrationEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control required name="email" type="email" placeholder="Email Address" />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="registrationEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control required name="email" type="email" placeholder="Email Address" />
+        </Form.Group>
 
-          <Form.Group controlId="registrationPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control required name="password" type="password" autoComplete="off" />
-          </Form.Group>
-          <Form.Group className="mb-3" id="checkbox">
-            <Form.Check required type="checkbox" label="Im not gonna do illegal stuff" />
-          </Form.Group>
+        <Form.Group controlId="registrationPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control required name="password" type="password" autoComplete="off" />
+        </Form.Group>
+        <Form.Group className="mb-3" id="checkbox">
+          <Form.Check required type="checkbox" label="Im not gonna do illegal stuff" />
+        </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        </Form>
-      </Container>
-    </main>
+        <Button variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
+    </div>
   );
 };
 

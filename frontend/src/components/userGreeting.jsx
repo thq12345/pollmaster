@@ -1,10 +1,10 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const UserGreeting = (props) => {
-  let user = JSON.parse(sessionStorage.getItem("user"));
+  // let user = JSON.parse(sessionStorage.getItem("user"));
 
   return (
     <Nav>

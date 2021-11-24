@@ -7,26 +7,24 @@ const adminUser = {
   _id: "1@1.com",
   password: "1",
   createdPolls: ["c38ad53b-3fec-49a2-812e-00cf1b328077", "1ab97963-b1e4-48ed-98fb-25201a10abea"],
-  votedPolls: ["701b6e27-f612-4e86-ba79-aaafa451c3b2", "4d470e08-7906-413d-af41-53e17842054c"],
+  votedPolls: { "701b6e27-f612-4e86-ba79-aaafa451c3b2": 1, "4d470e08-7906-413d-af41-53e17842054c": 0 },
 };
-
 
 //create new users
 router.post("/registration", async (req, res) => {
   let data = {};
-  let userObejct = {      
+  let userObejct = {
     _id: req.body.email,
     firstName: req.body.firstName,
-    lastName:req.body.lastName,
+    lastName: req.body.lastName,
     password: req.body.password,
     createdPolls: [],
-    votedPolls:[],
+    votedPolls: {},
   };
   let statusCode = 200;
   try {
     data.user = userObejct;
     console.log("user created");
-
   } catch (err) {
     statusCode = 500;
     data.message = err.message;
@@ -60,8 +58,6 @@ router.post("/login", async (req, res) => {
   }
 
   res.status(statusCode).send(JSON.stringify(data));
-  
 });
-
 
 module.exports = router;
