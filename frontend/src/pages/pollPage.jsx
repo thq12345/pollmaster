@@ -15,9 +15,9 @@ const hasExpired = (unixTime) => {
 const PollPage = () => {
   let params = useParams();
   let pollId = params.pollId;
-  let user = null;
+  let user = JSON.parse(sessionStorage.getItem("user"));
   let [poll, setPoll] = useState(null);
-  let participatedPolls = user ? user.participatedPolls : JSON.parse(localStorage.getItem("participatedPolls"));
+  let participatedPolls = user ? user.votedPolls : JSON.parse(localStorage.getItem("participatedPolls"));
   let [updateInterval, setUpdateInterval] = useState(null);
   let votedIdx = participatedPolls && participatedPolls[pollId] !== undefined ? participatedPolls[pollId] : -1;
   let [selectedIdx, setSelectedIdx] = useState(votedIdx);
@@ -82,11 +82,17 @@ const PollPage = () => {
       return;
     }
     try {
-      let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}`);
+      let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}&userId=${user ? user._id : null}`);
       if (res.ok) {
         let participated = participatedPolls || {};
         participated[pollId] = selectedIdx;
-        localStorage.setItem("participatedPolls", JSON.stringify(participated));
+        if (!user) {
+          localStorage.setItem("participatedPolls", JSON.stringify(participated));
+        } else {
+          let newUser = { ...user };
+          newUser.votedPolls = participated;
+          sessionStorage.setItem("user", JSON.stringify(newUser));
+        }
         let json = await res.json();
         await getPollInfo(pollId);
         setSuccess(json.message);
