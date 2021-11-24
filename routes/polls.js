@@ -74,6 +74,11 @@ router.get("/:pollId/vote", (req, res) => {
         polls[i].totalVotes++;
       }
     }
+    // let userId = req.query.userId;
+    // if (userId) {
+    //   // update user votedPolls
+    // }
+
     message = "Successfully voted";
   } catch (e) {
     statusCode = 500;
@@ -93,6 +98,9 @@ router.post("/create-poll", (req, res) => {
   newPoll.createdAt = currTime;
   newPoll.ttl = currTime + 1000 * 60 * 60 * 24 * 30;
   polls.push(newPoll);
+
+  //update user createdPolls
+
   console.log(newPoll);
   res.json({ message: "Successfully started your poll", newPollId: newPoll._id });
 });
