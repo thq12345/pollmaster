@@ -42,7 +42,8 @@ The should should show no error in the [W3C Compliant](https://validator.w3.org/
 - When testing file, create your own .env file that inclode: DB_URL.
 - Create a database and connect to your database in the backend
 - Deploy these files on any server
-- 
+
+## Database schema
 ## Creator:
 ### Felix:
   - User login
