@@ -38,6 +38,10 @@ const PollList = ({ polls }) => {
   };
 
   const renderPollList = () => {
+    if (polls.length === 0) {
+      return <div>The list is empty</div>;
+    }
+
     return polls
       .sort((a, b) => {
         return sortFcn(a, b, sortIndex, sortOrder);
@@ -50,7 +54,9 @@ const PollList = ({ polls }) => {
   return (
     <Container>
       <div style={{ width: "70%", margin: "0 auto" }}>
-        <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
+        {polls.length !== 0 ? (
+          <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
+        ) : null}
         <ListGroup>{renderPollList()}</ListGroup>
       </div>
     </Container>
