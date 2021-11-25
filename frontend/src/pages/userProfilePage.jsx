@@ -4,13 +4,20 @@ import PollList from "../components/pollList";
 
 const UserProfilePage = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
-  let [pollList, setPollList] = useState([]);
+  const myPolls = user.createdPolls;
+  const participatedPolls = user.votedPolls;
+  let [myPollList, setPollList] = useState([]);
+  let [myParticipatedList, setParticipatedList] = useState([]);
 
   const getPollList = async () => {
     let res = await fetch("/api/polls");
     if (res.ok) {
       let json = await res.json();
-      setPollList(json);
+      let pollList = json.filter((el) => myPolls.includes(el._id));
+      let participatedList = json.filter((el) => participatedPolls.includes(el._id));
+
+      setPollList(pollList);
+      setParticipatedList(participatedList);
     }
   };
 
@@ -24,8 +31,9 @@ const UserProfilePage = () => {
         {user.firstName} {user.lastName} &#39;s Profile
       </h1>
       <h2>My Polls</h2>
-      <PollList polls={pollList} />
+      <PollList polls={myPollList} />
       <h2>Participated Polls</h2>
+      <PollList polls={myParticipatedList} />
     </div>
   );
 };
