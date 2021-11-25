@@ -9,21 +9,33 @@ const UserProfilePage = () => {
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
 
-  const getPollList = async () => {
-    let res = await fetch("/api/polls");
-    if (res.ok) {
-      let json = await res.json();
-      let pollList = json.filter((el) => myPolls.includes(el._id));
-      let participatedList = json.filter((el) => participatedPolls.includes(el._id));
+  // const getUserOwnPoll = async () => {
+  //   let res = await fetch(`/api/users/userID/ownPoll?_id=${user._id}`);
+  //   if (res.ok) {
+  //     let json = await res.json();
+  //     let pollList = json.filter((el) => myPolls.includes(el._id));
+  //     let participatedList = json.filter((el) => participatedPolls.includes(el._id));
 
-      setPollList(pollList);
-      setParticipatedList(participatedList);
-    }
-  };
+  //     setPollList(pollList);
+  //     setParticipatedList(participatedList);
+  //   }
+  // };
 
-  useEffect(() => {
-    getPollList();
-  }, []);
+  // const getUserVotedPoll = async () => {
+  //   let res = await fetch(`/api/users/userID/votedPoll?_id=${user._id}`);
+  //   if (res.ok) {
+  //     let json = await res.json();
+  //     let pollList = json.filter((el) => myPolls.includes(el._id));
+  //     let participatedList = json.filter((el) => participatedPolls.includes(el._id));
+
+  //     setPollList(pollList);
+  //     setParticipatedList(participatedList);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUserOwnPoll();
+  // }, []);
 
   return (
     <div>
@@ -33,7 +45,7 @@ const UserProfilePage = () => {
       <h2>My Polls</h2>
       <PollList polls={myPollList} />
       <h2>Participated Polls</h2>
-      <PollList polls={myParticipatedList} />
+      {/* <PollList polls={myParticipatedList} /> */}
     </div>
   );
 };
