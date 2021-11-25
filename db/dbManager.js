@@ -9,8 +9,8 @@ const getDBCollection = async (collectionName) => {
 
 const create = async (collectionName, data, objectId) => {
   const collection = await getDBCollection(collectionName);
-  if (objectId) data._id = new ObjectId(objectId);
-  await collection.insertOne(data);
+  if (objectId) data._id = ObjectId(objectId);
+  return await collection.insertOne(data);
 };
 
 const read = async (collectionName, query, callbackChain) => {
@@ -36,12 +36,12 @@ const read = async (collectionName, query, callbackChain) => {
   return await res;
 };
 
-const update = async (collectionName, filter) => {
-  if (typeof filter !== "object") {
+const update = async (collectionName, queryFilter, updatedDoc) => {
+  if (typeof queryFilter !== "object") {
     throw new TypeError("Filter Expression is not an object");
   }
   const collection = await getDBCollection(collectionName);
-  await collection.updateOne(filter);
+  return await collection.updateOne(queryFilter, { $set: { ...updatedDoc } });
 };
 
 const destroy = async (collectionName, filter) => {

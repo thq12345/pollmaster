@@ -2,7 +2,8 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-const uri = process.env.DB_URL;
+// const uri = process.env.DB_URL || "mongodb://localhost:27017/poll_master";
+const uri = "mongodb://localhost:27017/poll_master";
 const DB_NAME = "poll_master";
 
 function ConnectionPool() {}
@@ -22,7 +23,7 @@ ConnectionPool.prototype.connect = async function (dbName) {
       maxPoolSize: 3,
     });
   }
-  await ConnectionPool.client.client();
+  await ConnectionPool.client.connect();
   if (ConnectionPool.db === null) {
     ConnectionPool.db = ConnectionPool.client.db(dbName);
   }
