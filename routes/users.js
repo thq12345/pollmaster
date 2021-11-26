@@ -1,15 +1,7 @@
 const express = require("express");
 const databaseManager = require("../db/dbManager");
 const router = express.Router();
-
-const adminUser = {
-  firstName: "John",
-  lastName: "Doe",
-  _id: "1@1.com",
-  password: "1",
-  createdPolls: ["c38ad53b-3fec-49a2-812e-00cf1b328077", "1ab97963-b1e4-48ed-98fb-25201a10abea"],
-  votedPolls: { "701b6e27-f612-4e86-ba79-aaafa451c3b2": 1, "4d470e08-7906-413d-af41-53e17842054c": 0 },
-};
+const { ObjectId } = require("mongodb");
 
 //create new users
 router.post("/registration", async (req, res) => {
@@ -83,9 +75,9 @@ router.get("/:userID", async (req, res) => {
   }
 
   let votedPollArray = [];
-  if (user.votedPollPolls) {
+  if (user.votedPolls) {
     for (let key in user.votedPolls) {
-      votedPollArray.push(key);
+      votedPollArray.push(ObjectId(key));
     }
     relatedPolls.votedPolls = await databaseManager.read("polls", {
       _id: { $in: votedPollArray },
@@ -93,18 +85,6 @@ router.get("/:userID", async (req, res) => {
   }
 
   res.send(JSON.stringify(relatedPolls));
-
-  //conver key to array,
 });
-
-// //get polls participated by uuserID/votedPoll/:userID", async (req,res)=> {
-//   let posts = await databaseManager.read("polls", {
-//     //creator: req.body.user)ID
-//   });
-// });
-
-//Update votedPolls
-
-//update createdPolls
 
 module.exports = router;
