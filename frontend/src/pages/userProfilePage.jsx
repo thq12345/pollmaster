@@ -9,6 +9,9 @@ const UserProfilePage = () => {
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
 
+  
+  
+
   // const getUserOwnPoll = async () => {
   //   let res = await fetch(`/api/users/userID/ownPoll?_id=${user._id}`);
   //   if (res.ok) {

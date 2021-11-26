@@ -1,4 +1,5 @@
 const express = require("express");
+// const databaseManager = require("../db/dbManager");
 const router = express.Router();
 
 const adminUser = {
@@ -19,12 +20,13 @@ router.post("/registration", async (req, res) => {
     lastName: req.body.lastName,
     password: req.body.password,
     createdPolls: [],
-    //votedPolls: {},
-    votedPolls: [],
+    votedPolls: {},
   };
   let statusCode = 200;
   try {
-    data.user = userObejct;
+    // await databaseManager.create("users",  userObejct);
+    // data.user = userObejct;
+    data.user = adminUser;
     console.log("user created");
   } catch (err) {
     statusCode = 500;
@@ -39,7 +41,10 @@ router.post("/login", async (req, res) => {
   let data = {};
   let statusCode = 200;
   try {
-    //    let users;
+    // let users = await databaseManager.read("users", {
+    //   _id: req.body.email,
+    // });    
+    // let user = users[0];
     let user = adminUser;
     if (user && user.password === req.body.password) {
       data.user = {
@@ -61,9 +66,25 @@ router.post("/login", async (req, res) => {
   res.status(statusCode).send(JSON.stringify(data));
 });
 
-//
-// router.get("/:userID", async (req,res)=> {
+//serpate get poll VS one get poll
+//change ownpoll and voted polls as * ??
 
+// //get polls created by user
+// router.get("userID/ownPoll/:userID", async (req,res)=> {
+//   let posts = await databaseManager.read("polls", {
+//     //creator: req.body.user)ID
+//   });
 // });
+
+// //get polls participated by user
+// router.get("userID/votedPoll/:userID", async (req,res)=> {
+//   let posts = await databaseManager.read("polls", {
+//     //creator: req.body.user)ID
+//   });
+// });
+
+//Update votedPolls
+
+//update createdPolls
 
 module.exports = router;
