@@ -7,7 +7,7 @@ const { ObjectId } = require("mongodb");
 router.post("/registration", async (req, res) => {
   let data = {};
   let userObejct = {
-    _id: req.body.email,
+    _id: req.body.email.toLowerCase(),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     password: req.body.password,
@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
   let statusCode = 200;
   try {
     let users = await databaseManager.read("users", {
-      _id: req.body.email,
+      _id: req.body.email.toLowerCase(),
     });
     let user = users[0];
     // let user = adminUser;

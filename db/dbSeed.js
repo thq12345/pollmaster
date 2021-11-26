@@ -1,4 +1,5 @@
 const pollsRaw = require("../poll master.json");
+
 const dbManager = require("./dbManager");
 
 // let polls = [
