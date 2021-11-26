@@ -30,9 +30,13 @@ let polls = pollsRaw.map((el) => {
       totalVotes += el[`option${i}Vote`];
     }
   }
+  
+  //randomly assign the post to one of the owner
+  // let x = Math.floor((Math.random() * 999));
   return {
     title: el.title,
     options: options,
+    // owner: `${x}@${x}.com`,
     owner: "1@1.com",
     totalVotes: totalVotes,
     public: el.public,
@@ -41,6 +45,10 @@ let polls = pollsRaw.map((el) => {
   };
 });
 
+//maybe try having the for-loop outside?
+// when I tried     
+//await dbManager.create("polls", polls[0]);
+// this is giving me an error
 (async () => {
   for (let i = 0; i < polls.length; i++) {
     await dbManager.create("polls", polls[i]);
