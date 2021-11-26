@@ -2,8 +2,7 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-// const uri = process.env.DB_URL || "mongodb://localhost:27017/pollMaster";
-const uri = "mongodb://localhost:27017/pollMaster";
+const uri = process.env.DB_URL || "mongodb://localhost:27017/pollMaster";
 const DB_NAME = "pollMaster";
 
 function ConnectionPool() {}

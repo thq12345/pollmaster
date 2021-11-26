@@ -1,5 +1,5 @@
 const express = require("express");
-// const databaseManager = require("../db/dbManager");
+const databaseManager = require("../db/dbManager");
 const router = express.Router();
 
 const adminUser = {
@@ -24,9 +24,9 @@ router.post("/registration", async (req, res) => {
   };
   let statusCode = 200;
   try {
-    // await databaseManager.create("users",  userObejct);
-    // data.user = userObejct;
-    data.user = adminUser;
+    await databaseManager.create("users",  userObejct);
+    data.user = userObejct;
+    // data.user = adminUser;
     console.log("user created");
   } catch (err) {
     statusCode = 500;
@@ -41,11 +41,11 @@ router.post("/login", async (req, res) => {
   let data = {};
   let statusCode = 200;
   try {
-    // let users = await databaseManager.read("users", {
-    //   _id: req.body.email,
-    // });    
-    // let user = users[0];
-    let user = adminUser;
+    let users = await databaseManager.read("users", {
+      _id: req.body.email,
+    });    
+    let user = users[0];
+    // let user = adminUser;
     if (user && user.password === req.body.password) {
       data.user = {
         firstName: user.firstName,
@@ -69,15 +69,32 @@ router.post("/login", async (req, res) => {
 //serpate get poll VS one get poll
 //change ownpoll and voted polls as * ??
 
-// //get polls created by user
-// router.get("userID/ownPoll/:userID", async (req,res)=> {
-//   let posts = await databaseManager.read("polls", {
-//     //creator: req.body.user)ID
-//   });
-// });
+//get polls created by user
+router.get("/:userID", async (req,res)=> {
+  let users = await databaseManager.read("users", {
+    _id:req.params.userID
+  });
+  let user = users[0];
+  let ownPolls = await databaseManager.read("polls", {
+    _id:{$in:user.createdPolls}
+  });
+  let votedPollArray = [];
+  for (let key in user.votedPolls) {
+    votedPollArray.push(key);
+  }
 
-// //get polls participated by user
-// router.get("userID/votedPoll/:userID", async (req,res)=> {
+  let votedPolls = await databaseManager.read("polls",{
+    _id:{$in:votedPollArray}
+  });
+
+  let polls = [ownPolls, votedPolls];
+  
+  res.send(JSON.stringify(polls));
+
+  //conver key to array, 
+});
+
+// //get polls participated by uuserID/votedPoll/:userID", async (req,res)=> {
 //   let posts = await databaseManager.read("polls", {
 //     //creator: req.body.user)ID
 //   });
