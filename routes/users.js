@@ -75,21 +75,25 @@ router.get("/:userID", async (req,res)=> {
     _id:req.params.userID
   });
   let user = users[0];
-  let ownPolls = await databaseManager.read("polls", {
-    _id:{$in:user.createdPolls}
-  });
+
+  let relatedPolls = {ownPolls:[], votedPolls:[]};
+
+  if(user.createdPolls){
+    relatedPolls.ownPolls = await databaseManager.read("polls", {
+      _id:{$in:user.createdPolls}
+    });}
+
   let votedPollArray = [];
-  for (let key in user.votedPolls) {
-    votedPollArray.push(key);
+  if(user.votedPollPolls){
+    for (let key in user.votedPolls) {
+      votedPollArray.push(key);
+    }
+    relatedPolls.votedPolls = await databaseManager.read("polls",{
+      _id:{$in:votedPollArray}
+    });
   }
-
-  let votedPolls = await databaseManager.read("polls",{
-    _id:{$in:votedPollArray}
-  });
-
-  let polls = [ownPolls, votedPolls];
   
-  res.send(JSON.stringify(polls));
+  res.send(JSON.stringify(relatedPolls));
 
   //conver key to array, 
 });

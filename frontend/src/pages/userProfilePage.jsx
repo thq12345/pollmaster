@@ -4,35 +4,18 @@ import PollList from "../components/pollList";
 
 const UserProfilePage = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const participatedPolls = user.votedPolls;
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
 
   const getUserOwnPoll = async () => {
     let res = await fetch(`/api/users/${user._id}`);
     if (res.ok) {
-      console.log("Fetching posts from post owner");
-      let json = await res.json();
-      console.log(json);
-      // let participatedList = json.filter((el) => participatedPolls.includes(el._id));
-
-      setPollList(json);
-      // setParticipatedList(participatedList);
+      //this returs an array [createdPoll, votedPolls]
+      let polls = await res.json();
+      setPollList(polls.ownPolls);
+      setParticipatedList(polls.votedPolls);
     }
   };
-
-  // const getUserVotedPoll = async () => {
-  //   let res = await fetch(`/api/users/userID/votedPoll?_id=${user._id}`);
-  //   if (res.ok) {
-  //     let json = await res.json();
-  //     let pollList = json.filter((el) => myPolls.includes(el._id));
-  //     let participatedList = json.filter((el) => participatedPolls.includes(el._id));
-
-  //     setPollList(pollList);
-  //     setParticipatedList(participatedList);
-  //   }
-  // };
-
   useEffect(() => {
     getUserOwnPoll();
   }, []);
@@ -45,7 +28,7 @@ const UserProfilePage = () => {
       <h2>My Polls</h2>
       <PollList polls={myPollList} />
       <h2>Participated Polls</h2>
-      {/* <PollList polls={myParticipatedList} /> */}
+      <PollList polls={myParticipatedList} />
     </div>
   );
 };
