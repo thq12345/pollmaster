@@ -24,10 +24,8 @@ router.post("/registration", async (req, res) => {
   };
   let statusCode = 200;
   try {
-    await databaseManager.create("users",  userObejct);
+    await databaseManager.create("users", userObejct);
     data.user = userObejct;
-    // data.user = adminUser;
-    console.log("user created");
   } catch (err) {
     statusCode = 500;
     data.message = err.message;
@@ -43,7 +41,7 @@ router.post("/login", async (req, res) => {
   try {
     let users = await databaseManager.read("users", {
       _id: req.body.email,
-    });    
+    });
     let user = users[0];
     // let user = adminUser;
     if (user && user.password === req.body.password) {
@@ -70,32 +68,33 @@ router.post("/login", async (req, res) => {
 //change ownpoll and voted polls as * ??
 
 //get polls created by user
-router.get("/:userID", async (req,res)=> {
+router.get("/:userID", async (req, res) => {
   let users = await databaseManager.read("users", {
-    _id:req.params.userID
+    _id: req.params.userID,
   });
   let user = users[0];
 
-  let relatedPolls = {ownPolls:[], votedPolls:[]};
+  let relatedPolls = { ownPolls: [], votedPolls: [] };
 
-  if(user.createdPolls){
+  if (user.createdPolls) {
     relatedPolls.ownPolls = await databaseManager.read("polls", {
-      _id:{$in:user.createdPolls}
-    });}
+      _id: { $in: user.createdPolls },
+    });
+  }
 
   let votedPollArray = [];
-  if(user.votedPollPolls){
+  if (user.votedPollPolls) {
     for (let key in user.votedPolls) {
       votedPollArray.push(key);
     }
-    relatedPolls.votedPolls = await databaseManager.read("polls",{
-      _id:{$in:votedPollArray}
+    relatedPolls.votedPolls = await databaseManager.read("polls", {
+      _id: { $in: votedPollArray },
     });
   }
-  
+
   res.send(JSON.stringify(relatedPolls));
 
-  //conver key to array, 
+  //conver key to array,
 });
 
 // //get polls participated by uuserID/votedPoll/:userID", async (req,res)=> {

@@ -45,17 +45,18 @@ router.get("/:pollId/vote", async (req, res) => {
 
     // update user voted
     let userId = req.query.userId;
-    if (userId) {
+    if (userId !== "null") {
       // update user votedPolls
-      let queryFilter = { _id: req.body.owner };
+      let queryFilter = { _id: userId };
       let users = await dbManager.read("users", queryFilter);
       let user = users[0];
-      user.votedPolls[req.params.pollId] = votedOptionIdx;
+      user.votedPolls[req.params.pollId] = Number(votedOptionIdx);
       await dbManager.update("users", queryFilter, user);
     }
 
     message = "Successfully voted";
   } catch (e) {
+    console.log(e);
     statusCode = 500;
     message = "Vote failed";
   }

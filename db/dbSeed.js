@@ -40,8 +40,13 @@ let polls = pollsRaw.map((el) => {
   };
 });
 
+(async () => {
+  for (let i = 0; i < polls.length; i++) {
+    await dbManager.create("polls", polls[i]);
+  }
+})();
 // polls.forEach(async (el) => {
-//   await dbManager.create("Polls", el);
+//   await dbManager.create("polls", el);
 // });
 
 // (async () => {
