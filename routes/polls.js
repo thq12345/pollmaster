@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   let cbChain = {
     limit: [100],
   };
-  let polls = await dbManager.read("Polls", { public: true }, cbChain);
+  let polls = await dbManager.read("polls", { public: true }, cbChain);
   res.json(polls);
 });
 
@@ -17,7 +17,7 @@ router.get("/:pollId", async (req, res) => {
   let statusCode = 200;
   let data = {};
 
-  let poll = await dbManager.read("Polls", { _id: ObjectId(req.params.pollId) });
+  let poll = await dbManager.read("polls", { _id: ObjectId(req.params.pollId) });
 
   if (poll.length === 0) {
     statusCode = 404;
@@ -33,7 +33,7 @@ router.get("/:pollId/vote", async (req, res) => {
   try {
     let votedOptionIdx = req.query.optionIdx;
     let query = { _id: ObjectId(req.params.pollId) };
-    let polls = await dbManager.read("Polls", query);
+    let polls = await dbManager.read("polls", query);
     if (polls.length === 0) {
       statusCode = 404;
       message = "Poll not found";
@@ -41,13 +41,18 @@ router.get("/:pollId/vote", async (req, res) => {
     let poll = polls[0];
     poll.options[votedOptionIdx].votes += 1;
     poll.totalVotes++;
-    await dbManager.update("Polls", query, poll);
-    // $set: { totalVotes: poll.totalVotes, options: poll.options },
+    await dbManager.update("polls", query, poll);
 
-    // let userId = req.query.userId;
-    // if (userId) {
-    //   // update user votedPolls
-    // }
+    // update user voted
+    let userId = req.query.userId;
+    if (userId) {
+      // update user votedPolls
+      let queryFilter = { _id: req.body.owner };
+      let users = await dbManager.read("users", queryFilter);
+      let user = users[0];
+      user.votedPolls[req.params.pollId] = votedOptionIdx;
+      await dbManager.update("users", queryFilter, user);
+    }
 
     message = "Successfully voted";
   } catch (e) {
@@ -67,8 +72,14 @@ router.post("/create-poll", async (req, res) => {
   newPoll.totalVotes = 0;
   newPoll.createdAt = currTime;
   newPoll.ttl = currTime + 1000 * 60 * 60 * 24 * 30;
-  let response = await dbManager.create("Polls", newPoll);
+  let response = await dbManager.create("polls", newPoll);
+
   //update user createdPolls
+  let queryFilter = { _id: req.body.owner };
+  let users = await dbManager.read("users", queryFilter);
+  let user = users[0];
+  user.createdPolls.push(response.insertedId);
+  await dbManager.update("users", queryFilter, user);
 
   res.json({ message: "Successfully started your poll", newPollId: response.insertedId });
 });
