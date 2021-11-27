@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, ListGroup, Pagination } from "react-bootstrap";
 import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
-import "../stylesheets/pollList.css";
+import "../../stylesheets/polls/pollList.css";
 import PropTypes from "prop-types";
 
 const sortFcn = (a, b, sortIndex, order) => {

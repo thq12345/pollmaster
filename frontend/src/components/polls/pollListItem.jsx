@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../stylesheets/pollListItem.css";
+import "../../stylesheets/polls/pollListItem.css";
 import PropTypes from "prop-types";
 
 const findDaysRemaining = (endTime) => {

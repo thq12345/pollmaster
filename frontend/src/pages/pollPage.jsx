@@ -5,7 +5,7 @@ import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
-import "../stylesheets/pollPage.css";
+import "../stylesheets/polls/pollPage.css";
 // import useLocalStorage from "../hooks/useLocalStorage";
 
 const hasExpired = (unixTime) => {
