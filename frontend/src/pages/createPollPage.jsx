@@ -3,10 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import PollOptionInput from "../components/pollOptionInput";
+import PollOptionInput from "../components/polls/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
-import "../stylesheets/createPollPage.css";
+import "../stylesheets/polls/createPollPage.css";
 import PropTypes from "prop-types";
 
 const PUBLICMSG = "This poll will be visible in the list of all polls";

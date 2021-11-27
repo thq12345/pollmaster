@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { Container } from "react-bootstrap";
-import PollList from "../components/pollList";
+import PollList from "../components/polls/pollList";
 
 const UserProfilePage = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));

@@ -2,7 +2,7 @@ import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
-import "../stylesheets/pollListHeader.css";
+import "../../stylesheets/polls/pollListHeader.css";
 import PropTypes from "prop-types";
 
 const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {

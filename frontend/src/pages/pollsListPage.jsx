@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BackButton from "../components/backButton";
-import PollList from "../components/pollList";
+import PollList from "../components/polls/pollList";
 
 const PollsListPage = () => {
   let [pollList, setPollList] = useState([]);
