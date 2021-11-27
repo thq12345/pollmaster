@@ -5,8 +5,8 @@
   "scripts": {
     "prettier": "prettier -c ./",
     "lint": "eslint --fix --ext .js ./",
-    "checkstyle": "npm run lint && npm run prettier",
-    "build": "npm run checkstyle",
+    "checkstyle": "yarn run lint && yarn run prettier",
+    "build": "yarn run checkstyle",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -14,8 +14,6 @@
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "mongodb": "^4.2.0",
     "morgan": "~1.9.1",
     "prettier": "^2.4.1",

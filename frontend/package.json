@@ -22,9 +22,9 @@
   "scripts": {
     "prettier": "prettier -c ./",
     "lint": "eslint --fix --ext .js ./",
-    "checkstyle": "npm run lint && npm run prettier",
+    "checkstyle": "yarn run lint && yarn run prettier",
     "start": "react-scripts start",
-    "build": "npm run checkstyle && react-scripts build",
+    "build": "yarn run checkstyle && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
