@@ -6,7 +6,7 @@ const { ObjectId } = require("mongodb");
 // get all public polls
 router.get("/", async (req, res) => {
   let cbChain = {
-    limit: [100],
+    // limit: [100],
   };
   let polls = await dbManager.read("polls", { public: true }, cbChain);
   res.json(polls);
@@ -56,7 +56,6 @@ router.get("/:pollId/vote", async (req, res) => {
 
     message = "Successfully voted";
   } catch (e) {
-    console.log(e);
     statusCode = 500;
     message = "Vote failed";
   }
