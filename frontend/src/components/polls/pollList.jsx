@@ -45,7 +45,7 @@ const PollList = ({ polls }) => {
           {1}
         </Pagination.Item>
         {pagination}
-        {maxPageNumber !== 1 ? (
+        {maxPageNumber >= 1 ? (
           <Pagination.Item
             active={page === maxPageNumber}
             onClick={() => {
@@ -90,7 +90,7 @@ const PollList = ({ polls }) => {
       paginator.push(<Pagination.Ellipsis key="suf" />);
     }
     setPagination(paginator);
-  }, [polls, PAGESIZE, page]);
+  }, [polls, page]);
 
   const handleHover = (idx) => {
     setHoverIdx(idx);
@@ -103,7 +103,7 @@ const PollList = ({ polls }) => {
 
   const renderPollList = () => {
     if (polls.length === 0) {
-      return <div>The list is empty</div>;
+      return <div className="empty-list">The list is empty</div>;
     }
 
     return polls
@@ -124,7 +124,6 @@ const PollList = ({ polls }) => {
             <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
           </div>
         ) : null}
-        {/* <Pagination className="mb-0">{pagination}</Pagination> */}
         {renderPagination()}
         <ListGroup>{renderPollList()}</ListGroup>
       </div>
