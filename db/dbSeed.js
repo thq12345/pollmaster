@@ -40,8 +40,8 @@ let polls = pollsRaw.map((el) => {
     owner: "1@1.com",
     totalVotes: totalVotes,
     public: el.public,
-    createdAt: el.createdAt,
-    ttl: el.ttl,
+    createdAt: Number(el.createdAt),
+    ttl: Number(el.ttl),
   };
 });
 
