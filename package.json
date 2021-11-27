@@ -6,7 +6,8 @@
     "prettier": "prettier -c ./",
     "lint": "eslint --fix --ext .js ./",
     "checkstyle": "yarn run lint && yarn run prettier",
-    "build": "yarn run checkstyle && cd frontend && yarn run build",
+    "build": "yarn run prebuild && yarn run checkstyle && cd frontend && yarn install && yarn run build",
+    "prebuild": "rm -rf frontend/build",
     "start": "node ./bin/www"
   },
   "dependencies": {
