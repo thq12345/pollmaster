@@ -35,6 +35,7 @@ const UserLoginPage = ({ setLogin }) => {
   //submit handler
   const submitHandler = async (e) => {
     const form = e.currentTarget;
+    setValidated(true);
     //validated form
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -64,7 +65,6 @@ const UserLoginPage = ({ setLogin }) => {
         e.preventDefault();
       }
     }
-    setValidated(true);
   };
 
   return (
