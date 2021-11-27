@@ -3,6 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import "../stylesheets/pollListHeader.css";
+import PropTypes from "prop-types";
 
 const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
   return (
@@ -48,6 +49,12 @@ const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
       </ListGroup.Item>
     </ListGroup>
   );
+};
+
+PollListHeader.propTypes = {
+  onChangeSortIndex: PropTypes.func,
+  sortIndex: PropTypes.string,
+  sortOrder: PropTypes.number,
 };
 
 export default PollListHeader;

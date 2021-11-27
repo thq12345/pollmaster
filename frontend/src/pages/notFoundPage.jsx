@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const NotFoundPage = ({ to, delay }) => {
   let navigate = useNavigate();
@@ -25,6 +26,11 @@ const NotFoundPage = ({ to, delay }) => {
       <h2>You will be redirected back to home in a few seconds</h2>
     </div>
   );
+};
+
+NotFoundPage.propTypes = {
+  to: PropTypes.string,
+  delay: PropTypes.number,
 };
 
 export default NotFoundPage;
