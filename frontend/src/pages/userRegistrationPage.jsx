@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const UserRegistrationPage = ({ setLogin }) => {
   const styles = {
@@ -77,6 +78,10 @@ const UserRegistrationPage = ({ setLogin }) => {
       </Form>
     </div>
   );
+};
+
+UserRegistrationPage.propTypes = {
+  setLogin: PropTypes.func,
 };
 
 export default UserRegistrationPage;

@@ -4,6 +4,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const UserLoginPage = ({ setLogin }) => {
   const styles = {
@@ -114,6 +115,10 @@ const UserLoginPage = ({ setLogin }) => {
       </Container>
     </main>
   );
+};
+
+UserLoginPage.propTypes = {
+  setLogin: PropTypes.func,
 };
 
 export default UserLoginPage;

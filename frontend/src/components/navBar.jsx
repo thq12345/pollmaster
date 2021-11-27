@@ -3,6 +3,8 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import GuestGreeting from "./guestGreeting";
 import UserGreeting from "./userGreeting";
 import SearchBar from "./searchBar";
+import PropTypes from "prop-types";
+
 const NavigationBar = ({ userIsLogin, userLogout }) => {
   const guestGreeting = <GuestGreeting />;
   const userGreeting = <UserGreeting onLogout={userLogout} />;
@@ -23,6 +25,11 @@ const NavigationBar = ({ userIsLogin, userLogout }) => {
       </Container>
     </Navbar>
   );
+};
+
+NavigationBar.propTypes = {
+  userIsLogin: PropTypes.bool.isRequired,
+  userLogout: PropTypes.func,
 };
 
 export default NavigationBar;

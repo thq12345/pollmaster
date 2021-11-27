@@ -2,6 +2,7 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 const UserGreeting = (props) => {
   // let user = JSON.parse(sessionStorage.getItem("user"));
@@ -15,6 +16,11 @@ const UserGreeting = (props) => {
       </Nav.Link>
     </Nav>
   );
+};
+
+UserGreeting.propTypes = {
+  props: PropTypes.func,
+  onLogout: PropTypes.func,
 };
 
 export default UserGreeting;
