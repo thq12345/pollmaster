@@ -7,6 +7,7 @@ import PollOptionInput from "../components/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
 import "../stylesheets/createPollPage.css";
+import PropTypes from "prop-types";
 
 const PUBLICMSG = "This poll will be visible in the list of all polls";
 const UNLISTEDMSG = "This poll will not appear in the list of all polls, but still accessible through the URL";
@@ -143,6 +144,10 @@ const CreatePollPage = ({ hasUser }) => {
       {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Success" /> : null}
     </div>
   );
+};
+
+CreatePollPage.propTypes = {
+  hasUser: PropTypes.bool,
 };
 
 export default CreatePollPage;

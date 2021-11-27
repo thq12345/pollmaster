@@ -1,0 +1,13 @@
+.ToastMessage .icon {
+  font-size: 1.5em;
+}
+.ToastMessage .success {
+  color: rgb(62, 207, 62);
+  font-size: 1.5em;
+}
+.ToastMessage .info {
+  color: rgb(0, 150, 200);
+}
+.ToastMessage .error {
+  color: rgb(250, 50, 50);
+}

@@ -2,25 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
-
-const styles = {
-  deletePollOptionButton: {
-    marginTop: "1em",
-    padding: "0 0.75em",
-    height: "2em",
-    alignSelf: "center",
-  },
-  buttonPlaceholder: {
-    width: "2.5em",
-  },
-  pollOption: {
-    display: "flex",
-  },
-  pollOptionField: {
-    width: "90%",
-    marginLeft: "1em",
-  },
-};
+import "../stylesheets/pollOptionInput.css";
+import PropTypes from "prop-types";
 
 const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, onDeletePollOption }) => {
   let [value, setValue] = useState(defaultValue);
@@ -35,21 +18,21 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
   }, [defaultValue]);
 
   return (
-    <div style={styles.pollOption}>
+    <div className="PollOptionInput poll-option">
       {deletable ? (
         <Button
           onClick={() => {
             onDeletePollOption(index);
           }}
-          style={styles.deletePollOptionButton}
+          className="delete-poll-option-button"
           variant="danger"
         >
           <FontAwesomeIcon icon={faMinus} />
         </Button>
       ) : (
-        <div style={styles.buttonPlaceholder}></div>
+        <div className="button-placeholder"></div>
       )}
-      <div style={styles.pollOptionField}>
+      <div className="poll-option-field">
         <Form.Group className="mb-3" controlId={`pollOption-${index}`}>
           <Form.Label>Option {index + 1}</Form.Label>
           <Form.Control
@@ -65,6 +48,14 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
       </div>
     </div>
   );
+};
+
+PollOptionInput.propTypes = {
+  defaultValue: PropTypes.string,
+  onOptionValueChange: PropTypes.func,
+  deletable: PropTypes.bool,
+  index: PropTypes.number,
+  onDeletePollOption: PropTypes.func,
 };
 
 export default PollOptionInput;

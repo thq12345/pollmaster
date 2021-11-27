@@ -2,6 +2,7 @@ import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/pollListItem.css";
+import PropTypes from "prop-types";
 
 const findDaysRemaining = (endTime) => {
   return Math.ceil((endTime - new Date()) / 1000 / 60 / 60 / 24);
@@ -15,7 +16,7 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
   let navigate = useNavigate();
 
   const generateClassName = () => {
-    if (findDaysRemaining(Number(poll.ttl)) < 0) return hover ? "expired-hover" : "expired";
+    if (findDaysRemaining(poll.ttl) < 0) return hover ? "expired-hover" : "expired";
     return hover ? " hover" : "";
   };
 
@@ -34,13 +35,28 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
         <div className="text-muted inline-block float-right">{poll.totalVotes} people participated</div>
       </div>
 
-      {findDaysRemaining(Number(poll.ttl)) >= 0 ? (
-        <div className="text-muted float-right mt-1">Days remaining: {findDaysRemaining(Number(poll.ttl))}</div>
+      {findDaysRemaining(poll.ttl) >= 0 ? (
+        <div className="text-muted float-right mt-1">Days remaining: {findDaysRemaining(poll.ttl)}</div>
       ) : (
-        <div className="text-muted float-right mt-1">expired {-1 * findDaysRemaining(Number(poll.ttl))} day(s) ago</div>
+        <div className="text-muted float-right mt-1">expired {-1 * findDaysRemaining(poll.ttl)} day(s) ago</div>
       )}
     </ListGroup.Item>
   );
+};
+
+PollListItem.propTypes = {
+  onHover: PropTypes.func,
+  hover: PropTypes.bool,
+  poll: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    owner: PropTypes.string,
+    totalVotes: PropTypes.number,
+    public: PropTypes.bool,
+    createdAt: PropTypes.number,
+    ttl: PropTypes.number,
+  }),
+  idx: PropTypes.number,
 };
 
 export default PollListItem;
