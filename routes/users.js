@@ -19,8 +19,14 @@ router.post("/registration", async (req, res) => {
     await databaseManager.create("users", userObejct);
     data.user = userObejct;
   } catch (err) {
-    statusCode = 500;
-    data.message = err.message;
+
+    if(err.code === 11000){
+      statusCode = 500;
+      data.message = "Email is already in use";
+    } else {
+      statusCode = 500;
+      data.message = err.message;
+    }
   }
 
   res.status(statusCode).send(JSON.stringify(data));

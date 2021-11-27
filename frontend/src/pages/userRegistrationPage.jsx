@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import ToastMessage from "../components/toastMessage";
 
 const UserRegistrationPage = ({ setLogin }) => {
   const styles = {
@@ -11,11 +12,13 @@ const UserRegistrationPage = ({ setLogin }) => {
       padding: "14px 18px",
     },
     mainContainer: {
+      margin: "0 auto",
       width: "500px",
     },
   };
   let registrationFormRef = useRef();
   let navigate = useNavigate();
+  let [errorMessage, setMessage] = useState(null);
 
   //submit handler
   const submitHandler = async (e) => {
@@ -41,6 +44,9 @@ const UserRegistrationPage = ({ setLogin }) => {
       sessionStorage.setItem("user", JSON.stringify(userObejct));
       setLogin(true);
       navigate("/");
+    } else {
+      let result = await registrationInput.json();
+      setMessage(result.message);
     }
   };
 
@@ -76,6 +82,9 @@ const UserRegistrationPage = ({ setLogin }) => {
           Register
         </Button>
       </Form>
+      {errorMessage ? (
+        <ToastMessage show={true} message={errorMessage} setMessage={setMessage} type={"Error"} delay={10000} />
+      ) : null}
     </div>
   );
 };
