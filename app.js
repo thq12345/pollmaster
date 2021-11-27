@@ -18,7 +18,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/polls", pollsRouter);
 
 // routes all 404 back to react
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "frontend/build/index.html"));
 });
 
