@@ -5,8 +5,8 @@ import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
+import Loader from "../components/loader";
 import "../stylesheets/polls/pollPage.css";
-// import useLocalStorage from "../hooks/useLocalStorage";
 
 const hasExpired = (unixTime) => {
   return unixTime < new Date().getTime();
@@ -119,7 +119,7 @@ const PollPage = () => {
           <div>{el.prompt}</div>
           {expired || votedIdx !== -1 ? (
             <Row>
-              <Col style={{ padding: "5px 0 5px 1em" }}>
+              <Col className="vote-ratio-bar">
                 <ProgressBar now={votesRatio[idx]} />
               </Col>
               <Col xs={1}>
@@ -149,26 +149,35 @@ const PollPage = () => {
   const renderPoll = () => {
     return (
       <>
-        <h1 className="title">{poll ? poll.title : "This is a poll page"}</h1>
-        <div style={{ width: "70%", margin: "0 auto" }}>
-          <ListGroup className="mb-5">{poll ? renderPollOptions() : null}</ListGroup>
-          <div className="center">{renderVoteButton()}</div>
-        </div>
-        <div className="center mt-5">
-          <div>
-            <div style={{ textAlign: "center" }}>Share this poll:</div>
+        {poll ? (
+          <>
+            <h1 className="title">{poll.title}</h1>
+            <div style={{ width: "70%", margin: "0 auto" }}>
+              <ListGroup className="mb-5">{poll ? renderPollOptions() : null}</ListGroup>
+              <div className="center">{renderVoteButton()}</div>
+            </div>
+            <div className="center mt-5">
+              <div>
+                <div className="text-center">Share this poll:</div>
 
-            <div>{window.location.href}</div>
-            <Button
-              className="copy-poll-link-button"
-              onClick={async () => {
-                await navigator.clipboard.writeText(window.location.href);
-              }}
-            >
-              <FontAwesomeIcon icon={faCopy} />
-            </Button>
+                <div>{window.location.href}</div>
+                <Button
+                  className="copy-poll-link-button"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(window.location.href);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCopy} />
+                </Button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="mt-5 text-center">
+            <Loader variant="info" />
+            <div className="loading-text">Loading poll...</div>
           </div>
-        </div>
+        )}
       </>
     );
   };

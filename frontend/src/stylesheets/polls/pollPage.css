@@ -22,3 +22,16 @@
   display: flex;
   justify-content: center;
 }
+
+.PollPage .vote-ratio-bar {
+  padding: 5px 0 5px 1em;
+}
+
+.PollPage .text-center {
+  text-align: center;
+}
+
+.PollPage .loading-text {
+  font-size: 2em;
+  padding-top: 0.25em;
+}
