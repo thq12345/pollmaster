@@ -3,6 +3,7 @@ import { Container, ListGroup, Pagination } from "react-bootstrap";
 import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
 import "../stylesheets/pollList.css";
+import PropTypes from "prop-types";
 
 const sortFcn = (a, b, sortIndex, order) => {
   return order * (a[sortIndex] - b[sortIndex]);
@@ -44,14 +45,16 @@ const PollList = ({ polls }) => {
           {1}
         </Pagination.Item>
         {pagination}
-        <Pagination.Item
-          active={page === maxPageNumber}
-          onClick={() => {
-            handleChangePage(maxPageNumber);
-          }}
-        >
-          {maxPageNumber}
-        </Pagination.Item>
+        {maxPageNumber !== 1 ? (
+          <Pagination.Item
+            active={page === maxPageNumber}
+            onClick={() => {
+              handleChangePage(maxPageNumber);
+            }}
+          >
+            {maxPageNumber}
+          </Pagination.Item>
+        ) : null}
         <Pagination.Next
           disabled={page === maxPageNumber}
           onClick={() => {
@@ -127,6 +130,20 @@ const PollList = ({ polls }) => {
       </div>
     </Container>
   );
+};
+
+PollList.propTypes = {
+  polls: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      title: PropTypes.string,
+      owner: PropTypes.string,
+      totalVotes: PropTypes.number,
+      public: PropTypes.bool,
+      createdAt: PropTypes.number,
+      ttl: PropTypes.number,
+    })
+  ),
 };
 
 export default PollList;
