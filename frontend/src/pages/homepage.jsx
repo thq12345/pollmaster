@@ -7,7 +7,7 @@ import "../stylesheets/homepage.css";
 const Homepage = () => {
   return (
     <div className="Homepage">
-      <h1 className="title">Welcompe to poll master!</h1>
+      <h1 className="title">Welcome to Poll Master!</h1>
       <Row>
         <Col className="prompt" xs={6}>
           <Link className="btn btn-primary" to="/polls/new-poll">
