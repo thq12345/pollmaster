@@ -42,9 +42,10 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
 
 ## Instruction to build
 
-- When testing file, create your own .env file that inclode: DB_URL.
-- Create a database and connect to your database in the backend
-- Deploy these files on any server
+- To connect to MongoDB, start your local MongoDB server or create your own .env file that inclode: DB_URL.
+- To start back end, run `yarn start` at repo root, the default port for back end server is 3001
+- To start front end server, cd into frontend folder and run `yarn start`, the default port for front end server is 3000
+- To build project, run `yarn run build` at repo root, the build artifact of react is located in the folder frontend/build
 
 ## Database schema
 ### Poll Schema
