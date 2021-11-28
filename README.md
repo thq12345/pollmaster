@@ -8,7 +8,6 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
 ## Project Objective
 
 <br>The objective is to build platform for people to create and to participate in polls<br/>
-The should should show no error in the [W3C Compliant](https://validator.w3.org/#validate_by_input)
 <br>This should be a React application.<br/>
 
 ## Proposal Goals
@@ -19,10 +18,14 @@ The should should show no error in the [W3C Compliant](https://validator.w3.org/
 4. Each poll will have an expiration time
 5. Poll result should be updated automatically.
 
-[Link to landing page]()
+[Link to landing page](https://poll-master.herokuapp.com/)
 
-![Home page of website]()
-![Demo of post page]()
+![Home page of website](/images/main_page_ss/png)
+![Demo of poll page](/images/poll_page_ss.png)
+![Demo of create poll page](/images/create_poll_ss.png)
+![Demo of poll list page](/images/poll_list_ss.png)
+
+
 
 
 ## Tech requirements
@@ -44,13 +47,31 @@ The should should show no error in the [W3C Compliant](https://validator.w3.org/
 - Deploy these files on any server
 
 ## Database schema
+### Poll Schema
+- _id: (ObjectId)
+- title: String
+- options: Array(Object(prompt:String, votes: Int))
+- owner: String
+- totalVotes: Int
+- public : Bool
+- createdAt:Double
+- ttl: Double
+### User Schema
+- _id: String
+- firstName: String
+- lastName: String
+- password: String
+- createdPolls: Array(ObjectID)
+- votedPolls: Object(ObjectID: Int)
+
 ## Creator:
 ### Felix:
   - User login
-  - User Registration
+  - User registration
+  - User profile
   - Nav bar
 ### Simon:
-  - Create poll
+  - Create poll page
   - poll page
   - poll list
   - home page
