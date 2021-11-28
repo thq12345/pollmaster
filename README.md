@@ -20,7 +20,7 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
 
 [Link to landing page](https://poll-master.herokuapp.com/)
 
-![Home page of website](/images/main_page_ss/png)
+![Home page of website](/images/main_page_ss.png)
 ![Demo of poll page](/images/poll_page_ss.png)
 ![Demo of create poll page](/images/create_poll_ss.png)
 ![Demo of poll list page](/images/poll_list_ss.png)
