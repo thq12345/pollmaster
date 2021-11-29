@@ -77,4 +77,4 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
   - poll list
   - home page
 ## [Video Demostration]()
-## [Slides]()
+## [Slides](https://docs.google.com/presentation/d/11g2Sy5gFv_I6nJkTrUKNp_-aYJhoCmP0PKw2ixyhpb4/edit?usp=sharing)
