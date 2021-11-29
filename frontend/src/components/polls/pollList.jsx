@@ -45,7 +45,7 @@ const PollList = ({ polls }) => {
           {1}
         </Pagination.Item>
         {pagination}
-        {maxPageNumber >= 1 ? (
+        {maxPageNumber > 1 ? (
           <Pagination.Item
             active={page === maxPageNumber}
             onClick={() => {
