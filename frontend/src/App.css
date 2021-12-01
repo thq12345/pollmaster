@@ -1,3 +1,10 @@
 main {
   margin-top: 5em;
 }
+footer {
+  margin-top: 3em;
+  padding: 1em 0 2em 0;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 10px;
+}

@@ -23,8 +23,9 @@ const UserLoginPage = ({ setLogin }) => {
     },
   };
   const navigate = useNavigate();
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [validated, setValidated] = useState(false);
+  let [passwordShown, setPasswordShown] = useState(false);
+  let [validated, setValidated] = useState(false);
+  let [isDisable, setDisableButton] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let [errorMessage, setMessage] = useState(null);
   let loginFormRef = useRef();
@@ -39,10 +40,12 @@ const UserLoginPage = ({ setLogin }) => {
   const submitHandler = async (e) => {
     const form = e.currentTarget;
     setValidated(true);
+    setDisableButton(true);
     e.preventDefault();
 
     //validated form
     if (form.checkValidity() === false) {
+      setDisableButton(false);
       e.stopPropagation();
     } else {
       //create json
@@ -68,6 +71,7 @@ const UserLoginPage = ({ setLogin }) => {
         let result = await userInput.json();
         setValidated(false);
         setMessage(result.message);
+        setDisableButton(false);
       }
     }
   };
@@ -112,7 +116,7 @@ const UserLoginPage = ({ setLogin }) => {
           <Form.Control.Feedback type="invalid"> Please enter a correct password</Form.Control.Feedback>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isDisable}>
           Login
         </Button>
       </Form>
