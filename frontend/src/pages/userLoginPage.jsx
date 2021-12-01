@@ -5,7 +5,7 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import ToastMessage from "../components/toastMessage";
+import InvalidFeedback from "../components/InvalidFeedback";
 
 const UserLoginPage = ({ setLogin }) => {
   const styles = {
@@ -28,6 +28,7 @@ const UserLoginPage = ({ setLogin }) => {
   let [isDisable, setDisableButton] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let [errorMessage, setMessage] = useState(null);
+  let [isInvalid, setInvalid] = useState(false);
   let loginFormRef = useRef();
 
   //Show password when check box
@@ -70,6 +71,7 @@ const UserLoginPage = ({ setLogin }) => {
       } else {
         let result = await userInput.json();
         setValidated(false);
+        setInvalid(true);
         setMessage(result.message);
         setDisableButton(false);
       }
@@ -89,8 +91,15 @@ const UserLoginPage = ({ setLogin }) => {
       >
         <Form.Group className="mb-3" controlId="userEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control required autoComplete="on" type="email" name="email" placeholder="Enter email" />
-          <Form.Control.Feedback type="invalid">Please enter a correct email address</Form.Control.Feedback>
+          <Form.Control
+            isInvalid={isInvalid}
+            required
+            autoComplete="on"
+            type="email"
+            name="email"
+            placeholder="Enter email"
+          />
+          {errorMessage ? <InvalidFeedback /> : <InvalidFeedback message="Please enter a correct email address" />}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="userPassword">
@@ -98,13 +107,13 @@ const UserLoginPage = ({ setLogin }) => {
           <InputGroup hasValidation>
             <Form.Control
               required
+              isInvalid={isInvalid}
               autoComplete="on"
               name="password"
               type={passwordShown ? "text" : "password"}
               placeholder="Password"
             />
             <button
-              // id="eyeButton"
               style={styles.eyeButton}
               onClick={(e) => {
                 togglePassword(e);
@@ -112,6 +121,7 @@ const UserLoginPage = ({ setLogin }) => {
             >
               {eye}
             </button>
+            {errorMessage ? <InvalidFeedback message={errorMessage} setMessage={setMessage} /> : null}
           </InputGroup>
           <Form.Control.Feedback type="invalid"> Please enter a correct password</Form.Control.Feedback>
         </Form.Group>
@@ -120,9 +130,6 @@ const UserLoginPage = ({ setLogin }) => {
           Login
         </Button>
       </Form>
-      {errorMessage ? (
-        <ToastMessage show={true} message={errorMessage} setMessage={setMessage} type={"Error"} delay={10000} />
-      ) : null}
     </div>
   );
 };
