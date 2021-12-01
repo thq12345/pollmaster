@@ -19,12 +19,13 @@ const UserRegistrationPage = ({ setLogin }) => {
   let registrationFormRef = useRef();
   let navigate = useNavigate();
   let [errorMessage, setMessage] = useState(null);
+  let [isDisable, setDisableButton] = useState(false);
 
   //submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
     let formData = new FormData(registrationFormRef.current);
-
+    setDisableButton(true);
     let data = {};
     formData.forEach((val, key) => {
       data[key] = val;
@@ -45,6 +46,7 @@ const UserRegistrationPage = ({ setLogin }) => {
       setLogin(true);
       navigate("/");
     } else {
+      setDisableButton(false);
       let result = await registrationInput.json();
       setMessage(result.message);
     }
@@ -78,7 +80,7 @@ const UserRegistrationPage = ({ setLogin }) => {
           <Form.Check required type="checkbox" label="Im not gonna do illegal stuff" />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isDisable}>
           Register
         </Button>
       </Form>
