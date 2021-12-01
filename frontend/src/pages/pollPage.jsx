@@ -25,6 +25,7 @@ const PollPage = () => {
   let [success, setSuccess] = useState(null);
   let [error, setError] = useState(null);
   let [expired, setExpired] = useState(false);
+  let [showResult, setShowResult] = useState(false);
   let navigate = useNavigate();
 
   const getPollInfo = async (pollId) => {
@@ -52,17 +53,24 @@ const PollPage = () => {
   }, []);
 
   useEffect(() => {
-    if (votedIdx !== -1) {
-      autoUpdatePollInfo(pollId);
+    if ((user && poll && poll.owner === user._id) || votedIdx !== -1) {
+      setShowResult(true);
     }
-  }, [pollId, votedIdx]);
+  }, [poll, votedIdx]);
 
   const autoUpdatePollInfo = (pollId) => {
+    if (updateInterval) clearInterval(updateInterval);
     let interval = setInterval(async () => {
       getPollInfo(pollId);
     }, 5000);
     setUpdateInterval(interval);
   };
+
+  useEffect(() => {
+    if (showResult || votedIdx !== -1) {
+      autoUpdatePollInfo(pollId);
+    }
+  }, [showResult, pollId, votedIdx]);
 
   const handleSelectOption = (idx) => {
     if (expired || votedIdx !== -1) return;
@@ -96,6 +104,7 @@ const PollPage = () => {
         let json = await res.json();
         await getPollInfo(pollId);
         setSuccess(json.message);
+        setShowResult(true);
       }
     } catch (e) {
       setError(e.message);
@@ -110,6 +119,8 @@ const PollPage = () => {
     return poll.options.map((el, idx) => {
       return (
         <ListGroup.Item
+          tabIndex={0}
+          action
           className={selectedIdx === idx ? "selected-option" : ""}
           onClick={() => {
             handleSelectOption(idx);
@@ -117,7 +128,7 @@ const PollPage = () => {
           key={idx}
         >
           <div>{el.prompt}</div>
-          {expired || votedIdx !== -1 ? (
+          {expired || showResult ? (
             <Row>
               <Col className="vote-ratio-bar">
                 <ProgressBar now={votesRatio[idx]} />
@@ -153,8 +164,11 @@ const PollPage = () => {
           <>
             <h1 className="title">{poll.title}</h1>
             <div style={{ width: "70%", margin: "0 auto" }}>
-              <ListGroup className="mb-5">{poll ? renderPollOptions() : null}</ListGroup>
-              <div className="center">{renderVoteButton()}</div>
+              <ListGroup className="mb-2">{poll ? renderPollOptions() : null}</ListGroup>
+              {showResult ? <div style={{ float: "right" }}>Total votes: {poll.totalVotes}</div> : null}
+              <div style={{ marginTop: "5em" }} className="center">
+                {renderVoteButton()}
+              </div>
             </div>
             <div className="center mt-5">
               <div>
@@ -162,12 +176,13 @@ const PollPage = () => {
 
                 <div>{window.location.href}</div>
                 <Button
-                  className="copy-poll-link-button"
+                  aria-label="copy poll link"
+                  className="copy-poll-link-button p-2 btn"
                   onClick={async () => {
                     await navigator.clipboard.writeText(window.location.href);
                   }}
                 >
-                  <FontAwesomeIcon icon={faCopy} />
+                  <FontAwesomeIcon icon={faCopy} /> Copy poll link
                 </Button>
               </div>
             </div>
@@ -184,9 +199,11 @@ const PollPage = () => {
 
   return (
     <div className="PollPage">
-      <div className="back-button">
+      {/* <div className="back-button"> */}
+      <div style={{ width: "70%", margin: "0 auto" }}>
         <BackButton onRedirect={handleRedirect} to="/polls" />
       </div>
+      {/* </div> */}
       {renderPoll()}
       {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Info" /> : null}
       {success ? <ToastMessage show={true} message={success} setMessage={setSuccess} type="Success" /> : null}
