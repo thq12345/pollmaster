@@ -17,6 +17,8 @@ const CreatePollPage = ({ hasUser }) => {
   let [message, setMessage] = useState(null);
   let [validated, setValidated] = useState(false);
   let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
+  let [isDisable, setDisableButton] = useState(false);
+
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
   let navigate = useNavigate();
@@ -70,8 +72,12 @@ const CreatePollPage = ({ hasUser }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setValidated(true);
+    setDisableButton(true);
     let form = e.currentTarget;
-    if (!form.checkValidity()) return;
+    if (!form.checkValidity()) {
+      setDisableButton(false);
+      return;
+    }
 
     let formData = new FormData(formRef.current);
     let data = {};
@@ -93,6 +99,7 @@ const CreatePollPage = ({ hasUser }) => {
     if (res.ok) {
       let json = await res.json();
       setMessage(json.message);
+      setDisableButton(false);
       navigate(`/polls/${json.newPollId}`);
     }
   };
@@ -138,7 +145,9 @@ const CreatePollPage = ({ hasUser }) => {
         </div>
 
         <div className="ps-4 mb-4 submit-button-div">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isDisable}>
+            Submit
+          </Button>
         </div>
       </Form>
       {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Success" /> : null}

@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import ToastMessage from "../components/toastMessage";
+import InvalidFeedback from "../components/InvalidFeedback";
 
 const UserRegistrationPage = ({ setLogin }) => {
   const styles = {
@@ -19,12 +20,14 @@ const UserRegistrationPage = ({ setLogin }) => {
   let registrationFormRef = useRef();
   let navigate = useNavigate();
   let [errorMessage, setMessage] = useState(null);
+  let [isDisable, setDisableButton] = useState(false);
+  let [isInvalid, setInvalid] = useState(false);
 
   //submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
     let formData = new FormData(registrationFormRef.current);
-
+    setDisableButton(true);
     let data = {};
     formData.forEach((val, key) => {
       data[key] = val;
@@ -45,8 +48,10 @@ const UserRegistrationPage = ({ setLogin }) => {
       setLogin(true);
       navigate("/");
     } else {
+      setDisableButton(false);
       let result = await registrationInput.json();
       setMessage(result.message);
+      setInvalid(true);
     }
   };
 
@@ -67,7 +72,8 @@ const UserRegistrationPage = ({ setLogin }) => {
 
         <Form.Group className="mb-3" controlId="registrationEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control required name="email" type="email" placeholder="Email Address" />
+          <Form.Control isInvalid={isInvalid} required name="email" type="email" placeholder="Email Address" />
+          {errorMessage ? <InvalidFeedback message={errorMessage} setMessage={setMessage} /> : null}
         </Form.Group>
 
         <Form.Group controlId="registrationPassword">
@@ -78,13 +84,10 @@ const UserRegistrationPage = ({ setLogin }) => {
           <Form.Check required type="checkbox" label="Im not gonna do illegal stuff" />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isDisable}>
           Register
         </Button>
       </Form>
-      {errorMessage ? (
-        <ToastMessage show={true} message={errorMessage} setMessage={setMessage} type={"Error"} delay={10000} />
-      ) : null}
     </div>
   );
 };
