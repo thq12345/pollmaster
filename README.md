@@ -65,6 +65,7 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
 - createdPolls: Array(ObjectID)
 - votedPolls: Object(ObjectID: Int)
 
+
 ## Creator:
 ### Felix:
   - User login
