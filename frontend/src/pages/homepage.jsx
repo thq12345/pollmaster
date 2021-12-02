@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import SearchBar from "../components/searchBar";
 import "../stylesheets/homepage.css";
-
+ 
 const Homepage = () => {
   return (
     <div className="Homepage">
