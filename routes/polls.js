@@ -16,14 +16,23 @@ router.get("/", async (req, res) => {
 router.get("/:pollId", async (req, res) => {
   let statusCode = 200;
   let data = {};
+  try {
+    let poll = await dbManager.read("polls", { _id: ObjectId(req.params.pollId) });
 
-  let poll = await dbManager.read("polls", { _id: ObjectId(req.params.pollId) });
-
-  if (poll.length === 0) {
-    statusCode = 404;
-    data = { message: "Poll not found" };
+    if (poll.length === 0) {
+      statusCode = 404;
+      data = { message: "Poll not found" };
+    }
+    data = poll[0];
+  } catch (err) {
+    if (err instanceof TypeError) {
+      statusCode = 404;
+      data = { message: "Poll not found" };
+    } else {
+      statusCode = 500;
+      data = { message: "Error trying to read poll" };
+    }
   }
-  data = poll[0];
   res.status(statusCode).json(data);
 });
 
