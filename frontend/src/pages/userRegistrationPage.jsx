@@ -47,7 +47,7 @@ const UserRegistrationPage = ({ setLogin }) => {
 
   return (
     <div className="main-container">
-      <h1>Registration</h1>
+      <h1 className="registrationTitle">Registration</h1>
 
       <Form className="registration-form" ref={registrationFormRef} onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="registrationFirstName">

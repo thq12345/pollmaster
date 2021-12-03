@@ -3,10 +3,13 @@ import BackButton from "../components/backButton";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 import SearchBar from "../components/searchBar";
+import "../stylesheets/userProfilepage.css";
 
 const PollsListPage = () => {
   let [pollList, setPollList] = useState([]);
   let [loading, setLoading] = useState(false);
+  //Set the number of list show in a page
+  const listSize = 15;
 
   const getPollList = async () => {
     let res = await fetch("/api/polls");
@@ -27,16 +30,18 @@ const PollsListPage = () => {
       <div style={{ marginLeft: "2em" }}>
         <BackButton to="/" />
       </div>
-      <h1 style={{ textAlign: "center" }}>Vote in some of the polls</h1>
+      <h1 style={{ textAlign: "center" }}>Public Polls</h1>
+      <div style={{ textAlign: "center" }}>Click a poll title and vote in some of the polls.</div>
       <hr className="mb-5" />
-      <SearchBar />
+
       {loading ? (
         <div style={{ textAlign: "center" }}>
           <Loader variant="info" />
+
           <div style={{ fontSize: "2em" }}>Loading polls...</div>
         </div>
       ) : (
-        <PollList polls={pollList} />
+        <PollList pagesize={listSize} polls={pollList} />
       )}
     </div>
   );

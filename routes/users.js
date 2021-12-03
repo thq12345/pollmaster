@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
     if (user && user.password === req.body.password) {
       data.user = {
         firstName: user.firstName,
-        lastName: user.lastNamae,
+        lastName: user.lastName,
         _id: user._id,
         createdPolls: user.createdPolls,
         votedPolls: user.votedPolls,
