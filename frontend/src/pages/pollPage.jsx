@@ -182,7 +182,7 @@ const PollPage = () => {
                     await navigator.clipboard.writeText(window.location.href);
                   }}
                 >
-                  <FontAwesomeIcon icon={faCopy} /> Copy poll link
+                  <FontAwesomeIcon icon={faCopy} /> Copy Link
                 </Button>
               </div>
             </div>

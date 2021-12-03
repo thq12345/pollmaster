@@ -107,7 +107,7 @@ const CreatePollPage = ({ hasUser }) => {
   return (
     <div className="CreatePollPage">
       <BackButton to="/" />
-      <h1 className="mb-3 title">Create new poll</h1>
+      <h1 className="mb-3 title">Create New Poll</h1>
       <Form noValidate validated={validated} ref={formRef} className="rounded form" onSubmit={handleFormSubmit}>
         <div className="p-4 mb-2">
           <Form.Group className="mb-3" controlId="pollTitle">
@@ -125,7 +125,7 @@ const CreatePollPage = ({ hasUser }) => {
         <hr />
         <div className="general-options-div">
           <Form.Group className="mb-3" controlId="publicity">
-            <Form.Label className="general-options-label">Poll visibility</Form.Label>
+            <Form.Label className="general-options-label">Poll Visibility</Form.Label>
             <Form.Select
               name="public"
               onChange={(e) => {

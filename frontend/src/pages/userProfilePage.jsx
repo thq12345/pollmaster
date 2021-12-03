@@ -6,6 +6,7 @@ const UserProfilePage = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
+  const pageSize = 10;
 
   const getUserOwnPoll = async () => {
     let res = await fetch(`/api/users/${user._id}`);
@@ -21,14 +22,16 @@ const UserProfilePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>
-        {user.firstName} {user.lastName} &#39;s Profile
+    <div className="containerDiv">
+      <h1 className="profileTitle">
+        {user.firstName} {user.lastName}&#39;s Profile
+        <hr className="nameDivider"></hr>
       </h1>
-      <h2>My Polls</h2>
-      <PollList polls={myPollList} />
-      <h2>Participated Polls</h2>
-      <PollList polls={myParticipatedList} />
+
+      <h2 className="profileTitle">My Polls</h2>
+      <PollList pagesize={pageSize} polls={myPollList} />
+      <h2 className="profileTitle">Participated Polls</h2>
+      <PollList pagesize={pageSize} polls={myParticipatedList} />
     </div>
   );
 };

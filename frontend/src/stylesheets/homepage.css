@@ -1,9 +1,17 @@
 .Homepage .title {
   text-align: center;
 }
+.Homepage .detail {
+  text-align: center;
+  font-size: 18px;
+}
 .Homepage .prompt {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 35em;
+  min-height: 15em;
+}
+
+.Homepage {
+  margin: 0 auto;
 }

@@ -4,13 +4,14 @@ import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
 import "../../stylesheets/polls/pollList.css";
 import PropTypes from "prop-types";
+import SearchBar from "../searchBar";
 
 const sortFcn = (a, b, sortIndex, order) => {
   return order * (a[sortIndex] - b[sortIndex]);
 };
 
-const PollList = ({ polls }) => {
-  const PAGESIZE = 20;
+const PollList = ({ polls, pagesize }) => {
+  const PAGESIZE = pagesize;
   let [hoverIdx, setHoverIdx] = useState(-1);
   let [sortIndex, setSortIndex] = useState("ttl");
   let [sortOrder, setSortOrder] = useState(-1);
@@ -124,8 +125,9 @@ const PollList = ({ polls }) => {
             <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
           </div>
         ) : null}
-        {renderPagination()}
+
         <ListGroup>{renderPollList()}</ListGroup>
+        {renderPagination()}
       </div>
     </Container>
   );
@@ -143,6 +145,7 @@ PollList.propTypes = {
       ttl: PropTypes.number,
     })
   ),
+  pagesize: PropTypes.number,
 };
 
 export default PollList;
