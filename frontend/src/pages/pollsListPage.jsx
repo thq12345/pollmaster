@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BackButton from "../components/backButton";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
+import SearchBar from "../components/searchBar";
 
 const PollsListPage = () => {
   let [pollList, setPollList] = useState([]);
@@ -28,6 +29,7 @@ const PollsListPage = () => {
       </div>
       <h1 style={{ textAlign: "center" }}>Vote in some of the polls</h1>
       <hr className="mb-5" />
+      <SearchBar />
       {loading ? (
         <div style={{ textAlign: "center" }}>
           <Loader variant="info" />

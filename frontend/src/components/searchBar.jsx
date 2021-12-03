@@ -16,7 +16,7 @@ const SearchBar = () => {
         value={searchText}
         onChange={getSearchId}
         type="search"
-        placeholder="Poll ID #"
+        placeholder="Search for a poll"
         className="me-2"
         aria-label="Search"
       />

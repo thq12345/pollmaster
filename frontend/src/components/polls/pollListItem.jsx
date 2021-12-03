@@ -26,6 +26,8 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
       onMouseOver={() => {
         onHover(idx);
       }}
+      action
+      tabIndex="0"
       onClick={() => {
         navigate(`/polls/${poll._id}`);
       }}

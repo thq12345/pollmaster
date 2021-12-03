@@ -9,6 +9,9 @@ const Homepage = () => {
     <div className="Homepage">
       <h1 className="title">Welcome to Poll Master!</h1>
       <Row>
+        <SearchBar />
+      </Row>
+      <Row>
         <Col className="prompt" xs={6}>
           <Link className="btn btn-primary" to="/polls/new-poll">
             Create your own poll
@@ -17,10 +20,8 @@ const Homepage = () => {
         <Col className="prompt" xs={6}>
           <div>
             <Link className="btn btn-primary mb-2" to="/polls">
-              Join a public poll
+              Browse a public polls
             </Link>
-            <div className="mb-2">Or search for a poll</div>
-            <SearchBar />
           </div>
         </Col>
       </Row>
