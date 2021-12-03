@@ -4,19 +4,9 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import ToastMessage from "../components/toastMessage";
 import InvalidFeedback from "../components/InvalidFeedback";
+import "../stylesheets/registrationPage.css";
 
 const UserRegistrationPage = ({ setLogin }) => {
-  const styles = {
-    form: {
-      border: "2px solid rgba(0, 0, 0, 0.2)",
-      borderRadius: "4px",
-      padding: "14px 18px",
-    },
-    mainContainer: {
-      margin: "0 auto",
-      width: "500px",
-    },
-  };
   let registrationFormRef = useRef();
   let navigate = useNavigate();
   let [errorMessage, setMessage] = useState(null);
@@ -56,10 +46,10 @@ const UserRegistrationPage = ({ setLogin }) => {
   };
 
   return (
-    <div style={styles.mainContainer}>
+    <div className="main-container">
       <h1>Registration</h1>
 
-      <Form style={styles.form} ref={registrationFormRef} onSubmit={submitHandler}>
+      <Form className="registration-form" ref={registrationFormRef} onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="registrationFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control required name="firstName" type="text" placeholder="First Name" />
@@ -76,16 +66,12 @@ const UserRegistrationPage = ({ setLogin }) => {
           {errorMessage ? <InvalidFeedback message={errorMessage} setMessage={setMessage} /> : null}
         </Form.Group>
 
-        <Form.Group controlId="registrationPassword">
+        <Form.Group className="mb-3" controlId="registrationPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control required name="password" type="password" autoComplete="off" />
+          <Form.Control required name="password" type="password" autoComplete="off" placeholder="Password" />
         </Form.Group>
-        <Form.Group className="mb-3" id="checkbox">
-          <Form.Check required type="checkbox" label="Im not gonna do illegal stuff" />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" disabled={isDisable}>
-          Register
+        <Button className="registerButton" variant="primary" type="submit" disabled={isDisable}>
+          Create an Account
         </Button>
       </Form>
     </div>
