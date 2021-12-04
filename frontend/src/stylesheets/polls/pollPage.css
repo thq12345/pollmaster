@@ -6,7 +6,6 @@
   background-color: rgba(0, 100, 150, 0.3);
 }
 .PollPage .vote-count {
-  /* display: inline-block; */
   float: right;
 }
 .PollPage .back-button {

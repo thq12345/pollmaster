@@ -1,14 +1,14 @@
-.main-container {
+.UserRegistrationPage.main-container {
   margin: 0 auto;
   width: 500px;
 }
-.registrationTitle {
+.UserRegistrationPage .registrationTitle {
   margin: 0 auto;
   width: 500px;
   padding-bottom: 7px;
 }
 
-.registration-form {
+.UserRegistrationPage .registration-form {
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 14px 18px;
@@ -16,6 +16,6 @@
   margin: 0 auto;
 }
 
-.register-button {
+.UserRegistrationPage .register-button {
   padding: 3px;
 }

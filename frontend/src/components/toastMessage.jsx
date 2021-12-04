@@ -23,7 +23,7 @@ const ToastMessage = ({ show, message, setMessage, type, delay }) => {
   };
 
   return (
-    <ToastContainer className="ToastMessage p-5" position="top-end">
+    <ToastContainer className="ToastMessage p-5 position-fixed" position="top-end">
       <Toast
         onClose={() => {
           setShowToast(false);

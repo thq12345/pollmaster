@@ -11,19 +11,19 @@ import UserProfilePage from "./pages/userProfilePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/navBar";
 import NotFound from "./pages/notFoundPage";
-import {useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import NotFoundPage from "./pages/notFoundPage";
 import NeedPermissionPage from "./pages/needPermissionPage";
 
 function App() {
   const [userIsLogin, setLogin] = useState(
-    sessionStorage.getItem("user") !== null && sessionStorage.getItem("user") !== "null"
+    localStorage.getItem("user") !== null && localStorage.getItem("user") !== "null"
   );
-
 
   const userLogout = () => {
     sessionStorage.setItem("user", null);
     useNavigate("/");
+    localStorage.setItem("user", null);
     setLogin(false);
   };
 
@@ -46,13 +46,16 @@ function App() {
               <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
               <Route path="/not-found" element={<NotFound to="/" />} />
               <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to = "/"/>} />
+
               <Route path="/" element={<Homepage />} />
-              <Route path="*" element = {<NotFoundPage to="/"/>} />
+              <Route path="*" element={<NotFoundPage to="/" />} />
             </Routes>
           </Router>
         </Container>
       </main>
-      <footer><div>Poll Master © 2021</div></footer>
+      <footer>
+        <div>Poll Master © 2021</div>
+      </footer>
     </div>
   );
 }

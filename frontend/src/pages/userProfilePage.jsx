@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import { Container } from "react-bootstrap";
 import PollList from "../components/polls/pollList";
+import "../stylesheets/userProfilepage.css";
 
 const UserProfilePage = () => {
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
   const pageSize = 10;
@@ -22,7 +23,7 @@ const UserProfilePage = () => {
   }, []);
 
   return (
-    <div className="containerDiv">
+    <div className="UserProfilePage containerDiv">
       <h1 className="profileTitle">
         {user.firstName} {user.lastName}&#39;s Profile
         <hr className="nameDivider"></hr>

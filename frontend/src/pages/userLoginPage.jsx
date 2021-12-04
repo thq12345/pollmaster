@@ -52,7 +52,7 @@ const UserLoginPage = ({ setLogin }) => {
       //login successful
       if (userInput.ok) {
         let result = await userInput.json();
-        sessionStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("user", JSON.stringify(result.user));
         setLogin(true);
         navigate("/");
       } else {
@@ -66,8 +66,12 @@ const UserLoginPage = ({ setLogin }) => {
   };
 
   return (
+
     <div className="main-container">
       <Row className="mainRow">
+
+    <div className="UserLoginPage main-container">
+
         <Col>
           <div id="loginPurpose" className="main-child">
             <h2>Poll Master</h2>
