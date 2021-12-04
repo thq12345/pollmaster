@@ -1,9 +1,10 @@
 .Homepage .title {
   text-align: center;
+  font-size: 62px;
 }
 .Homepage .detail {
   text-align: center;
-  font-size: 18px;
+  font-size: 24px;
 }
 .Homepage .prompt {
   display: flex;

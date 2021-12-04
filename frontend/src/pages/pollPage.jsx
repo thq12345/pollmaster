@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, Button, Row, Col, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { faCopy, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
@@ -111,6 +111,17 @@ const PollPage = () => {
     }
   };
 
+  // Problem: Post deleted but keep render in the backend
+  const deletePost = async () => {
+    if (user && poll && poll.owner === user._id) {
+      let res = await fetch(`/api/polls/${pollId}/delete?&userId=${user ? user._id : null}`);
+      if (res.ok) {
+        handleRedirect();
+        navigate("/polls");
+      }
+    }
+  };
+
   const renderPollOptions = () => {
     let totalVotes = poll.options.reduce((acc, curr) => acc + curr.votes, 0);
     let votesRatio = poll.options.map((el) => {
@@ -210,8 +221,14 @@ const PollPage = () => {
   return (
     <div className="PollPage">
       {/* <div className="back-button"> */}
-      <div style={{ width: "70%", margin: "0 auto" }}>
+      <div className="topButtons">
         <BackButton onRedirect={handleRedirect} to="/polls" />
+        {user && poll && poll.owner === user._id ? (
+          <Button onClick={deletePost}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+            Delete Post
+          </Button>
+        ) : null}
       </div>
       {/* </div> */}
       {renderPoll()}

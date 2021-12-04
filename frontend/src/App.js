@@ -21,7 +21,7 @@ function App() {
   );
 
   const userLogout = () => {
-    sessionStorage.setItem("user", null);
+    localStorage.setItem("user", null);
     useNavigate("/");
     localStorage.setItem("user", null);
     setLogin(false);

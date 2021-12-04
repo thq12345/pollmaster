@@ -33,3 +33,10 @@
   font-size: 2em;
   padding-top: 0.25em;
 }
+
+.PollPage .topButtons {
+  display: flex;
+  margin: 0 auto;
+  width: 70%;
+  justify-content: space-between;
+}
