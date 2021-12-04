@@ -3,7 +3,7 @@
   display: inline;
 }
 
-.mainRow {
+.UserLoginPage .row {
   width: 980px;
   margin: 0 auto;
 }
@@ -12,7 +12,6 @@
   padding: 20px;
 }
 .UserLoginPage .main-child {
-
   width: 400px;
 }
 .UserLoginPage .login-form-field {
