@@ -3,14 +3,16 @@
   display: inline;
 }
 
-.UserLoginPage .row {
+.mainRow {
   width: 980px;
   margin: 0 auto;
 }
+
 .UserLoginPage .col {
   padding: 20px;
 }
 .UserLoginPage .main-child {
+
   width: 400px;
 }
 .UserLoginPage .login-form-field {

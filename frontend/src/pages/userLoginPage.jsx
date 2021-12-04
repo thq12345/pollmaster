@@ -66,12 +66,16 @@ const UserLoginPage = ({ setLogin }) => {
   };
 
   return (
+
+    <div className="main-container">
+      <Row className="mainRow">
+
     <div className="UserLoginPage main-container">
-      <Row>
+
         <Col>
           <div id="loginPurpose" className="main-child">
             <h2>Poll Master</h2>
-            <div>A platform to create and vote in polls.</div>
+            <div>A platform to create and share polls quickly and efficently.</div>
             <div>Log in to create and keep track of your polls.</div>
           </div>
         </Col>

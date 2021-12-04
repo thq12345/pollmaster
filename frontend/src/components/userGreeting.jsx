@@ -10,7 +10,7 @@ const UserGreeting = (props) => {
   return (
     <Nav>
       <Nav.Link href="/profile">My Profile</Nav.Link>
-      <Nav.Link onClick={(event) => props.onLogout(event.target)}>
+      <Nav.Link href="/" onClick={(event) => props.onLogout(event.target)}>
         <FontAwesomeIcon icon={faSignOutAlt} />
         Sign out
       </Nav.Link>
