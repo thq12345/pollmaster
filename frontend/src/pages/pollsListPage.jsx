@@ -3,7 +3,6 @@ import BackButton from "../components/backButton";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 // import SearchBar from "../components/searchBar";
-import "../stylesheets/userProfilepage.css";
 
 const PollsListPage = () => {
   let [pollList, setPollList] = useState([]);

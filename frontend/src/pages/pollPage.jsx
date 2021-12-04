@@ -180,6 +180,7 @@ const PollPage = () => {
                   className="copy-poll-link-button p-2 btn"
                   onClick={async () => {
                     await navigator.clipboard.writeText(window.location.href);
+                    setSuccess("Poll link copied");
                   }}
                 >
                   <FontAwesomeIcon icon={faCopy} /> Copy Link

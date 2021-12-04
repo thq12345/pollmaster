@@ -66,7 +66,7 @@ const UserLoginPage = ({ setLogin }) => {
   };
 
   return (
-    <div className="main-container">
+    <div className="UserLoginPage main-container">
       <Row>
         <Col>
           <div id="loginPurpose" className="main-child">

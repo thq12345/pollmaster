@@ -1,17 +1,17 @@
-.containerDiv {
+.UserProfilePage.containerDiv {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.profileTitle {
+.UserProfilePage .profileTitle {
   width: 70%;
   margin: 0 auto;
   padding-bottom: 10px;
   padding-top: 10px;
 }
 
-.nameDivider {
+.UserProfilePage .nameDivider {
   margin: 0.5px;
 }

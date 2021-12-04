@@ -1,34 +1,34 @@
-.main-container {
+.UserLoginPage.main-container {
   margin: 0 auto;
   display: inline;
 }
 
-.row {
+.UserLoginPage .row {
   width: 980px;
   margin: 0 auto;
 }
-.col {
+.UserLoginPage .col {
   padding: 20px;
 }
-.main-child {
+.UserLoginPage .main-child {
   width: 400px;
 }
-.login-form-field {
+.UserLoginPage .login-form-field {
   margin: 0 auto;
   justify-content: center;
 }
-.login-form {
+.UserLoginPage .login-form {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 14px 18px;
 }
 
-#createAccountText {
+.UserLoginPage #createAccountText {
   font-size: 13px;
   padding: 0;
   margin: 2px;
 }
 
-#eyebutton {
+.UserLoginPage #eyebutton {
   background: none;
 }
