@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import PollList from "../components/polls/pollList";
 
 const UserProfilePage = () => {
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   let [myPollList, setPollList] = useState([]);
   let [myParticipatedList, setParticipatedList] = useState([]);
   const pageSize = 10;

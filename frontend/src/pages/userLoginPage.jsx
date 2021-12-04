@@ -52,7 +52,7 @@ const UserLoginPage = ({ setLogin }) => {
       //login successful
       if (userInput.ok) {
         let result = await userInput.json();
-        sessionStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("user", JSON.stringify(result.user));
         setLogin(true);
         navigate("/");
       } else {

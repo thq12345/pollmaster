@@ -88,7 +88,7 @@ const CreatePollPage = ({ hasUser }) => {
         data[key] = val;
       }
     });
-    data.owner = JSON.parse(sessionStorage.getItem("user"))._id;
+    data.owner = JSON.parse(localStorage.getItem("user"))._id;
     let res = await fetch("/api/polls/create-poll", {
       method: "POST",
       headers: {

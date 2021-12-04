@@ -15,7 +15,7 @@ const hasExpired = (unixTime) => {
 const PollPage = () => {
   let params = useParams();
   let pollId = params.pollId;
-  let user = JSON.parse(sessionStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
   let [poll, setPoll] = useState(null);
   let participatedPolls = user ? user.votedPolls : JSON.parse(localStorage.getItem("participatedPolls"));
   let [updateInterval, setUpdateInterval] = useState(null);
@@ -99,7 +99,7 @@ const PollPage = () => {
         } else {
           let newUser = { ...user };
           newUser.votedPolls = participated;
-          sessionStorage.setItem("user", JSON.stringify(newUser));
+          localStorage.setItem("user", JSON.stringify(newUser));
         }
         let json = await res.json();
         await getPollInfo(pollId);

@@ -34,7 +34,7 @@ const UserRegistrationPage = ({ setLogin }) => {
         firstName: result.user.firstName,
         _id: result.user._id,
       };
-      sessionStorage.setItem("user", JSON.stringify(userObejct));
+      localStorage.setItem("user", JSON.stringify(userObejct));
       setLogin(true);
       navigate("/");
     } else {
