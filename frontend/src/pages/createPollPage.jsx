@@ -7,6 +7,7 @@ import PollOptionInput from "../components/polls/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
 import "../stylesheets/polls/createPollPage.css";
+import "../stylesheets/polls/pollOptionInput.css";
 import PropTypes from "prop-types";
 
 const PUBLICMSG = "This poll will be visible in the list of all polls";
@@ -18,6 +19,7 @@ const CreatePollPage = ({ hasUser }) => {
   let [validated, setValidated] = useState(false);
   let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
   let [isDisable, setDisableButton] = useState(false);
+  let [focus, setFocus] = useState(-1);
 
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
@@ -33,6 +35,12 @@ const CreatePollPage = ({ hasUser }) => {
       handleRedirect("/login");
     }
   }, [hasUser]);
+
+  useEffect(() => {
+    if (focus !== -1 && focus < options.length) {
+      document.querySelector(`#pollOption-${focus}`).focus();
+    }
+  }, [focus]);
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
@@ -63,10 +71,11 @@ const CreatePollPage = ({ hasUser }) => {
     });
   };
 
-  const addPollOptions = () => {
+  const addPollOptions = (value) => {
     let newOptions = [...options];
-    newOptions.push("");
+    newOptions.push(value);
     setOptions(newOptions);
+    setFocus(newOptions.length - 1);
   };
 
   const handleFormSubmit = async (e) => {
@@ -116,10 +125,29 @@ const CreatePollPage = ({ hasUser }) => {
             <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
           </Form.Group>
 
-          <div className="poll-options">{renderPollOptions()}</div>
-          <Button className="add-poll-options-button" onClick={addPollOptions}>
+          <div className="poll-options mt-5">{renderPollOptions()}</div>
+
+          <Form.Group className="mb-3" style={{ marginLeft: "3.5em", marginRight: "4em" }} controlId="placeholderInput">
+            <Form.Label>Add option</Form.Label>
+            <Form.Control
+              type="text"
+              value=""
+              onChange={(e) => {
+                addPollOptions(e.currentTarget.value);
+              }}
+              placeholder="Type here to add new option"
+            />
+            <Form.Control.Feedback type="invalid">The option prompt cannot be empty</Form.Control.Feedback>
+          </Form.Group>
+
+          {/* <Button
+            className="add-poll-options-button"
+            onClick={() => {
+              addPollOptions("");
+            }}
+          >
             <FontAwesomeIcon icon={faPlus} />
-          </Button>
+          </Button> */}
         </div>
 
         <hr />
@@ -138,9 +166,9 @@ const CreatePollPage = ({ hasUser }) => {
               aria-label="Select publicity"
             >
               <option value={true}>Public</option>
-              <option value={false}>Unlisted</option>
+              <option value={false}>Private</option>
             </Form.Select>
-            <Form.Text>{publicityMsg}</Form.Text>
+            <Form.Text style={{ color: "rgba(0, 0, 0, 0.75)" }}>{publicityMsg}</Form.Text>
           </Form.Group>
         </div>
 
