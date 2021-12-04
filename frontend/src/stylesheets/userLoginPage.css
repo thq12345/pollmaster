@@ -3,13 +3,11 @@
   display: inline;
 }
 
-.row {
+.mainRow {
   width: 980px;
   margin: 0 auto;
 }
-.col {
-  padding: 20px;
-}
+
 .main-child {
   width: 400px;
 }

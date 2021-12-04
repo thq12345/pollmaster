@@ -41,7 +41,7 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
             value={value}
             onChange={onValueChange}
             name="options"
-            placeholder="What does this option mean?"
+            placeholder="Enter an option for your poll"
           />
           <Form.Control.Feedback type="invalid">The option prompt cannot be empty</Form.Control.Feedback>
         </Form.Group>

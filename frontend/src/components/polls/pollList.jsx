@@ -4,7 +4,6 @@ import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
 import "../../stylesheets/polls/pollList.css";
 import PropTypes from "prop-types";
-import SearchBar from "../searchBar";
 
 const sortFcn = (a, b, sortIndex, order) => {
   return order * (a[sortIndex] - b[sortIndex]);

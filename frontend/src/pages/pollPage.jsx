@@ -143,6 +143,14 @@ const PollPage = () => {
     });
   };
 
+  const renderVoteInstruction = () => {
+    if (!expired && votedIdx == -1) {
+      return <div>To vote: Choose one of the options and click the Submit Vote button.</div>;
+    } else {
+      return null;
+    }
+  };
+
   const renderVoteButton = () => {
     if (expired) {
       return <div style={{ fontSize: "1.5em" }}>This poll has already ended</div>;
@@ -151,7 +159,7 @@ const PollPage = () => {
     } else {
       return (
         <Button disabled={votedIdx !== -1} onClick={handleVote}>
-          Vote
+          Submit Vote
         </Button>
       );
     }
@@ -163,6 +171,7 @@ const PollPage = () => {
         {poll ? (
           <>
             <h1 className="title">{poll.title}</h1>
+            <div style={{ width: "70%", margin: "0 auto" }}>{renderVoteInstruction()}</div>
             <div style={{ width: "70%", margin: "0 auto" }}>
               <ListGroup className="mb-2">{poll ? renderPollOptions() : null}</ListGroup>
               {showResult ? <div style={{ float: "right" }}>Total votes: {poll.totalVotes}</div> : null}
