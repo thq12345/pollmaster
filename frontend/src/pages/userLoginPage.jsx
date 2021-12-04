@@ -66,12 +66,8 @@ const UserLoginPage = ({ setLogin }) => {
   };
 
   return (
-
-    <div className="main-container">
-      <Row className="mainRow">
-
     <div className="UserLoginPage main-container">
-
+      <Row className="mainRow">
         <Col>
           <div id="loginPurpose" className="main-child">
             <h2>Poll Master</h2>
