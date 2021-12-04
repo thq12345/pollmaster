@@ -4,7 +4,6 @@ import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
 import "../../stylesheets/polls/pollList.css";
 import PropTypes from "prop-types";
-import SearchBar from "../searchBar";
 
 const sortFcn = (a, b, sortIndex, order) => {
   return order * (a[sortIndex] - b[sortIndex]);
@@ -23,6 +22,12 @@ const PollList = ({ polls, pagesize }) => {
     setPage(pageNumber);
   };
 
+  const paginationKeyboardClick = (e) => {
+    if (e.key === "Enter") {
+      e.currentTarget.click();
+    }
+  };
+
   const renderPagination = () => {
     return (
       <Pagination className="mb-0">
@@ -30,42 +35,48 @@ const PollList = ({ polls, pagesize }) => {
           onClick={() => {
             handleChangePage(1);
           }}
+          onKeyUp={paginationKeyboardClick}
         />
         <Pagination.Prev
           disabled={page === 1}
           onClick={() => {
             handleChangePage(page - 1);
           }}
+          onKeyUp={paginationKeyboardClick}
         />
         <Pagination.Item
           active={page === 1}
           onClick={() => {
             handleChangePage(1);
           }}
+          onKeyUp={paginationKeyboardClick}
         >
           {1}
         </Pagination.Item>
         {pagination}
-        {maxPageNumber > 1 ? (
+        {maxPageNumber > 1 && (
           <Pagination.Item
             active={page === maxPageNumber}
             onClick={() => {
               handleChangePage(maxPageNumber);
             }}
+            onKeyUp={paginationKeyboardClick}
           >
             {maxPageNumber}
           </Pagination.Item>
-        ) : null}
+        )}
         <Pagination.Next
           disabled={page === maxPageNumber}
           onClick={() => {
             handleChangePage(page + 1);
           }}
+          onKeyUp={paginationKeyboardClick}
         />
         <Pagination.Last
           onClick={() => {
             handleChangePage(maxPageNumber);
           }}
+          onKeyUp={paginationKeyboardClick}
         />
       </Pagination>
     );
@@ -82,6 +93,7 @@ const PollList = ({ polls, pagesize }) => {
           onClick={() => {
             handleChangePage(number);
           }}
+          onKeyUp={paginationKeyboardClick}
         >
           <div className="paginator">{number}</div>
         </Pagination.Item>
@@ -121,11 +133,8 @@ const PollList = ({ polls, pagesize }) => {
     <Container className="PollList">
       <div style={{ width: "70%", margin: "0 auto" }}>
         {polls.length !== 0 ? (
-          <div className="mb-3">
-            <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
-          </div>
+          <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
         ) : null}
-
         <ListGroup>{renderPollList()}</ListGroup>
         {renderPagination()}
       </div>

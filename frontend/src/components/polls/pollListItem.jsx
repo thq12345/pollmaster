@@ -26,6 +26,9 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
       onMouseOver={() => {
         onHover(idx);
       }}
+      onFocus={() => {
+        onHover(idx);
+      }}
       action
       tabIndex="0"
       onClick={() => {
