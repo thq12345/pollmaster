@@ -1,16 +1,16 @@
 .PollOptionInput .delete-poll-option-button {
   margin-top: 1em;
-  padding: 0 0.75em;
-  height: 2em;
+  padding: 0.25em 0.5em;
+  white-space: nowrap;
   align-self: center;
 }
 .PollOptionInput .button-placeholder {
-  width: 2.5em;
+  width: 6.55em;
 }
 .PollOptionInput.poll-option {
   display: flex;
 }
 .PollOptionInput .poll-option-field {
-  width: 90%;
+  width: 100%;
   margin-left: 1em;
 }

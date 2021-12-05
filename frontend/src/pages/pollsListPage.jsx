@@ -26,7 +26,7 @@ const PollsListPage = () => {
 
   return (
     <div className="PollListPage">
-      <div style={{ marginLeft: "2em" }}>
+      <div style={{ width: "80%", margin: "0 auto" }}>
         <BackButton to="/" />
       </div>
       <h1 style={{ textAlign: "center" }}>Public Polls</h1>

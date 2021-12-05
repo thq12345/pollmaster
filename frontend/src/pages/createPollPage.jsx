@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,17 @@ import PropTypes from "prop-types";
 const PUBLICMSG = "This poll will be visible in the list of all polls";
 const UNLISTEDMSG = "This poll will not appear in the list of all polls, but still accessible through the URL";
 
+let timeout = null;
+const throttle = (callback, delay) => {
+  return (...params) => {
+    if (timeout) return;
+    callback.call(null, ...params);
+    timeout = setTimeout(() => {
+      timeout = null;
+    }, delay);
+  };
+};
+
 const CreatePollPage = ({ hasUser }) => {
   let [options, setOptions] = useState([""]);
   let [message, setMessage] = useState(null);
@@ -20,6 +31,20 @@ const CreatePollPage = ({ hasUser }) => {
   let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
   let [isDisable, setDisableButton] = useState(false);
   let [focus, setFocus] = useState(-1);
+
+  // const throttle = useCallback((callback, delay) => {
+  //   let timeout = null;
+  //   return (e) => {
+  //     if (!timeout) {
+  //       timeout = setTimeout(() => {
+  //         timeout = null;
+  //         callback.call(null, e);
+  //       }, delay);
+  //     } else {
+  //       console.log("throttled");
+  //     }
+  //   };
+  // }, []);
 
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
@@ -125,19 +150,18 @@ const CreatePollPage = ({ hasUser }) => {
             <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
           </Form.Group>
 
-          <div className="poll-options mt-5">{renderPollOptions()}</div>
+          <div className="poll-options mt-5 mb-1">{renderPollOptions()}</div>
 
-          <Form.Group className="mb-3" style={{ marginLeft: "3.5em", marginRight: "4em" }} controlId="placeholderInput">
+          <Form.Group className="mb-3" style={{ marginLeft: "6.8em" }} controlId="placeholderInput">
             <Form.Label>Add option</Form.Label>
             <Form.Control
               type="text"
               value=""
-              onChange={(e) => {
+              onChange={throttle((e) => {
                 addPollOptions(e.currentTarget.value);
-              }}
-              placeholder="Type here to add new option"
+              }, 500)}
+              placeholder="Type here to start new option"
             />
-            <Form.Control.Feedback type="invalid">The option prompt cannot be empty</Form.Control.Feedback>
           </Form.Group>
 
           {/* <Button

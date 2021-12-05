@@ -1,3 +1,8 @@
+.PollList {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .PollList .paginator {
   width: 1em;
   text-align: center;

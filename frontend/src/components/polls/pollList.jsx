@@ -130,15 +130,13 @@ const PollList = ({ polls, pagesize }) => {
   };
 
   return (
-    <Container className="PollList">
-      <div style={{ width: "70%", margin: "0 auto" }}>
-        {polls.length !== 0 ? (
-          <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
-        ) : null}
-        <ListGroup>{renderPollList()}</ListGroup>
-        {renderPagination()}
-      </div>
-    </Container>
+    <div className="PollList">
+      {polls.length !== 0 ? (
+        <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
+      ) : null}
+      <ListGroup>{renderPollList()}</ListGroup>
+      {renderPagination()}
+    </div>
   );
 };
 
