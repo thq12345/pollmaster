@@ -13,7 +13,7 @@ import NavigationBar from "./components/navBar";
 import NotFound from "./pages/notFoundPage";
 import { useNavigate } from "react-router";
 import NotFoundPage from "./pages/notFoundPage";
-// import { useNavigate } from "react-router-dom";
+import NeedPermissionPage from "./pages/needPermissionPage";
 
 function App() {
   const [userIsLogin, setLogin] = useState(
@@ -21,12 +21,12 @@ function App() {
   );
 
   const userLogout = () => {
-    // if(window.location.href==="http://localhost:3000/profile"){
-    //   useNavigate("/");
-    // }
+    localStorage.setItem("user", null);
+    useNavigate("/");
     localStorage.setItem("user", null);
     setLogin(false);
   };
+
 
   // const directToNotFound = () => {
   //   useNavigate("/NotFound");
@@ -45,7 +45,8 @@ function App() {
               <Route path="/login" element={<UserLoginPage setLogin={setLogin} />} />
               <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
               <Route path="/not-found" element={<NotFound to="/" />} />
-              <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NotFound to="/" />} />
+              <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to = "/"/>} />
+
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />
             </Routes>

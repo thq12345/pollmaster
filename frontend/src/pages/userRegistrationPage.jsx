@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import ToastMessage from "../components/toastMessage";
 import InvalidFeedback from "../components/InvalidFeedback";
 import "../stylesheets/registrationPage.css";
 

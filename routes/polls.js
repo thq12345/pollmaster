@@ -71,6 +71,7 @@ router.get("/:pollId/vote", async (req, res) => {
   res.status(statusCode).json({ message: message });
 });
 
+//Create poll
 router.post("/create-poll", async (req, res) => {
   let newPoll = { owner: req.body.owner, title: req.body.title, public: req.body.public === "true" };
   newPoll.options = req.body.options.map((value) => {
@@ -91,6 +92,35 @@ router.post("/create-poll", async (req, res) => {
   await dbManager.update("users", queryFilter, user);
 
   res.json({ message: "Successfully started your poll", newPollId: response.insertedId });
+});
+
+//delte poll
+router.get("/:pollId/delete", async (req,res) => {
+  let pollId = { _id: ObjectId(req.params.pollId) };
+
+  //delete poll
+  try{
+    await dbManager.destroy("polls", pollId);
+
+    // update user createdPoll
+    let userId = req.query.userId;
+    if (userId !== "null") {
+      // update user votedPolls
+      let queryFilter = { _id: userId };
+      let users = await dbManager.read("users", queryFilter);
+      let user =   users[0];
+      if(user.createdPolls.includes(pollId)){
+        let itemIndex =  user.createdPolls.indexOf(pollId);
+        user.createdPolls = user.createdPolls.splice(itemIndex,1);
+        await dbManager.update("users", queryFilter, user);
+        res.json({ message: "Successfully removed your poll"});}
+    }
+  } catch(e){
+    let statusCode = 500;
+    let message = "Unable to delete post";
+    res.status(statusCode).json({ message: message });
+  }
+
 });
 
 module.exports = router;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const NotFoundPage = ({ to, delay }) => {
+const NeedPermissionPage = ({ to, delay }) => {
   let navigate = useNavigate();
   let [redirecting, setRedirecting] = useState(false);
 
@@ -22,16 +22,16 @@ const NotFoundPage = ({ to, delay }) => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "2em" }}>
-      <h1>Sorry! Cannot find the page you asked for</h1>
+      <h1>Sorry! You need to be logged in to see this page</h1>
       <h2>You will be redirected back to home in a few seconds...</h2>
       <a href="/"> Click me if not redirecting...</a>
     </div>
   );
 };
 
-NotFoundPage.propTypes = {
+NeedPermissionPage.propTypes = {
   to: PropTypes.string,
   delay: PropTypes.number,
 };
 
-export default NotFoundPage;
+export default NeedPermissionPage;

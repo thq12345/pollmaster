@@ -142,6 +142,7 @@ const CreatePollPage = ({ hasUser }) => {
     <div className="CreatePollPage">
       <BackButton to="/" />
       <h1 className="mb-3 title">Create New Poll</h1>
+      <div>Note: You cannot edit poll after it is created!</div>
       <Form noValidate validated={validated} ref={formRef} className="rounded form" onSubmit={handleFormSubmit}>
         <div className="p-4 mb-2">
           <Form.Group className="mb-3" controlId="pollTitle">

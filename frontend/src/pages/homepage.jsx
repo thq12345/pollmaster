@@ -7,7 +7,7 @@ const Homepage = () => {
   return (
     <div className="Homepage">
       <h1 className="title">Welcome to Poll Master!</h1>
-      <h2 className="detail"> A platform to create and share polls quick and efficently.</h2>
+      <h2 className="detail"> A platform to create and share polls quickly and efficently.</h2>
       <div className="detail">***Maybe a video example of creating a poll***</div>
       <Row>
         <Col className="prompt" xs={6}>
