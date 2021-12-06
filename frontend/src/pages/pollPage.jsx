@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
 import Loader from "../components/loader";
+import SharePollSelections from "../components/polls/sharePoll";
 import "../stylesheets/polls/pollPage.css";
 
 const hasExpired = (unixTime) => {
@@ -166,10 +167,14 @@ const PollPage = () => {
     if (expired) {
       return <div style={{ fontSize: "1.5em" }}>This poll has already ended</div>;
     } else if (votedIdx !== -1) {
-      return <Button disabled>You have voted</Button>;
+      return (
+        <Button className="voteButton" disabled>
+          You have voted
+        </Button>
+      );
     } else {
       return (
-        <Button disabled={votedIdx !== -1} onClick={handleVote}>
+        <Button className="voteButton" disabled={votedIdx !== -1} onClick={handleVote}>
           Submit Vote
         </Button>
       );
@@ -193,9 +198,7 @@ const PollPage = () => {
 
             <div className="mt-5">
               <div className="text-center mb-2">Share this poll:</div>
-
-              <div className="text-center mb-3">{window.location.href}</div>
-              <div className="center">
+              <div className="center sharePollChoices">
                 <Button
                   aria-label="copy poll link"
                   className="copy-poll-link-button p-2 btn"
@@ -204,8 +207,9 @@ const PollPage = () => {
                     setSuccess("Poll link copied");
                   }}
                 >
-                  <FontAwesomeIcon icon={faCopy} /> Copy Link
+                  <FontAwesomeIcon icon={faCopy} /> Copy URL Link
                 </Button>
+                <SharePollSelections title={poll.title} url={window.location.href} />
               </div>
             </div>
           </>
@@ -226,8 +230,7 @@ const PollPage = () => {
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
           <Button onClick={deletePost}>
-            <FontAwesomeIcon icon={faTrashAlt} />
-            Delete Post
+            <FontAwesomeIcon icon={faTrashAlt} /> Delete Poll
           </Button>
         ) : null}
       </div>
