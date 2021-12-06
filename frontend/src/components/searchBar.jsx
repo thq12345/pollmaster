@@ -21,8 +21,13 @@ const SearchBar = () => {
           className="searchInput"
           aria-label="Search"
         />
-        <Button className="me-2" href={searchText ? `/polls/${searchText}` : "#"} variant="outline-success">
-          {searchIcon}
+        <Button
+          className="me-2"
+          href={searchText ? `/polls/${searchText}` : "#"}
+          variant="outline-light"
+          style={{ whiteSpace: "nowrap" }}
+        >
+          {searchIcon} Search
         </Button>
       </Form>
     </div>

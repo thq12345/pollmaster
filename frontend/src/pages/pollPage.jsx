@@ -190,11 +190,12 @@ const PollPage = () => {
                 {renderVoteButton()}
               </div>
             </div>
-            <div className="center mt-5">
-              <div>
-                <div className="text-center">Share this poll:</div>
 
-                <div>{window.location.href}</div>
+            <div className="mt-5">
+              <div className="text-center mb-2">Share this poll:</div>
+
+              <div className="text-center mb-3">{window.location.href}</div>
+              <div className="center">
                 <Button
                   aria-label="copy poll link"
                   className="copy-poll-link-button p-2 btn"

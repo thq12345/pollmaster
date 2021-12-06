@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import PollOptionInput from "../components/polls/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
@@ -31,20 +29,6 @@ const CreatePollPage = ({ hasUser }) => {
   let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
   let [isDisable, setDisableButton] = useState(false);
   let [focus, setFocus] = useState(-1);
-
-  // const throttle = useCallback((callback, delay) => {
-  //   let timeout = null;
-  //   return (e) => {
-  //     if (!timeout) {
-  //       timeout = setTimeout(() => {
-  //         timeout = null;
-  //         callback.call(null, e);
-  //       }, delay);
-  //     } else {
-  //       console.log("throttled");
-  //     }
-  //   };
-  // }, []);
 
   let formRef = useRef();
   // let [redirect, setRedirect] = useState(null);
@@ -193,7 +177,7 @@ const CreatePollPage = ({ hasUser }) => {
               <option value={true}>Public</option>
               <option value={false}>Private</option>
             </Form.Select>
-            <Form.Text style={{ color: "rgba(0, 0, 0, 0.75)" }}>{publicityMsg}</Form.Text>
+            <Form.Text style={{ color: "black" }}>{publicityMsg}</Form.Text>
           </Form.Group>
         </div>
 

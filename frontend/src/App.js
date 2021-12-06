@@ -27,7 +27,6 @@ function App() {
     setLogin(false);
   };
 
-
   // const directToNotFound = () => {
   //   useNavigate("/NotFound");
   // };
@@ -45,7 +44,7 @@ function App() {
               <Route path="/login" element={<UserLoginPage setLogin={setLogin} />} />
               <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
               <Route path="/not-found" element={<NotFound to="/" />} />
-              <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to = "/"/>} />
+              <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to="/" />} />
 
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, ListGroup, Pagination } from "react-bootstrap";
+import { ListGroup, Pagination } from "react-bootstrap";
 import PollListItem from "./pollListItem";
 import PollListHeader from "./pollListHeader";
 import "../../stylesheets/polls/pollList.css";

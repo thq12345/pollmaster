@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../../stylesheets/polls/pollOptionInput.css";
@@ -19,8 +19,6 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
 
   return (
     <div className="PollOptionInput poll-option">
-      {/* <Row>
-        <Col xs={3} md={2}> */}
       {deletable ? (
         <Button
           onClick={() => {
@@ -34,8 +32,6 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
       ) : (
         <div className="button-placeholder"></div>
       )}
-      {/* </Col>
-        <Col xs={9} md={10}> */}
       <div className="poll-option-field">
         <Form.Group className="mb-3" controlId={`pollOption-${index}`}>
           <Form.Label>Option {index + 1}</Form.Label>
@@ -46,13 +42,10 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
             onChange={onValueChange}
             name="options"
             placeholder="Type in your option prompt here"
-
           />
           <Form.Control.Feedback type="invalid">The option prompt cannot be empty</Form.Control.Feedback>
         </Form.Group>
       </div>
-      {/* </Col>
-      </Row> */}
     </div>
   );
 };
