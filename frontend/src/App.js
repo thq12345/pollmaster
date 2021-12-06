@@ -9,7 +9,7 @@ import UserLoginPage from "./pages/userLoginPage";
 import UserRegistrationPage from "./pages/userRegistrationPage";
 import UserProfilePage from "./pages/userProfilePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavigationBar from "./components/navBar";
+import NavigationBar from "./components/navbar/navBar";
 import NotFound from "./pages/notFoundPage";
 import { useNavigate } from "react-router";
 import NotFoundPage from "./pages/notFoundPage";
@@ -45,11 +45,10 @@ function App() {
               <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
               <Route path="/not-found" element={<NotFound to="/" />} />
               <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to="/" />} />
-
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />
             </Routes>
-          </Router>
+          </Router>      
         </Container>
       </main>
       <footer>

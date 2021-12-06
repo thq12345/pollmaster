@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import GuestGreeting from "./guestGreeting";
 import UserGreeting from "./userGreeting";
 import PropTypes from "prop-types";
-import SearchBar from "./searchBar";
+import SearchBar from "../searchBar";
 
 const NavigationBar = ({ userIsLogin, userLogout }) => {
   const guestGreeting = <GuestGreeting />;

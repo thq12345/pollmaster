@@ -1,12 +1,52 @@
-main {
+.App main {
   margin-top: 5em;
 }
+
+.navbar {
+  background-color: rgba(116, 66, 200, 1);
+}
+
 footer {
-  margin-top: 3em;
   padding: 1em 0 2em 0;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgb(26, 18, 70);
   height: 10px;
+  color: whitesmoke;
+  bottom: 0px;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.btn-primary {
+  background-color: rgba(120, 81, 169, 1);
+  border-color: rgba(154, 78, 174, 0.9);
+}
+
+.btn-primary:disabled {
+  background-color: rgba(120, 81, 169, 1);
+  border-color: rgba(154, 78, 174, 0.9);
+}
+
+.btn-primary:hover {
+  background-color: rgb(112, 68, 165);
+  border-color: rgba(154, 78, 174, 0.9);
+}
+
+.btn-primary:focus {
+  background-color: rgb(79, 47, 117);
+}
+
+.progress-bar {
+  background-color: rgba(116, 66, 200, 1);
+}
+
+.page-link {
+  color: rgba(116, 66, 200, 1);
+}
+
+.page-item.active .page-link {
+  background-color: rgba(116, 66, 200, 1);
+  border-color: rgba(116, 66, 200, 1);
 }
 
 /* .container {

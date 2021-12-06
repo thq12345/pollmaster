@@ -17,8 +17,22 @@
   justify-content: center;
 }
 
+.PollPage .copy-poll-link-button {
+  border-radius: 25px;
+  height: 38px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 350;
+}
+
 .PollPage .vote-ratio-bar {
   padding: 5px 0 5px 1em;
+}
+
+.PollPage .voteButton {
+  padding: 0.5em;
+  width: 25%;
+  font-size: 18px;
 }
 
 .PollPage .text-center {
