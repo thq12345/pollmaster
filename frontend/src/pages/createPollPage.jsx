@@ -137,7 +137,7 @@ const CreatePollPage = ({ hasUser }) => {
 
           <div className="poll-options mt-5 mb-1">{renderPollOptions()}</div>
 
-          <Form.Group className="mb-3" style={{ marginLeft: "6.8em" }} controlId="placeholderInput">
+          <Form.Group className="mb-3" style={{ marginLeft: "3.25em" }} controlId="placeholderInput">
             <Form.Label>Add option</Form.Label>
             <Form.Control
               type="text"

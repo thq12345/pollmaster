@@ -21,13 +21,14 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
     <div className="PollOptionInput poll-option">
       {deletable ? (
         <Button
+          aria-label="Remove option"
           onClick={() => {
             onDeletePollOption(index);
           }}
           className="delete-poll-option-button"
           variant="danger"
         >
-          <FontAwesomeIcon icon={faTimes} /> <span className="ms-1">Remove</span>
+          <FontAwesomeIcon icon={faTimes} />
         </Button>
       ) : (
         <div className="button-placeholder"></div>

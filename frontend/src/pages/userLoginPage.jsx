@@ -67,6 +67,7 @@ const UserLoginPage = ({ setLogin }) => {
 
   return (
     <div className="UserLoginPage main-container">
+      <h1 className="visually-hidden">User login page</h1>
       <Row className="mainRow">
         <Col>
           <div id="loginPurpose" className="main-child">
@@ -106,14 +107,15 @@ const UserLoginPage = ({ setLogin }) => {
                     type={passwordShown ? "text" : "password"}
                     placeholder="Password"
                   />
-                  <button
+                  <Button
+                    aria-label={passwordShown ? "hide password" : "show password"}
                     id="eyeButton"
                     onClick={(e) => {
                       togglePassword(e);
                     }}
                   >
                     {eye}
-                  </button>
+                  </Button>
                   {errorMessage ? <InvalidFeedback message={errorMessage} setMessage={setMessage} /> : null}
                 </InputGroup>
                 <Form.Control.Feedback type="invalid"> Please enter a correct password</Form.Control.Feedback>
