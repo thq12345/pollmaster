@@ -6,6 +6,7 @@ const { ObjectId } = require("mongodb");
 //create new users
 router.post("/registration", async (req, res) => {
   let data = {};
+  
   let userObejct = {
     _id: req.body.email.toLowerCase(),
     firstName: req.body.firstName,
@@ -20,7 +21,7 @@ router.post("/registration", async (req, res) => {
     data.user = userObejct;
   } catch (err) {
     if (err.code === 11000) {
-      statusCode = 500;
+      statusCode = 400;
       data.message = "Email is already in use";
     } else {
       statusCode = 500;
@@ -50,7 +51,7 @@ router.post("/login", async (req, res) => {
         votedPolls: user.votedPolls,
       };
     } else {
-      statusCode = 500;
+      statusCode = 401;
       data.message = "Incorrect email/password";
     }
   } catch (err) {

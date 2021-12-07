@@ -82,7 +82,7 @@ const UserLoginPage = ({ setLogin }) => {
         <Col>
           <div id="loginPurpose" className="main-child">
             <h2>Poll Master</h2>
-            <div>A platform to create and share polls quickly and efficently.</div>
+            <h3>A platform to create and share polls quickly and efficently.</h3>
             <div>Log in to create and keep track of your polls.</div>
           </div>
         </Col>
