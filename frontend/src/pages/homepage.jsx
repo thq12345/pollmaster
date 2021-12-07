@@ -68,6 +68,7 @@ const Homepage = () => {
           <Loader variant="info" />
         </div>
       )}
+      {/* {pollList && <PollCarousel polls={pollList} />} */}
       {pollList ? <PollList polls={pollList} pagesize={5} /> : <div className="text-center">Unable to load list</div>}
     </div>
   );
