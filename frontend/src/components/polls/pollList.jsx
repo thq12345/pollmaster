@@ -145,6 +145,12 @@ PollList.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string,
       title: PropTypes.string,
+      options: PropTypes.arrayOf(
+        PropTypes.shape({
+          prompt: PropTypes.string,
+          votes: PropTypes.number,
+        })
+      ),
       owner: PropTypes.string,
       totalVotes: PropTypes.number,
       public: PropTypes.bool,

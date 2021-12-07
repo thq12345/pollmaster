@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../../stylesheets/polls/pollOptionInput.css";
 import PropTypes from "prop-types";
 
-const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, onDeletePollOption }) => {
+const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, focus, index, onDeletePollOption }) => {
   let [value, setValue] = useState(defaultValue);
-
+  let ref = useRef();
   const onValueChange = (event) => {
     onOptionValueChange(index, event.target.value);
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    if (focus) {
+      ref.current.focus();
+    }
+  }, [focus]);
 
   useEffect(() => {
     setValue(defaultValue);
@@ -38,6 +44,7 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, index, 
           <Form.Label>Option {index + 1}</Form.Label>
           <Form.Control
             required
+            ref={ref}
             type="text"
             value={value}
             onChange={onValueChange}
@@ -55,6 +62,7 @@ PollOptionInput.propTypes = {
   defaultValue: PropTypes.string,
   onOptionValueChange: PropTypes.func,
   deletable: PropTypes.bool,
+  focus: PropTypes.bool,
   index: PropTypes.number,
   onDeletePollOption: PropTypes.func,
 };

@@ -39,6 +39,10 @@ footer {
   background-color: rgba(116, 66, 200, 1);
 }
 
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
 .page-link {
   color: rgba(116, 66, 200, 1);
 }
@@ -46,6 +50,10 @@ footer {
 .page-item.active .page-link {
   background-color: rgba(116, 66, 200, 1);
   border-color: rgba(116, 66, 200, 1);
+}
+
+.App ::placeholder {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* .container {

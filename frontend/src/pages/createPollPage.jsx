@@ -46,11 +46,11 @@ const CreatePollPage = ({ hasUser }) => {
     }
   }, [hasUser]);
 
-  useEffect(() => {
-    if (focus !== -1 && focus < options.length) {
-      document.querySelector(`#pollOption-${focus}`).focus();
-    }
-  }, [focus]);
+  // useEffect(() => {
+  //   if (focus !== -1 && focus < options.length) {
+  //     document.querySelector(`#pollOption-${focus}`).focus();
+  //   }
+  // }, [focus]);
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
@@ -74,6 +74,7 @@ const CreatePollPage = ({ hasUser }) => {
           defaultValue={el}
           onOptionValueChange={handleOptionValueChange}
           deletable={options.length > 1}
+          focus={idx === focus}
           index={idx}
           onDeletePollOption={handleDeletePollOption}
         />

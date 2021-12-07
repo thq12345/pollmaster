@@ -3,14 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, Button, Row, Col } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import {
+  // useNavigate,
+  Link,
+} from "react-router-dom";
 import PropTypes from "prop-types";
 import InvalidFeedback from "../components/InvalidFeedback";
 import ToastMessage from "../components/toastMessage";
 import "../stylesheets/userLoginPage.css";
 
 const UserLoginPage = ({ setLogin }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let [passwordShown, setPasswordShown] = useState(false);
   let [validated, setValidated] = useState(false);
   let [isDisable, setDisableButton] = useState(false);
