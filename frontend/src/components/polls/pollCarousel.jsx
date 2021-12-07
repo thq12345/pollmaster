@@ -41,24 +41,7 @@ const PollCarousel = ({ polls }) => {
 
   return (
     <Container>
-      <Carousel
-        nextIcon={
-          <span
-            aria-hidden="true"
-            className="carousel-control-next-icon"
-            onKeyPress={() => {
-              console.log("hi");
-            }}
-            style={{ color: "black" }}
-          />
-        }
-        indicators={false}
-        onSelect={(idx) => {
-          handleSelect(idx);
-        }}
-        keyboard={false}
-        interval={20000}
-      >
+      <Carousel indicators={false} pause="hover">
         {renderCarousel()}
       </Carousel>
     </Container>
