@@ -95,32 +95,34 @@ router.post("/create-poll", async (req, res) => {
 });
 
 //delte poll
-router.get("/:pollId/delete", async (req,res) => {
+router.delete("/:pollId", async (req, res) => {
   let pollId = { _id: ObjectId(req.params.pollId) };
 
   //delete poll
-  try{
+  try {
+    let [poll] = await dbManager.read("polls", pollId);
+    let userId = poll.owner;
     await dbManager.destroy("polls", pollId);
 
     // update user createdPoll
-    let userId = req.query.userId;
-    if (userId !== "null") {
+    if (userId) {
       // update user votedPolls
       let queryFilter = { _id: userId };
       let users = await dbManager.read("users", queryFilter);
-      let user =   users[0];
-      if(user.createdPolls.includes(pollId)){
-        let itemIndex =  user.createdPolls.indexOf(pollId);
-        user.createdPolls = user.createdPolls.splice(itemIndex,1);
-        await dbManager.update("users", queryFilter, user);
-        res.json({ message: "Successfully removed your poll"});}
+      let user = users[0];
+      user.createdPolls = user.createdPolls.filter((el) => {
+        return el !== req.params.pollId;
+      });
+      await dbManager.update("users", queryFilter, user);
+      res.json({ message: "Successfully removed your poll" });
+    } else {
+      throw new Error("Error deleting poll");
     }
-  } catch(e){
+  } catch (e) {
     let statusCode = 500;
-    let message = "Unable to delete post";
+    let message = "Unable to delete poll";
     res.status(statusCode).json({ message: message });
   }
-
 });
 
 module.exports = router;

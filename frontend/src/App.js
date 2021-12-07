@@ -23,7 +23,7 @@ function App() {
   const userLogout = () => {
     localStorage.setItem("user", null);
     useNavigate("/");
-    localStorage.setItem("user", null);
+    // localStorage.setItem("user", null);
     setLogin(false);
   };
 
@@ -48,11 +48,12 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />
             </Routes>
-          </Router>      
+          </Router>
         </Container>
       </main>
       <footer>
-        <div>Poll Master © 2021</div>
+        <div>Poll Master 2021</div>
+        <div>Created by Felix Chung and Fengrui Gan</div>
       </footer>
     </div>
   );

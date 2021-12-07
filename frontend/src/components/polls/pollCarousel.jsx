@@ -13,6 +13,7 @@ import { Carousel, Container } from "react-bootstrap";
 const PollCarousel = ({ polls }) => {
   const [index, setIndex] = useState(0);
   let [hoverIdx, setHoverIdx] = useState(-1);
+  let [page, setPage] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -22,13 +23,13 @@ const PollCarousel = ({ polls }) => {
     setHoverIdx(idx);
   };
 
-  const renderPollList = () => {
+  const renderCarousel = () => {
     return polls.map((el, idx) => {
       return (
         <Carousel.Item key={idx}>
-          <PollListItem key={idx} poll={el} idx={idx} onHover={handleHover} hover={hoverIdx === idx} />
-          <PollListItem key={idx} poll={el} idx={idx + 1} onHover={handleHover} hover={hoverIdx === idx} />
-          <PollListItem key={idx} poll={el} idx={idx + 2} onHover={handleHover} hover={hoverIdx === idx} />
+          <PollListItem poll={el} idx={idx} onHover={handleHover} hover={hoverIdx === idx} />
+          {/* <PollListItem poll={el} idx={idx + 1} onHover={handleHover} hover={hoverIdx === idx} /> */}
+          {/* <PollListItem poll={el} idx={idx + 2} onHover={handleHover} hover={hoverIdx === idx} /> */}
         </Carousel.Item>
       );
     });
@@ -36,23 +37,25 @@ const PollCarousel = ({ polls }) => {
 
   return (
     <Container>
-      <Carousel>{renderPollList()}</Carousel>
+      <Carousel>{renderCarousel()}</Carousel>
     </Container>
   );
 };
 
 PollCarousel.propTypes = {
-  polls: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      title: PropTypes.string,
-      owner: PropTypes.string,
-      totalVotes: PropTypes.number,
-      public: PropTypes.bool,
-      createdAt: PropTypes.number,
-      ttl: PropTypes.number,
-    })
-  ),
+  polls: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    options: PropTypes.arrayOf({
+      prompt: PropTypes.string,
+      votes: PropTypes.number,
+    }),
+    owner: PropTypes.string,
+    totalVotes: PropTypes.number,
+    public: PropTypes.bool,
+    createdAt: PropTypes.number,
+    ttl: PropTypes.number,
+  }),
 };
 
 export default PollCarousel;

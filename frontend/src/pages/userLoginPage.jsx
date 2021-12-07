@@ -2,10 +2,11 @@ import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Form, InputGroup, Button, Row, Col, Nav } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Form, InputGroup, Button, Row, Col } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import InvalidFeedback from "../components/InvalidFeedback";
+import ToastMessage from "../components/toastMessage";
 import "../stylesheets/userLoginPage.css";
 
 const UserLoginPage = ({ setLogin }) => {
@@ -15,6 +16,7 @@ const UserLoginPage = ({ setLogin }) => {
   let [isDisable, setDisableButton] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let [errorMessage, setMessage] = useState(null);
+  let [error, setError] = useState(null);
   let [isInvalid, setInvalid] = useState(false);
   let loginFormRef = useRef();
 
@@ -33,7 +35,7 @@ const UserLoginPage = ({ setLogin }) => {
 
     //validated form
     if (form.checkValidity() === false) {
-      setDisableButton(false);
+      // setDisableButton(false);
       e.stopPropagation();
     } else {
       //create json
@@ -54,20 +56,25 @@ const UserLoginPage = ({ setLogin }) => {
         let result = await userInput.json();
         localStorage.setItem("user", JSON.stringify(result.user));
         setLogin(true);
-        navigate("/");
+        // navigate("/");
+        window.history.back();
       } else {
-        let result = await userInput.json();
-        setValidated(false);
-        setInvalid(true);
-        setMessage(result.message);
-        setDisableButton(false);
+        try {
+          let result = await userInput.json();
+          setValidated(false);
+          setInvalid(true);
+          setMessage(result.message);
+        } catch (e) {
+          setError("Unable to connect server, please try again later");
+        }
       }
     }
+    setDisableButton(false);
   };
 
   return (
     <div className="UserLoginPage main-container">
-      <h1 className="visually-hidden">User login page</h1>
+      <h1 className="visually-hidden">User login</h1>
       <Row className="mainRow">
         <Col>
           <div id="loginPurpose" className="main-child">
@@ -124,14 +131,15 @@ const UserLoginPage = ({ setLogin }) => {
                 Log In
               </Button>
             </Form>
-            <Nav className="create-account">
-              <Nav.Link href="/registration" id="createAccountText">
-                Click to Create an Account
-              </Nav.Link>
-            </Nav>
+            {/* <Nav className="create-account"> */}
+            <Link to="/registration" id="createAccountText">
+              Click to Create an Account
+            </Link>
+            {/* </Nav> */}
           </div>
         </Col>
       </Row>
+      {error ? <ToastMessage show={true} message={error} setMessage={setError} type="Error" /> : null}
     </div>
   );
 };

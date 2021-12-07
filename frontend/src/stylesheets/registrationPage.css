@@ -19,3 +19,9 @@
 .UserRegistrationPage .register-button {
   padding: 3px;
 }
+
+.UserRegistrationPage #loginText {
+  font-size: 13px;
+  padding: 0;
+  margin: 2px;
+}

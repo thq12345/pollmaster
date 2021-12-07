@@ -32,7 +32,7 @@ const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
         ) : (
           <span className="icon-placeholder"></span>
         )}
-        End time
+        Expiration time
       </ListGroup.Item>
       <ListGroup.Item
         action

@@ -27,6 +27,7 @@ const PollPage = () => {
   let [error, setError] = useState(null);
   let [expired, setExpired] = useState(false);
   let [showResult, setShowResult] = useState(false);
+  let [disabled, setDisabled] = useState(false);
   let navigate = useNavigate();
 
   const getPollInfo = async (pollId) => {
@@ -86,12 +87,14 @@ const PollPage = () => {
   };
 
   const handleVote = async () => {
+    setDisabled(true);
     if (selectedIdx === -1) {
       setMessage("Please select one of the options to vote");
       return;
     }
     try {
       let res = await fetch(`/api/polls/${pollId}/vote?optionIdx=${selectedIdx}&userId=${user ? user._id : null}`);
+      let json = await res.json();
       if (res.ok) {
         let participated = participatedPolls || {};
         participated[pollId] = selectedIdx;
@@ -102,20 +105,22 @@ const PollPage = () => {
           newUser.votedPolls = participated;
           localStorage.setItem("user", JSON.stringify(newUser));
         }
-        let json = await res.json();
         await getPollInfo(pollId);
         setSuccess(json.message);
         setShowResult(true);
+      } else {
+        setError(json.message);
       }
     } catch (e) {
-      setError(e.message);
+      setError("Unable to connect to server, please try again later");
     }
+    setDisabled(false);
   };
 
   // Problem: Post deleted but keep render in the backend
-  const deletePost = async () => {
+  const deletePoll = async () => {
     if (user && poll && poll.owner === user._id) {
-      let res = await fetch(`/api/polls/${pollId}/delete?&userId=${user ? user._id : null}`);
+      let res = await fetch(`/api/polls/${pollId}`, { method: "delete" });
       if (res.ok) {
         handleRedirect();
         navigate("/polls");
@@ -174,7 +179,7 @@ const PollPage = () => {
       );
     } else {
       return (
-        <Button className="voteButton" disabled={votedIdx !== -1} onClick={handleVote}>
+        <Button className="voteButton" disabled={disabled || votedIdx !== -1} onClick={handleVote}>
           Submit Vote
         </Button>
       );
@@ -199,16 +204,6 @@ const PollPage = () => {
             <div className="mt-5">
               <div className="text-center mb-2">Share this poll:</div>
               <div className="center sharePollChoices">
-                <Button
-                  aria-label="copy poll link"
-                  className="copy-poll-link-button p-2 btn"
-                  onClick={async () => {
-                    await navigator.clipboard.writeText(window.location.href);
-                    setSuccess("Poll link copied");
-                  }}
-                >
-                  <FontAwesomeIcon icon={faCopy} /> Copy URL Link
-                </Button>
                 <SharePollSelections title={poll.title} url={window.location.href} />
               </div>
             </div>
@@ -229,7 +224,7 @@ const PollPage = () => {
       <div className="topButtons">
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
-          <Button onClick={deletePost}>
+          <Button onClick={deletePoll}>
             <FontAwesomeIcon icon={faTrashAlt} /> Delete Poll
           </Button>
         ) : null}
