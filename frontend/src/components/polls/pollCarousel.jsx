@@ -37,7 +37,9 @@ const PollCarousel = ({ polls }) => {
 
   return (
     <Container>
-      <Carousel>{renderCarousel()}</Carousel>
+      <Carousel indicators={false} pause="hover">
+        {renderCarousel()}
+      </Carousel>
     </Container>
   );
 };
