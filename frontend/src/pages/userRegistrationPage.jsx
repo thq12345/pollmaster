@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,12 +8,19 @@ import InvalidFeedback from "../components/InvalidFeedback";
 import "../stylesheets/registrationPage.css";
 import ToastMessage from "../components/toastMessage";
 
-const UserRegistrationPage = ({ setLogin }) => {
+// From stack overflow
+const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const UserRegistrationPage = ({ hasUser, setLogin }) => {
   let [passwordShown, setPasswordShown] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let registrationFormRef = useRef();
   let navigate = useNavigate();
-  let [emailErrorMessage, setEmailErrorMessage] = useState(null);
+  let [emailErrorMessage, setEmailErrorMessage] = useState();
   let [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   let [isDisable, setDisableButton] = useState(false);
   let [EmailIsInvalid, setEmailInvalid] = useState(false);
@@ -23,6 +30,12 @@ const UserRegistrationPage = ({ setLogin }) => {
   let [confirmPasswordIsInvalid, setConfirmPasswordIsInvalid] = useState(false);
   let [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (hasUser) {
+      navigate("/");
+    }
+  });
 
   //Show password when check box
   const togglePassword = (e) => {
@@ -51,12 +64,20 @@ const UserRegistrationPage = ({ setLogin }) => {
 
     let validFirstName = data.firstName.match(/^[A-Za-z]+$/);
     let validLastName = data.lastName.match(/^[A-Za-z]+$/);
+    let validEmail = validateEmail(data.email);
     let strongPassword = data.password.match(/^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=]).*$/);
     let machPassword = data.confirmPassword === data.password;
-    let inputsValid = validFirstName && validLastName && strongPassword && machPassword;
+    let inputsValid = validFirstName && validLastName && validEmail && strongPassword && machPassword;
 
     setFirstNameIsInvalid(!validFirstName);
     setLastNameIsInvalid(!validLastName);
+    setEmailInvalid(!validEmail);
+    if (data.email === "") {
+      setEmailErrorMessage("Please enter a valid email");
+    } else if (!validEmail) {
+      setEmailErrorMessage("Email format incorrect");
+    }
+
     if (!machPassword) {
       setConfirmPasswordErrorMessage("Passwords do not match");
       setConfirmPasswordIsInvalid(true);
@@ -66,6 +87,8 @@ const UserRegistrationPage = ({ setLogin }) => {
         "Password should be at least 6 character long contain at least one lowercase character, one uppercase character, and one special character"
       );
       setPasswordIsInvalid(true);
+    } else {
+      setPasswordErrorMessage(null);
     }
 
     if (!inputsValid) {
@@ -86,7 +109,8 @@ const UserRegistrationPage = ({ setLogin }) => {
         };
         localStorage.setItem("user", JSON.stringify(userObejct));
         setLogin(true);
-        navigate("/");
+        // navigate("/");
+        window.history.back();
       } else if (registrationInput.status === 400) {
         setDisableButton(false);
         let result = await registrationInput.json();
@@ -104,9 +128,11 @@ const UserRegistrationPage = ({ setLogin }) => {
     <div className="UserRegistrationPage main-container">
       <h1 className="registrationTitle">Registration</h1>
 
-      <Form className="registration-form" ref={registrationFormRef} onSubmit={submitHandler}>
+      <Form className="registration-form" noValidate ref={registrationFormRef} onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="registrationFirstName">
-          <Form.Label>First Name*</Form.Label>
+          <Form.Label>
+            First Name<span className="required-label">*</span>
+          </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
               required
@@ -120,7 +146,9 @@ const UserRegistrationPage = ({ setLogin }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="registrationLastName">
-          <Form.Label>Last Name*</Form.Label>
+          <Form.Label>
+            Last Name<span className="required-label">*</span>
+          </Form.Label>
           <InputGroup hasValidation>
             <Form.Control required isInvalid={lastNameIsInvalid} name="lastName" type="text" placeholder="Last Name" />
             <InvalidFeedback message={"Please enter a valid last name"} />
@@ -128,13 +156,17 @@ const UserRegistrationPage = ({ setLogin }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="registrationEmail">
-          <Form.Label>Email*</Form.Label>
+          <Form.Label>
+            Email<span className="required-label">*</span>
+          </Form.Label>
           <Form.Control isInvalid={EmailIsInvalid} required name="email" type="email" placeholder="Email Address" />
           {emailErrorMessage ? <InvalidFeedback message={emailErrorMessage} setMessage={setEmailErrorMessage} /> : null}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="registrationPassword">
-          <Form.Label>Password*</Form.Label>
+          <Form.Label>
+            Password<span className="required-label">*</span>
+          </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
               isInvalid={passwordIsInvalid}
@@ -156,12 +188,19 @@ const UserRegistrationPage = ({ setLogin }) => {
             </Button>
             {passwordErrorMessage ? (
               <InvalidFeedback message={passwordErrorMessage} setMessage={setPasswordErrorMessage} />
-            ) : null}
+            ) : (
+              <Form.Text>
+                Password should be at least 6 character long contain at least one lowercase character, one uppercase
+                character, and one special character
+              </Form.Text>
+            )}
           </InputGroup>
           <Form.Control.Feedback type="invalid"> Please enter a password</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="confirmRegistrationPassword">
-          <Form.Label>Confirm Password*</Form.Label>
+          <Form.Label>
+            Confirm Password<span className="required-label">*</span>
+          </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
               required
@@ -175,7 +214,7 @@ const UserRegistrationPage = ({ setLogin }) => {
               <InvalidFeedback message={confirmPasswordErrorMessage} setMessage={setConfirmPasswordIsInvalid} />
             ) : null}
           </InputGroup>
-          <Form.Control.Feedback type="invalid"> Please enter a password</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid"> Please confirm your password</Form.Control.Feedback>
         </Form.Group>
         <Button className="registerButton" variant="primary" type="submit" disabled={isDisable}>
           Create an Account
@@ -193,6 +232,7 @@ const UserRegistrationPage = ({ setLogin }) => {
 };
 
 UserRegistrationPage.propTypes = {
+  hasUser: PropTypes.bool,
   setLogin: PropTypes.func,
 };
 

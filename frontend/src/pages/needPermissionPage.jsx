@@ -23,7 +23,7 @@ const NeedPermissionPage = ({ to, delay }) => {
   return (
     <div style={{ textAlign: "center", marginTop: "2em" }}>
       <h1>Sorry! You need to be logged in to see this page</h1>
-      <h2>You will be redirected back to home in a few seconds...</h2>
+      <h2>You will be redirected in a few seconds...</h2>
       <a href="/"> Click me if not redirecting...</a>
     </div>
   );

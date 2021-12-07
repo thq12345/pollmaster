@@ -134,7 +134,13 @@ const PollList = ({ polls, pagesize }) => {
       {polls.length !== 0 ? (
         <PollListHeader onChangeSortIndex={handleChangeSortIndex} sortIndex={sortIndex} sortOrder={sortOrder} />
       ) : null}
-      <ListGroup>{renderPollList()}</ListGroup>
+      <ListGroup
+        onMouseLeave={() => {
+          setHoverIdx(-1);
+        }}
+      >
+        {renderPollList()}
+      </ListGroup>
       {renderPagination()}
     </div>
   );

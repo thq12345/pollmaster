@@ -3,7 +3,8 @@
 }
 
 .PollListItem.hover {
-  background-color: rgba(0, 100, 150, 0.3);
+  /* background-color: rgba(0, 100, 150, 0.3); */
+  background-color: rgba(120, 81, 169, 0.3);
 }
 
 .PollListItem.expired {

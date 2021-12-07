@@ -20,6 +20,11 @@
   padding: 3px;
 }
 
+.UserRegistrationPage .required-label {
+  margin-left: 0.2em;
+  color: red;
+}
+
 .UserRegistrationPage #loginText {
   font-size: 13px;
   padding: 0;

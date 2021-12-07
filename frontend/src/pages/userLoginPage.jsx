@@ -1,19 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, Button, Row, Col } from "react-bootstrap";
-import {
-  // useNavigate,
-  Link,
-} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import InvalidFeedback from "../components/InvalidFeedback";
 import ToastMessage from "../components/toastMessage";
 import "../stylesheets/userLoginPage.css";
 
-const UserLoginPage = ({ setLogin }) => {
-  // const navigate = useNavigate();
+const UserLoginPage = ({ hasUser, setLogin }) => {
+  const navigate = useNavigate();
   let [passwordShown, setPasswordShown] = useState(false);
   let [validated, setValidated] = useState(false);
   let [isDisable, setDisableButton] = useState(false);
@@ -22,6 +19,12 @@ const UserLoginPage = ({ setLogin }) => {
   let [error, setError] = useState(null);
   let [isInvalid, setInvalid] = useState(false);
   let loginFormRef = useRef();
+
+  useEffect(() => {
+    if (hasUser) {
+      navigate("/");
+    }
+  }, [hasUser]);
 
   //Show password when check box
   const togglePassword = (e) => {
@@ -60,7 +63,7 @@ const UserLoginPage = ({ setLogin }) => {
         localStorage.setItem("user", JSON.stringify(result.user));
         setLogin(true);
         // navigate("/");
-        window.history.back();
+        // window.history.back();
       } else {
         try {
           let result = await userInput.json();

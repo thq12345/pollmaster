@@ -23,7 +23,6 @@ function App() {
   const userLogout = () => {
     localStorage.setItem("user", null);
     useNavigate("/");
-    // localStorage.setItem("user", null);
     setLogin(false);
   };
 
@@ -41,9 +40,13 @@ function App() {
               <Route path="/polls/new-poll" element={<CreatePollPage hasUser={userIsLogin} />} />
               <Route path="/polls/:pollId" element={<PollPage />} />
               <Route path="/polls" element={<PollsListPage />} />
-              <Route path="/login" element={<UserLoginPage setLogin={setLogin} />} />
-              <Route path="/registration" element={<UserRegistrationPage setLogin={setLogin} />} />
+              <Route path="/login" element={<UserLoginPage hasUser={userIsLogin} setLogin={setLogin} />} />
+              <Route
+                path="/registration"
+                element={<UserRegistrationPage hasUser={userIsLogin} setLogin={setLogin} />}
+              />
               <Route path="/not-found" element={<NotFound to="/" />} />
+              <Route path="/need-permission" element={<NeedPermissionPage to="/login" />} />
               <Route path="/profile" element={userIsLogin ? <UserProfilePage /> : <NeedPermissionPage to="/" />} />
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />

@@ -5,7 +5,6 @@ import PollOptionInput from "../components/polls/pollOptionInput";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
 import "../stylesheets/polls/createPollPage.css";
-import "../stylesheets/polls/pollOptionInput.css";
 import PropTypes from "prop-types";
 
 const PUBLICMSG = "This poll will be visible in the list of all polls";
@@ -42,7 +41,7 @@ const CreatePollPage = ({ hasUser }) => {
   useEffect(() => {
     if (!hasUser) {
       // setRedirect("/login");
-      handleRedirect("/login");
+      handleRedirect("/need-permission");
     }
   }, [hasUser]);
 
