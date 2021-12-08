@@ -111,7 +111,7 @@ router.delete("/:pollId", async (req, res) => {
       let users = await dbManager.read("users", queryFilter);
       let user = users[0];
       user.createdPolls = user.createdPolls.filter((el) => {
-        return el !== req.params.pollId;
+        return el.toString() !== req.params.pollId;
       });
       await dbManager.update("users", queryFilter, user);
       res.json({ message: "Successfully removed your poll" });
