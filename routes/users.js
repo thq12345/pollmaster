@@ -6,7 +6,7 @@ const { ObjectId } = require("mongodb");
 //create new users
 router.post("/registration", async (req, res) => {
   let data = {};
-  
+
   let userObejct = {
     _id: req.body.email.toLowerCase(),
     firstName: req.body.firstName,

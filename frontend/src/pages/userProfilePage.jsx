@@ -30,9 +30,13 @@ const UserProfilePage = () => {
       </h1>
 
       <h2 className="profileTitle">My Polls</h2>
-      <PollList pagesize={pageSize} polls={myPollList} />
+      <div className="mb-5">
+        <PollList pagesize={pageSize} polls={myPollList} />
+      </div>
       <h2 className="profileTitle">Participated Polls</h2>
-      <PollList pagesize={pageSize} polls={myParticipatedList} />
+      <div className="mb-5">
+        <PollList pagesize={pageSize} polls={myParticipatedList} />
+      </div>
     </div>
   );
 };
