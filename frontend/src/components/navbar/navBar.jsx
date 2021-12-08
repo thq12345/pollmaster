@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import GuestGreeting from "./guestGreeting";
 import UserGreeting from "./userGreeting";
 import PropTypes from "prop-types";
@@ -17,7 +18,9 @@ const NavigationBar = ({ userIsLogin, userLogout }) => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
             {/* <Nav.Link href="/">Home</Nav.Link> */}
-            <Nav.Link href="/polls/new-poll">Create poll</Nav.Link>
+            <Link className="nav-link" to="/polls/new-poll">
+              Create poll
+            </Link>
             <SearchBar />
           </Nav>
           {userIsLogin ? userGreeting : guestGreeting}

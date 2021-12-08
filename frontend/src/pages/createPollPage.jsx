@@ -35,6 +35,7 @@ const CreatePollPage = ({ hasUser }) => {
   let navigate = useNavigate();
 
   const handleRedirect = (to) => {
+    if (timeout) clearTimeout(timeout);
     navigate(to);
   };
 

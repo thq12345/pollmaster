@@ -1,18 +1,19 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 const GuestGreeting = () => {
   return (
     <Nav>
-      <Nav.Link href="/login">
+      <Link className="nav-link" to="/login">
         <FontAwesomeIcon icon={faSignInAlt} /> Sign in
-      </Nav.Link>
-      <Nav.Link href="/registration">
+      </Link>
+      <Link className="nav-link" to="/registration">
         <FontAwesomeIcon icon={faUserPlus} />
         Sign up
-      </Nav.Link>
+      </Link>
     </Nav>
   );
 };

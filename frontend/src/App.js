@@ -32,10 +32,10 @@ function App() {
 
   return (
     <div className="App">
-      <NavigationBar userIsLogin={userIsLogin} userLogout={userLogout} />
-      <main>
-        <Container>
-          <Router>
+      <Router>
+        <NavigationBar userIsLogin={userIsLogin} userLogout={userLogout} />
+        <main>
+          <Container>
             <Routes>
               <Route path="/polls/new-poll" element={<CreatePollPage hasUser={userIsLogin} />} />
               <Route path="/polls/:pollId" element={<PollPage />} />
@@ -51,9 +51,9 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="*" element={<NotFoundPage to="/" />} />
             </Routes>
-          </Router>
-        </Container>
-      </main>
+          </Container>
+        </main>
+      </Router>
       <footer>
         <div>Poll Master 2021</div>
         <div>Created by Felix Chung and Fengrui Gan</div>

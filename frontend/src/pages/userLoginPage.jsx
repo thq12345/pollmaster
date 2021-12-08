@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup, Button, Row, Col } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import InvalidFeedback from "../components/InvalidFeedback";
 import ToastMessage from "../components/toastMessage";
+import useRedirect from "../hooks/useRedirect";
 import "../stylesheets/userLoginPage.css";
 
 const UserLoginPage = ({ hasUser, setLogin }) => {
-  const navigate = useNavigate();
+  const redirect = useRedirect();
   let [passwordShown, setPasswordShown] = useState(false);
   let [validated, setValidated] = useState(false);
   let [isDisable, setDisableButton] = useState(false);
@@ -22,7 +23,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
 
   useEffect(() => {
     if (hasUser) {
-      navigate("/");
+      redirect();
     }
   }, [hasUser]);
 
@@ -62,8 +63,6 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
         let result = await userInput.json();
         localStorage.setItem("user", JSON.stringify(result.user));
         setLogin(true);
-        // navigate("/");
-        // window.history.back();
       } else {
         try {
           let result = await userInput.json();
@@ -151,6 +150,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
 };
 
 UserLoginPage.propTypes = {
+  hasUser: PropTypes.bool,
   setLogin: PropTypes.func,
 };
 

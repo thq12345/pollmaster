@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import InvalidFeedback from "../components/InvalidFeedback";
-import "../stylesheets/registrationPage.css";
 import ToastMessage from "../components/toastMessage";
+import useRedirect from "../hooks/useRedirect";
+import "../stylesheets/registrationPage.css";
 
 // From stack overflow
 const validateEmail = (email) => {
@@ -19,7 +20,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
   let [passwordShown, setPasswordShown] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let registrationFormRef = useRef();
-  let navigate = useNavigate();
+  const redirect = useRedirect();
   let [emailErrorMessage, setEmailErrorMessage] = useState();
   let [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   let [isDisable, setDisableButton] = useState(false);
@@ -33,7 +34,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
 
   useEffect(() => {
     if (hasUser) {
-      navigate("/");
+      redirect();
     }
   });
 
@@ -109,8 +110,6 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
         };
         localStorage.setItem("user", JSON.stringify(userObejct));
         setLogin(true);
-        // navigate("/");
-        window.history.back();
       } else if (registrationInput.status === 400) {
         setDisableButton(false);
         let result = await registrationInput.json();

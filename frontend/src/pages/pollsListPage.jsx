@@ -4,7 +4,6 @@ import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 import "../stylesheets/userProfilepage.css";
 
-
 const PollsListPage = () => {
   let [pollList, setPollList] = useState([]);
   let [loading, setLoading] = useState(false);
@@ -28,7 +27,7 @@ const PollsListPage = () => {
   return (
     <div className="PollListPage">
       <div style={{ width: "80%", margin: "0 auto" }}>
-        <BackButton to="/" />
+        <BackButton />
       </div>
       <h1 style={{ textAlign: "center" }}>Public Polls</h1>
       <div style={{ textAlign: "center" }}>Click a poll title and vote in some of the polls.</div>

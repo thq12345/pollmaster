@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, Button, Row, Col, ProgressBar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { useParams, useNavigate } from "react-router-dom";
 import ToastMessage from "../components/toastMessage";
 import BackButton from "../components/backButton";
@@ -221,7 +221,7 @@ const PollPage = () => {
   return (
     <div className="PollPage">
       {/* <div className="back-button"> */}
-      <div className="topButtons">
+      <div className="topButtons mb-4">
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
           <Button onClick={deletePoll}>
