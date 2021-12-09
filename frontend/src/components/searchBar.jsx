@@ -14,7 +14,7 @@ const SearchBar = () => {
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
   const navigateToResultPage = () => {
-    navigate(`/polls?${inputRef.current.value}`);
+    navigate(`/polls?search=${inputRef.current.value}`);
   };
 
   return (
@@ -37,7 +37,7 @@ const SearchBar = () => {
           aria-label="Search"
         />
         <Button
-          onClick={(e) => {
+          onClick={() => {
             navigateToResultPage();
           }}
           aria-label="search"
