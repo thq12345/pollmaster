@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, Button, Row, Col, ProgressBar } from "react-bootstrap";
+import { ListGroup, Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { useParams, useNavigate } from "react-router-dom";
@@ -148,7 +148,16 @@ const PollPage = () => {
           {expired || showResult ? (
             <Row>
               <Col className="vote-ratio-bar">
-                <ProgressBar now={votesRatio[idx]} />
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    aria-valuenow={votesRatio[idx]}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style={{ width: `${votesRatio[idx]}%` }}
+                  ></div>
+                </div>
+                {/* <ProgressBar now={votesRatio[idx]} /> */}
               </Col>
               <Col xs={1}>
                 <div className="vote-count">{el.votes}</div>

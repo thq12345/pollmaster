@@ -6,10 +6,17 @@ import "../../stylesheets/polls/pollListHeader.css";
 import PropTypes from "prop-types";
 
 const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
+  const generateLabel = (index) => {
+    if (sortIndex === index) {
+      if (sortOrder === -1) return "currently sorted descending";
+      else return "currently sorted ascending";
+    } else return "currently not sorted";
+  };
   return (
     <ListGroup className="PollListHeader" horizontal style={{ display: "inline-flex", whiteSpace: "nowrap" }}>
       <ListGroup.Item
         action
+        aria-label={`sort by start time, ${generateLabel("createdAt")}`}
         onClick={() => {
           onChangeSortIndex("createdAt");
         }}
@@ -23,6 +30,7 @@ const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
       </ListGroup.Item>
       <ListGroup.Item
         action
+        aria-label={`sort by expiration time, ${generateLabel("ttl")}`}
         onClick={() => {
           onChangeSortIndex("ttl");
         }}
@@ -36,6 +44,7 @@ const PollListHeader = ({ onChangeSortIndex, sortIndex, sortOrder }) => {
       </ListGroup.Item>
       <ListGroup.Item
         action
+        aria-label={`sort by total votes, ${generateLabel("totalVotes")}`}
         onClick={() => {
           onChangeSortIndex("totalVotes");
         }}

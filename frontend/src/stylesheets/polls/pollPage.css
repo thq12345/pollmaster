@@ -3,7 +3,7 @@
   margin-bottom: 1em;
 }
 .PollPage .selected-option {
-  background-color: rgba(0, 100, 150, 0.3);
+  background-color: rgba(120, 81, 169, 0.3);
 }
 .PollPage .vote-count {
   float: right;

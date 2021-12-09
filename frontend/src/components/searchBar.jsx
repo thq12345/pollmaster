@@ -1,33 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 
 const SearchBar = () => {
   let [searchText, setSearchText] = useState("");
+  let navigate = useNavigate();
+  let inputRef = useRef();
   let getSearchId = (val) => {
     setSearchText(val.target.value);
   };
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
+  const navigateToResultPage = () => {
+    navigate(`/polls?${inputRef.current.value}`);
+  };
+
   return (
     <div className="searchBarContainer">
-      <Form className="d-flex searchBar">
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          navigateToResultPage();
+        }}
+        className="d-flex searchBar"
+      >
         <Form.Control
           value={searchText}
           onChange={getSearchId}
           type="search"
+          name="search"
+          ref={inputRef}
           placeholder="Search for a poll"
           className="searchInput"
           aria-label="Search"
         />
         <Button
+          onClick={(e) => {
+            navigateToResultPage();
+          }}
+          aria-label="search"
           className="me-2"
-          href={searchText ? `/polls/${searchText}` : "#"}
           variant="outline-light"
-          style={{ whiteSpace: "nowrap" }}
         >
-          {searchIcon} Search
+          {searchIcon}
         </Button>
       </Form>
     </div>

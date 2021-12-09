@@ -40,7 +40,7 @@ const PollList = ({ polls, pagesize }) => {
         <Pagination.Prev
           disabled={page === 1}
           onClick={() => {
-            handleChangePage(page - 1);
+            handleChangePage(Math.max(1, page - 1));
           }}
           onKeyUp={paginationKeyboardClick}
         />
@@ -68,7 +68,7 @@ const PollList = ({ polls, pagesize }) => {
         <Pagination.Next
           disabled={page === maxPageNumber}
           onClick={() => {
-            handleChangePage(page + 1);
+            handleChangePage(Math.min(maxPageNumber, page + 1));
           }}
           onKeyUp={paginationKeyboardClick}
         />
