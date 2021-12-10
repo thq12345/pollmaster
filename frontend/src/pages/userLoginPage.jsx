@@ -17,7 +17,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
   let [isDisable, setDisableButton] = useState(false);
   const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
   let [errorMessage, setMessage] = useState(null);
-  let [error, setError] = useState(null);
+  let [error, setError] = useState(window.history.state.usr ? window.history.state.usr.message : null);
   let [isInvalid, setInvalid] = useState(false);
   let loginFormRef = useRef();
 

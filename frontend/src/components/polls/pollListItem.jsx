@@ -32,7 +32,7 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
       action
       tabIndex="0"
       onClick={() => {
-        navigate(`/polls/${poll._id}`);
+        navigate(`/polls/${poll._id}`, { state: { backUrl: window.location.href } });
       }}
     >
       <div>

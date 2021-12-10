@@ -15,10 +15,6 @@ const SharePollSelections = ({ title, url }) => {
   const copyUrl = async () => {
     await navigator.clipboard.writeText(window.location.href);
     setCopyText("Copied URL Link!");
-    // setInterval(async () => {
-    //   setCopyText("Copy URL Link");
-    // }, 3000);
-    // clearInterval();
   };
 
   return (

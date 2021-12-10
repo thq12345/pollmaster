@@ -18,7 +18,9 @@ const validateEmail = (email) => {
 
 const UserRegistrationPage = ({ hasUser, setLogin }) => {
   let [passwordShown, setPasswordShown] = useState(false);
-  const eye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
+  let [confirmShown, setConfirmShown] = useState(false);
+  const passwordEye = <FontAwesomeIcon icon={passwordShown ? faEye : faEyeSlash} />;
+  const confirmEye = <FontAwesomeIcon icon={confirmShown ? faEye : faEyeSlash} />;
   let registrationFormRef = useRef();
   const redirect = useRedirect();
   let [emailErrorMessage, setEmailErrorMessage] = useState();
@@ -42,6 +44,11 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
   const togglePassword = (e) => {
     e.preventDefault();
     setPasswordShown(!passwordShown);
+  };
+
+  const toggleConfirm = (e) => {
+    e.preventDefault();
+    setConfirmShown(!confirmShown);
   };
 
   const clearAllInvalid = () => {
@@ -134,6 +141,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
           </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
+              aria-label="first name"
               required
               isInvalid={firstNameIsInvalid}
               name="firstName"
@@ -149,7 +157,14 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
             Last Name<span className="required-label">*</span>
           </Form.Label>
           <InputGroup hasValidation>
-            <Form.Control required isInvalid={lastNameIsInvalid} name="lastName" type="text" placeholder="Last Name" />
+            <Form.Control
+              aria-label="last name"
+              required
+              isInvalid={lastNameIsInvalid}
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+            />
             <InvalidFeedback message={"Please enter a valid last name"} />
           </InputGroup>
         </Form.Group>
@@ -158,7 +173,14 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
           <Form.Label>
             Email<span className="required-label">*</span>
           </Form.Label>
-          <Form.Control isInvalid={EmailIsInvalid} required name="email" type="email" placeholder="Email Address" />
+          <Form.Control
+            aria-label="email"
+            required
+            isInvalid={EmailIsInvalid}
+            name="email"
+            type="email"
+            placeholder="Email Address"
+          />
           {emailErrorMessage ? <InvalidFeedback message={emailErrorMessage} setMessage={setEmailErrorMessage} /> : null}
         </Form.Group>
 
@@ -168,14 +190,14 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
           </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
-              isInvalid={passwordIsInvalid}
+              aria-label="password"
               required
+              isInvalid={passwordIsInvalid}
               autoComplete="on"
               name="password"
               type={passwordShown ? "text" : "password"}
               placeholder="Password"
             />
-
             <Button
               aria-label={passwordShown ? "hide password" : "show password"}
               id="eyeButton"
@@ -183,7 +205,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
                 togglePassword(e);
               }}
             >
-              {eye}
+              {passwordEye}
             </Button>
             {passwordErrorMessage ? (
               <InvalidFeedback message={passwordErrorMessage} setMessage={setPasswordErrorMessage} />
@@ -202,13 +224,23 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
           </Form.Label>
           <InputGroup hasValidation>
             <Form.Control
+              aria-label="confirm password"
               required
               isInvalid={confirmPasswordIsInvalid}
               autoComplete="off"
               name="confirmPassword"
-              type={passwordShown ? "text" : "password"}
+              type={confirmShown ? "text" : "password"}
               placeholder="Confirm Password"
             />
+            <Button
+              aria-label={confirmShown ? "hide confirmed password" : "show confirmed password"}
+              id="eyeButton"
+              onClick={(e) => {
+                toggleConfirm(e);
+              }}
+            >
+              {confirmEye}
+            </Button>
             {confirmPasswordErrorMessage ? (
               <InvalidFeedback message={confirmPasswordErrorMessage} setMessage={setConfirmPasswordIsInvalid} />
             ) : null}

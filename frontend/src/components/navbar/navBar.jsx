@@ -18,10 +18,15 @@ const NavigationBar = ({ userIsLogin, userLogout }) => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
             {/* <Nav.Link href="/">Home</Nav.Link> */}
+            <Link className="nav-link" to="/polls">
+              All polls
+            </Link>
             <Link className="nav-link" to="/polls/new-poll">
               Create poll
             </Link>
-            <SearchBar />
+            <div className="ms-3">
+              <SearchBar />
+            </div>
           </Nav>
           {userIsLogin ? userGreeting : guestGreeting}
         </Navbar.Collapse>

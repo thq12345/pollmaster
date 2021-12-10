@@ -31,26 +31,18 @@ const CreatePollPage = ({ hasUser }) => {
   let [focus, setFocus] = useState(-1);
 
   let formRef = useRef();
-  // let [redirect, setRedirect] = useState(null);
   let navigate = useNavigate();
 
-  const handleRedirect = (to) => {
+  const handleRedirect = (to, redirectState) => {
     if (timeout) clearTimeout(timeout);
-    navigate(to);
+    navigate(to, redirectState || null);
   };
 
   useEffect(() => {
     if (!hasUser) {
-      // setRedirect("/login");
-      handleRedirect("/need-permission");
+      handleRedirect("/login", { state: { message: "Please login to create your poll" } });
     }
   }, [hasUser]);
-
-  // useEffect(() => {
-  //   if (focus !== -1 && focus < options.length) {
-  //     document.querySelector(`#pollOption-${focus}`).focus();
-  //   }
-  // }, [focus]);
 
   const handleOptionValueChange = (idx, value) => {
     let newOptions = options.map((el, i) => {
