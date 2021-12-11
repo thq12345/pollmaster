@@ -233,7 +233,7 @@ const PollPage = () => {
       <div className="topButtons mb-4">
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
-          <Button onClick={deletePoll}>
+          <Button id="deleteButton" onClick={deletePoll}>
             <FontAwesomeIcon icon={faTrashAlt} /> Delete Poll
           </Button>
         ) : null}
