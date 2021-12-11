@@ -1,6 +1,6 @@
 .App main {
   margin-top: 5em;
-  color: rgb(26, 18, 70);
+  color: rgb(19, 11, 64);
   font-family: "Poppins", sans-serif;
 }
 
@@ -15,7 +15,7 @@
 footer {
   padding: 1em 0 2em 0;
   text-align: center;
-  background-color: rgb(26, 18, 70);
+  background-color: rgb(19, 11, 64);
   color: whitesmoke;
   bottom: 0px;
   width: 100%;
@@ -23,17 +23,17 @@ footer {
 }
 
 .btn-primary {
-  background-color: rgba(120, 81, 169, 1);
-  border-color: rgba(154, 78, 174, 0.9);
+  background-color: rgb(113, 47, 199);
+  border-color: rgba(135, 21, 167, 0.9);
 }
 
 .btn-primary:disabled {
-  background-color: rgba(120, 81, 169, 1);
-  border-color: rgba(154, 78, 174, 0.9);
+  background-color: rgb(113, 47, 199);
+  border-color: rgba(135, 21, 167, 0.9);
 }
 
 .btn-primary:hover {
-  background-color: rgb(112, 68, 165);
+  background-color: rgb(96, 42, 167);
   border-color: rgba(154, 78, 174, 0.9);
 }
 
@@ -50,7 +50,7 @@ footer {
 }
 
 .page-link {
-  color: rgba(116, 66, 200, 1);
+  color: rgb(113, 47, 199);
 }
 
 .page-item.active .page-link {
