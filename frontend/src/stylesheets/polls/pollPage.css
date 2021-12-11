@@ -1,6 +1,11 @@
+.PollPage {
+  font-family: "Helvetica", sans-serif;
+}
+
 .PollPage .title {
   text-align: center;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 .PollPage .selected-option {
   background-color: rgba(120, 81, 169, 0.3);

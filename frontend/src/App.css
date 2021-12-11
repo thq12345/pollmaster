@@ -1,9 +1,15 @@
 .App main {
   margin-top: 5em;
+  color: rgb(26, 18, 70);
+  font-family: "Poppins", sans-serif;
 }
 
 .navbar {
   background-color: rgb(79, 47, 117);
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  padding-top: 0.5em;
+  padding-bottom: 0.4em;
 }
 
 footer {

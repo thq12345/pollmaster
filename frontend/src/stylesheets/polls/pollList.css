@@ -1,6 +1,7 @@
 .PollList {
   width: 80%;
   margin: 0 auto;
+  font-family: "Helvetica", sans-serif;
 }
 
 .PollList .paginator {
