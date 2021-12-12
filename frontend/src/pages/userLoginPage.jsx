@@ -79,7 +79,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
 
   return (
     <div className="UserLoginPage main-container">
-      <h1 className="visually-hidden">User login</h1>
+      <h1 className="visually-hidden">User login page</h1>
       <Row className="mainRow">
         <Col>
           <div id="loginPurpose" className="main-child">
@@ -90,6 +90,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
         </Col>
         <Col>
           <div className="login-form-field main-child">
+            <h2>Login</h2>
             <Form className="login-form" noValidate validated={validated} ref={loginFormRef} onSubmit={submitHandler}>
               <Form.Group className="mb-3" controlId="userEmail">
                 <Form.Label>Email address</Form.Label>

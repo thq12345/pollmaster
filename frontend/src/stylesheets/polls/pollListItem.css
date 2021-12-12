@@ -4,10 +4,6 @@
   font-weight: 500;
 }
 
-/* .PollListItem .poll-title {
-  
-} */
-
 .PollListItem.hover {
   background-color: rgba(120, 81, 169, 0.3);
 }

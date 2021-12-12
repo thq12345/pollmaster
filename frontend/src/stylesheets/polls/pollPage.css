@@ -21,9 +21,6 @@
   margin-left: 2em;
 }
 
-.PollPage #deleteButton:hover {
-  background-color: #dc3545;
-}
 .PollPage .center {
   display: flex;
   justify-content: center;
@@ -41,7 +38,7 @@
   padding: 5px 0 5px 1em;
 }
 
-.PollPage .voteButton {
+.PollPage .vote-button {
   padding: 0.5em;
   width: 25%;
   font-size: 18px;
@@ -56,7 +53,7 @@
   padding-top: 0.25em;
 }
 
-.PollPage .topButtons {
+.PollPage .top-buttons {
   display: flex;
   margin: 0 auto;
   width: 70%;
@@ -65,4 +62,9 @@
 
 .PollPage #totalVotes {
   float: right;
+}
+
+.PollPage #deleteButton:hover,
+.PollPage #deleteButton:focus {
+  background-color: #dc3545;
 }

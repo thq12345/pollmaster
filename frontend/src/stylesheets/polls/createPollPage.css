@@ -3,6 +3,11 @@
   font-family: Helvetica;
 }
 
+.CreatePollPage {
+  width: 70%;
+  margin: 0 auto;
+}
+
 .CreatePollPage .title {
   text-align: center;
 }
@@ -34,6 +39,8 @@
 .CreatePollPage .submit-button-div {
   display: flex;
   justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
 }
 
 .CreatePollPage .form-select {

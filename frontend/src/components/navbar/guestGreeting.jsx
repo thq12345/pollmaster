@@ -8,10 +8,11 @@ const GuestGreeting = () => {
   return (
     <Nav>
       <Link className="nav-link" to="/login">
-        <FontAwesomeIcon icon={faSignInAlt} /> Sign in
+        <FontAwesomeIcon icon={faSignInAlt} className="me-1" />
+        Sign in
       </Link>
       <Link className="nav-link" to="/registration">
-        <FontAwesomeIcon icon={faUserPlus} />
+        <FontAwesomeIcon icon={faUserPlus} className="me-1" />
         Sign up
       </Link>
     </Nav>

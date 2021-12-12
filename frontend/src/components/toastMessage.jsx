@@ -37,7 +37,7 @@ const ToastMessage = ({ show, message, setMessage, type, delay }) => {
           {renderIcon()}
           <strong className="me-auto ms-2">{type || "Success"}</strong>
         </Toast.Header>
-        <Toast.Body>{message}</Toast.Body>
+        <Toast.Body style={{ backgroundColor: "white" }}>{message}</Toast.Body>
       </Toast>
     </ToastContainer>
   );

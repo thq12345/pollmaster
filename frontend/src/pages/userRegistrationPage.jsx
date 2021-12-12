@@ -200,7 +200,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
             />
             <Button
               aria-label={passwordShown ? "hide password" : "show password"}
-              id="eyeButton"
+              className="eyeButton"
               onClick={(e) => {
                 togglePassword(e);
               }}
@@ -234,7 +234,7 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
             />
             <Button
               aria-label={confirmShown ? "hide confirmed password" : "show confirmed password"}
-              id="eyeButton"
+              className="eyeButton"
               onClick={(e) => {
                 toggleConfirm(e);
               }}
