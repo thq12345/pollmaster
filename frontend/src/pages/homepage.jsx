@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 import "../stylesheets/homepage.css";
+import ToastMessage from "../components/toastMessage";
 
 const randomNum = (max) => {
   return Math.floor(Math.random() * max);
@@ -13,23 +14,32 @@ const randomNum = (max) => {
 const Homepage = () => {
   let [pollList, setPollList] = useState(null);
   let [loading, setLoading] = useState(false);
+  let [error, setError] = useState(null);
+  let [connected, setConnected] = useState(true);
   const featureNumber = 10;
 
   const getPollList = async () => {
-    let res = await fetch("/api/polls");
-    if (res.ok) {
-      let json = await res.json();
+    try {
+      let res = await fetch("/api/polls");
+      if (res.ok) {
+        let json = await res.json();
 
-      json = json.filter((el) => {
-        return new Date().getTime() - el.ttl < 0;
-      });
+        json = json.filter((el) => {
+          return new Date().getTime() - el.ttl < 0;
+        });
 
-      let polls = [];
-      for (let i = 0; i < featureNumber; i++) {
-        polls.push(json[randomNum(json.length)]);
+        let polls = [];
+        for (let i = 0; i < featureNumber; i++) {
+          polls.push(json[randomNum(json.length)]);
+        }
+        setConnected(true);
+        setPollList(polls);
+      } else {
+        setError("Unable to connect to server");
+        setConnected(false);
       }
-
-      setPollList(polls);
+    } catch (err) {
+      setError(err.message);
     }
     setLoading(false);
   };
@@ -64,11 +74,13 @@ const Homepage = () => {
       <h2 className="text-center mb-3">Featured polls</h2>
       {loading && (
         <div className="text-center">
-          <Loader variant="info" />
+          <Loader />
         </div>
       )}
       {/* {pollList && <PollCarousel polls={pollList} />} */}
-      {pollList ? <PollList polls={pollList} pagesize={5} /> : <div className="text-center">Unable to load list</div>}
+      {pollList && <PollList polls={pollList} pagesize={5} />}
+      {error && <ToastMessage show={true} message={error} setMessage={setError} type="Error" />}
+      {!connected && <div className="text-center">Unable to load polls</div>}
     </div>
   );
 };

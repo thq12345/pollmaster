@@ -219,7 +219,7 @@ const PollPage = () => {
           </>
         ) : (
           <div className="mt-5 text-center">
-            <Loader variant="info" />
+            <Loader />
             <div className="loading-text">Loading poll...</div>
           </div>
         )}

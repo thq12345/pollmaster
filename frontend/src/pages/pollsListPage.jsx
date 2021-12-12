@@ -45,7 +45,7 @@ const PollsListPage = () => {
 
       {loading ? (
         <div style={{ textAlign: "center" }}>
-          <Loader variant="info" />
+          <Loader />
 
           <div style={{ fontSize: "2em" }}>Loading polls...</div>
         </div>

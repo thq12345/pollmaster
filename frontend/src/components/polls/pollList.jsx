@@ -141,7 +141,7 @@ const PollList = ({ polls, pagesize }) => {
       >
         {renderPollList()}
       </ListGroup>
-      {renderPagination()}
+      {polls.length !== 0 && renderPagination()}
     </div>
   );
 };

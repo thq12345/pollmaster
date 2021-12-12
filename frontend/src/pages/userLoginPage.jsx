@@ -132,7 +132,7 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
                 </InputGroup>
                 <Form.Control.Feedback type="invalid"> Please enter a correct password</Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" type="submit" disabled={isDisable}>
+              <Button type="submit" disabled={isDisable}>
                 Log In
               </Button>
             </Form>
