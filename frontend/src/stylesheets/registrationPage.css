@@ -3,10 +3,14 @@
   width: 500px;
   display: inline;
 }
-.UserRegistrationPage .registrationTitle {
+
+.UserRegistrationPage .row {
+  width: 980px;
   margin: 0 auto;
-  width: 500px;
-  padding-bottom: 7px;
+}
+
+.UserRegistrationPage .col {
+  padding: 20px;
 }
 
 .UserRegistrationPage h2 {
@@ -16,13 +20,18 @@
 .UserRegistrationPage h3 {
   font-size: 24px;
 }
+.UserRegistrationPage .main-child {
+  width: 400px;
+}
+.UserRegistrationPage .regis-form-field {
+  margin: 0 auto;
+  justify-content: center;
+}
 
 .UserRegistrationPage .registration-form {
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 14px 18px;
-  width: 500px;
-  margin: 0 auto;
 }
 
 .UserRegistrationPage .register-button {
