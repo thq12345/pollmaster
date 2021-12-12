@@ -1,10 +1,14 @@
 .PollListItem {
   padding: 0.5em 1em;
+  font-family: Helvetica;
+  font-weight: 500;
 }
 
+/* .PollListItem .poll-title {
+  
+} */
 
 .PollListItem.hover {
-  /* background-color: rgba(0, 100, 150, 0.3); */
   background-color: rgba(120, 81, 169, 0.3);
 }
 

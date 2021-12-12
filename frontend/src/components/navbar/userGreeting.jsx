@@ -7,25 +7,17 @@ import PropTypes from "prop-types";
 
 const generateGreeting = (firstName) => {
   let time = new Date().getHours();
+  let greeting = "Good night";
   if (time < 5) {
-    return `Go back to sleep, ${firstName}!`;
+    greeting = "Good night";
+  } else if (time < 12) {
+    greeting = "Good morning";
+  } else if (time < 17) {
+    greeting = "Good afternoon";
+  } else if (time < 20) {
+    greeting = "Good evening";
   }
-  if (time < 7) {
-    return `Hi, ${firstName}! You are up early!`;
-  }
-  if (time < 12) {
-    return `Good morning, ${firstName}!`;
-  }
-  if (time == 12) {
-    return `Go eat lunch, ${firstName}!`;
-  }
-  if (time < 17) {
-    return `Good afternoon, ${firstName}!`;
-  }
-  if (time < 20) {
-    return `Good evening, ${firstName}!`;
-  }
-  return `Good night, ${firstName}!`;
+  return `${greeting}, ${firstName}!`;
 };
 
 const UserGreeting = ({ onLogout }) => {

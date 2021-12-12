@@ -144,7 +144,7 @@ const PollPage = () => {
           }}
           key={idx}
         >
-          <div>{el.prompt}</div>
+          <div className="poll-prompt">{el.prompt}</div>
           {expired || showResult ? (
             <Row>
               <Col className="vote-ratio-bar">
@@ -204,7 +204,7 @@ const PollPage = () => {
             <div style={{ width: "70%", margin: "0 auto" }}>{renderVoteInstruction()}</div>
             <div style={{ width: "70%", margin: "0 auto" }}>
               <ListGroup className="mb-2">{poll ? renderPollOptions() : null}</ListGroup>
-              {showResult ? <div style={{ float: "right" }}>Total votes: {poll.totalVotes}</div> : null}
+              {showResult ? <div id="totalVotes">Total votes: {poll.totalVotes}</div> : null}
               <div style={{ marginTop: "5em" }} className="center">
                 {renderVoteButton()}
               </div>

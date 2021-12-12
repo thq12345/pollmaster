@@ -36,14 +36,20 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
       }}
     >
       <div>
-        <div className="fw-bold inline-block">{poll.title}</div>
-        <div className="inline-block float-right">{poll.totalVotes} people participated</div>
+        <div className="inline-block poll-title">{poll.title}</div>
+        <div className="inline-block float-right">
+          <span className="me-1 numbers">{poll.totalVotes}</span> people participated
+        </div>
       </div>
 
       {findDaysRemaining(poll.ttl) >= 0 ? (
-        <div className="float-right mt-1">Days remaining: {findDaysRemaining(poll.ttl)}</div>
+        <div className="float-right mt-1">
+          Days remaining: <span className="ms-1 numbers">{findDaysRemaining(poll.ttl)}</span>
+        </div>
       ) : (
-        <div className="float-right mt-1">expired {-1 * findDaysRemaining(poll.ttl)} day(s) ago</div>
+        <div className="float-right mt-1">
+          expired <span className="ms-1 me-1 numbers">{-1 * findDaysRemaining(poll.ttl)}</span> days ago
+        </div>
       )}
     </ListGroup.Item>
   );

@@ -1,5 +1,8 @@
-.PollPage {
-  font-family: "Helvetica", sans-serif;
+.PollPage .poll-prompt,
+.PollPage .vote-count,
+.PollPage #totalVotes,
+.PollPage .title {
+  font-family: Helvetica;
 }
 
 .PollPage .title {
@@ -7,6 +10,7 @@
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
+
 .PollPage .selected-option {
   background-color: rgba(120, 81, 169, 0.3);
 }
@@ -57,4 +61,8 @@
   margin: 0 auto;
   width: 70%;
   justify-content: space-between;
+}
+
+.PollPage #totalVotes {
+  float: right;
 }
