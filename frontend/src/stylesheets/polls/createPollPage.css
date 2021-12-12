@@ -1,3 +1,8 @@
+.CreatePollPage .poll-text,
+.CreatePollPage ::placeholder {
+  font-family: Helvetica;
+}
+
 .CreatePollPage .title {
   text-align: center;
 }
@@ -15,7 +20,7 @@
 }
 
 .CreatePollPage .general-options-div {
-  width: 15em;
+  width: 20em;
   margin: 0 auto;
 }
 

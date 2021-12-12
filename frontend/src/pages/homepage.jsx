@@ -78,7 +78,11 @@ const Homepage = () => {
         </div>
       )}
       {/* {pollList && <PollCarousel polls={pollList} />} */}
-      {pollList && <PollList polls={pollList} pagesize={5} />}
+      {pollList && (
+        // <div style={{ width: "85%", margin: "0 auto" }}>
+        <PollList polls={pollList} pagesize={5} />
+        // </div>
+      )}
       {error && <ToastMessage show={true} message={error} setMessage={setError} type="Error" />}
       {!connected && <div className="text-center">Unable to load polls</div>}
     </div>

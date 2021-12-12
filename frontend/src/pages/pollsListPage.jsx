@@ -3,7 +3,7 @@ import BackButton from "../components/backButton";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 import useQuery from "../hooks/useQuery";
-import "../stylesheets/userProfilepage.css";
+import "../stylesheets/polls/pollListPage.css";
 
 const PollsListPage = () => {
   const searchString = useQuery().get("search");
@@ -36,15 +36,18 @@ const PollsListPage = () => {
 
   return (
     <div className="PollListPage">
-      <div style={{ width: "80%", margin: "0 auto" }}>
+      <div
+        className="centering"
+        // style={{ width: "80%", margin: "0 auto" }}
+      >
         <BackButton to="/" />
       </div>
-      <h1 style={{ textAlign: "center" }}>Public Polls</h1>
-      <div style={{ textAlign: "center" }}>Click a poll title and vote in some of the polls.</div>
-      <hr className="mb-5" />
+      <h1 className="text-center">Public Polls</h1>
+      <div className="text-center">Click a poll title and vote in some of the polls.</div>
+      <hr className="mb-5 centering" />
 
       {loading ? (
-        <div style={{ textAlign: "center" }}>
+        <div className="text-center">
           <Loader />
 
           <div style={{ fontSize: "2em" }}>Loading polls...</div>

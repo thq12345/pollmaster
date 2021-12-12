@@ -128,10 +128,11 @@ const CreatePollPage = ({ hasUser }) => {
       <BackButton to="/" />
       <h1 className="mb-3 title">Create New Poll</h1>
       <div>Note: You cannot edit poll after it is created!</div>
+      <div className="mb-2">Note: The expiration date is defaulted to 30 days in the future</div>
       <Form noValidate validated={validated} ref={formRef} className="rounded form" onSubmit={handleFormSubmit}>
         <div className="p-4 mb-2">
           <Form.Group className="mb-3" controlId="pollTitle">
-            <Form.Label>Poll Title / Question</Form.Label>
+            <Form.Label className="poll-text">Poll Title / Question</Form.Label>
             <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
             <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
           </Form.Group>
@@ -139,7 +140,7 @@ const CreatePollPage = ({ hasUser }) => {
           <div className="poll-options mt-5 mb-1">{renderPollOptions()}</div>
 
           <Form.Group className="mb-3" style={{ marginLeft: "3.25em" }} controlId="placeholderInput">
-            <Form.Label>Add option</Form.Label>
+            <Form.Label className="poll-text">Add option</Form.Label>
             <Form.Control
               type="text"
               value=""
@@ -149,23 +150,15 @@ const CreatePollPage = ({ hasUser }) => {
               placeholder="Type here to start new option"
             />
           </Form.Group>
-
-          {/* <Button
-            className="add-poll-options-button"
-            onClick={() => {
-              addPollOptions("");
-            }}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </Button> */}
         </div>
 
         <hr />
         <div className="general-options-div">
           <Form.Group className="mb-3" controlId="publicity">
-            <Form.Label className="general-options-label">Poll Visibility</Form.Label>
+            <Form.Label className="general-options-label poll-text">Poll Visibility</Form.Label>
             <Form.Select
               name="public"
+              className="poll-text"
               onChange={(e) => {
                 if (e.currentTarget.value === "true") {
                   setPublicityMsg(PUBLICMSG);
@@ -187,7 +180,6 @@ const CreatePollPage = ({ hasUser }) => {
             Submit
           </Button>
         </div>
-        <div className="text-center mt-2 mb-2">Note: The expiration date is defaulted to 30 days in the future</div>
       </Form>
       {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Success" /> : null}
       {error ? <ToastMessage show={true} message={error} setMessage={setError} type="Error" /> : null}
