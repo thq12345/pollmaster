@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import { Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -132,132 +132,145 @@ const UserRegistrationPage = ({ hasUser, setLogin }) => {
 
   return (
     <div className="UserRegistrationPage main-container">
-      <h1 className="registrationTitle">Registration</h1>
+      <h1 className="visually-hidden">Registration</h1>
+      <Row className="mainRow">
+        <Col>
+          <div id="loginPurpose" className="main-child">
+            <h2>Poll Master</h2>
+            <h3>A platform to create and share polls quickly and efficently.</h3>
+            <div>Register today to create and keep track of polls.</div>
+          </div>
+        </Col>
+        <Col>
+          <Form className="registration-form" noValidate ref={registrationFormRef} onSubmit={submitHandler}>
+            <Form.Group className="mb-3" controlId="registrationFirstName">
+              <Form.Label>
+                First Name<span className="required-label">*</span>
+              </Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  aria-label="first name"
+                  required
+                  isInvalid={firstNameIsInvalid}
+                  name="firstName"
+                  type="text"
+                  placeholder="First Name"
+                />
+                <InvalidFeedback message={"Please enter a valid first name"} />
+              </InputGroup>
+            </Form.Group>
 
-      <Form className="registration-form" noValidate ref={registrationFormRef} onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controlId="registrationFirstName">
-          <Form.Label>
-            First Name<span className="required-label">*</span>
-          </Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              aria-label="first name"
-              required
-              isInvalid={firstNameIsInvalid}
-              name="firstName"
-              type="text"
-              placeholder="First Name"
-            />
-            <InvalidFeedback message={"Please enter a valid first name"} />
-          </InputGroup>
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="registrationLastName">
+              <Form.Label>
+                Last Name<span className="required-label">*</span>
+              </Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  aria-label="last name"
+                  required
+                  isInvalid={lastNameIsInvalid}
+                  name="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                />
+                <InvalidFeedback message={"Please enter a valid last name"} />
+              </InputGroup>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="registrationLastName">
-          <Form.Label>
-            Last Name<span className="required-label">*</span>
-          </Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              aria-label="last name"
-              required
-              isInvalid={lastNameIsInvalid}
-              name="lastName"
-              type="text"
-              placeholder="Last Name"
-            />
-            <InvalidFeedback message={"Please enter a valid last name"} />
-          </InputGroup>
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="registrationEmail">
+              <Form.Label>
+                Email<span className="required-label">*</span>
+              </Form.Label>
+              <Form.Control
+                aria-label="email"
+                required
+                isInvalid={EmailIsInvalid}
+                name="email"
+                type="email"
+                placeholder="Email Address"
+              />
+              {emailErrorMessage ? (
+                <InvalidFeedback message={emailErrorMessage} setMessage={setEmailErrorMessage} />
+              ) : null}
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="registrationEmail">
-          <Form.Label>
-            Email<span className="required-label">*</span>
-          </Form.Label>
-          <Form.Control
-            aria-label="email"
-            required
-            isInvalid={EmailIsInvalid}
-            name="email"
-            type="email"
-            placeholder="Email Address"
-          />
-          {emailErrorMessage ? <InvalidFeedback message={emailErrorMessage} setMessage={setEmailErrorMessage} /> : null}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="registrationPassword">
-          <Form.Label>
-            Password<span className="required-label">*</span>
-          </Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              aria-label="password"
-              required
-              isInvalid={passwordIsInvalid}
-              autoComplete="on"
-              name="password"
-              type={passwordShown ? "text" : "password"}
-              placeholder="Password"
-            />
-            <Button
-              aria-label={passwordShown ? "hide password" : "show password"}
-              id="eyeButton"
-              onClick={(e) => {
-                togglePassword(e);
-              }}
-            >
-              {passwordEye}
+            <Form.Group className="mb-3" controlId="registrationPassword">
+              <Form.Label>
+                Password<span className="required-label">*</span>
+              </Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  aria-label="password"
+                  required
+                  isInvalid={passwordIsInvalid}
+                  autoComplete="on"
+                  name="password"
+                  type={passwordShown ? "text" : "password"}
+                  placeholder="Password"
+                />
+                <Button
+                  aria-label={passwordShown ? "hide password" : "show password"}
+                  id="eyeButton"
+                  onClick={(e) => {
+                    togglePassword(e);
+                  }}
+                >
+                  {passwordEye}
+                </Button>
+                {passwordErrorMessage ? (
+                  <InvalidFeedback message={passwordErrorMessage} setMessage={setPasswordErrorMessage} />
+                ) : (
+                  <Form.Text>
+                    Password should be at least 6 character long contain at least one lowercase character, one uppercase
+                    character, and one special character
+                  </Form.Text>
+                )}
+              </InputGroup>
+              <Form.Control.Feedback type="invalid"> Please enter a password</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="confirmRegistrationPassword">
+              <Form.Label>
+                Confirm Password<span className="required-label">*</span>
+              </Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  aria-label="confirm password"
+                  required
+                  isInvalid={confirmPasswordIsInvalid}
+                  autoComplete="off"
+                  name="confirmPassword"
+                  type={confirmShown ? "text" : "password"}
+                  placeholder="Confirm Password"
+                />
+                <Button
+                  aria-label={confirmShown ? "hide confirmed password" : "show confirmed password"}
+                  id="eyeButton"
+                  onClick={(e) => {
+                    toggleConfirm(e);
+                  }}
+                >
+                  {confirmEye}
+                </Button>
+                {confirmPasswordErrorMessage ? (
+                  <InvalidFeedback message={confirmPasswordErrorMessage} setMessage={setConfirmPasswordIsInvalid} />
+                ) : null}
+              </InputGroup>
+              <Form.Control.Feedback type="invalid"> Please confirm your password</Form.Control.Feedback>
+            </Form.Group>
+            <Button className="registerButton" variant="primary" type="submit" disabled={isDisable}>
+              Create an Account
             </Button>
-            {passwordErrorMessage ? (
-              <InvalidFeedback message={passwordErrorMessage} setMessage={setPasswordErrorMessage} />
-            ) : (
-              <Form.Text>
-                Password should be at least 6 character long contain at least one lowercase character, one uppercase
-                character, and one special character
-              </Form.Text>
-            )}
-          </InputGroup>
-          <Form.Control.Feedback type="invalid"> Please enter a password</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="confirmRegistrationPassword">
-          <Form.Label>
-            Confirm Password<span className="required-label">*</span>
-          </Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              aria-label="confirm password"
-              required
-              isInvalid={confirmPasswordIsInvalid}
-              autoComplete="off"
-              name="confirmPassword"
-              type={confirmShown ? "text" : "password"}
-              placeholder="Confirm Password"
-            />
-            <Button
-              aria-label={confirmShown ? "hide confirmed password" : "show confirmed password"}
-              id="eyeButton"
-              onClick={(e) => {
-                toggleConfirm(e);
-              }}
-            >
-              {confirmEye}
-            </Button>
-            {confirmPasswordErrorMessage ? (
-              <InvalidFeedback message={confirmPasswordErrorMessage} setMessage={setConfirmPasswordIsInvalid} />
-            ) : null}
-          </InputGroup>
-          <Form.Control.Feedback type="invalid"> Please confirm your password</Form.Control.Feedback>
-        </Form.Group>
-        <Button className="registerButton" variant="primary" type="submit" disabled={isDisable}>
-          Create an Account
-        </Button>
-      </Form>
-      <div id="loginText">
-        Already have an account?
-        <Link to="/login"> Sign in here</Link>
-      </div>
-      {errorMessage ? (
-        <ToastMessage show={true} message={errorMessage} setMessage={setErrorMessage} type="Error" />
-      ) : null}
+          </Form>
+          <div id="loginText">
+            Already have an account?
+            <Link to="/login"> Sign in here</Link>
+          </div>
+
+          {errorMessage ? (
+            <ToastMessage show={true} message={errorMessage} setMessage={setErrorMessage} type="Error" />
+          ) : null}
+        </Col>
+      </Row>
     </div>
   );
 };
