@@ -133,7 +133,13 @@ const CreatePollPage = ({ hasUser }) => {
         <div className="p-4 mb-2">
           <Form.Group className="mb-3" controlId="pollTitle">
             <Form.Label className="poll-text">Poll Title / Question</Form.Label>
-            <Form.Control required type="text" name="title" placeholder="Enter the question for your poll" />
+            <Form.Control
+              className="poll-text"
+              required
+              type="text"
+              name="title"
+              placeholder="Enter the question for your poll"
+            />
             <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
           </Form.Group>
 
@@ -171,7 +177,7 @@ const CreatePollPage = ({ hasUser }) => {
               <option value={true}>Public</option>
               <option value={false}>Private</option>
             </Form.Select>
-            <Form.Text>{publicityMsg}</Form.Text>
+            <Form.Text style={{ color: "black" }}>{publicityMsg}</Form.Text>
           </Form.Group>
         </div>
 

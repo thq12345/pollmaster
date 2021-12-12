@@ -182,15 +182,17 @@ const PollPage = () => {
       return <div style={{ fontSize: "1.5em" }}>This poll has already ended</div>;
     } else if (votedIdx !== -1) {
       return (
-        <Button className="voteButton" disabled>
+        <Button className="vote-button" disabled>
           You have voted
         </Button>
       );
     } else {
       return (
-        <Button className="voteButton" disabled={disabled || votedIdx !== -1} onClick={handleVote}>
-          Submit Vote
-        </Button>
+        <>
+          <Button className="vote-button" disabled={disabled || votedIdx !== -1} onClick={handleVote}>
+            Submit Vote
+          </Button>
+        </>
       );
     }
   };
@@ -205,12 +207,11 @@ const PollPage = () => {
             <div style={{ width: "70%", margin: "0 auto" }}>
               <ListGroup className="mb-2">{poll ? renderPollOptions() : null}</ListGroup>
               {showResult ? <div id="totalVotes">Total votes: {poll.totalVotes}</div> : null}
-              <div style={{ marginTop: "5em" }} className="center">
-                {renderVoteButton()}
-              </div>
+              <div className="center mt-5">{renderVoteButton()}</div>
+              {!user && !expired && <div className="text-center mt-2">Login to record your vote</div>}
             </div>
 
-            <div className="mt-5">
+            <div style={{ marginTop: "4em" }}>
               <div className="text-center mb-2">Share this poll:</div>
               <div className="center sharePollChoices">
                 <SharePollSelections title={poll.title} url={window.location.href} />
@@ -230,7 +231,7 @@ const PollPage = () => {
   return (
     <div className="PollPage">
       {/* <div className="back-button"> */}
-      <div className="topButtons mb-4">
+      <div className="top-buttons mb-4">
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
           <Button id="deleteButton" onClick={deletePoll}>

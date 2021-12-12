@@ -41,8 +41,9 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, focus, 
       )}
       <div className="poll-option-field">
         <Form.Group className="mb-3" controlId={`pollOption-${index}`}>
-          <Form.Label>Option {index + 1}</Form.Label>
+          <Form.Label className="poll-text">Option {index + 1}</Form.Label>
           <Form.Control
+            className="poll-text"
             required
             ref={ref}
             type="text"

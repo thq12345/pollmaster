@@ -22,11 +22,11 @@ const SharePollSelections = ({ title, url }) => {
       <Button aria-label="copy poll link" className="copy-poll-link-button p-2 btn" onClick={copyUrl}>
         <FontAwesomeIcon icon={faCopy} /> {copyText}
       </Button>
-      <FacebookShareButton title={shareTitle} url={shareUrl} hashtags={shareHashtags}>
+      <FacebookShareButton className="ms-1" title={shareTitle} url={shareUrl} hashtags={shareHashtags}>
         <FacebookIcon round size={iconSize} />
       </FacebookShareButton>
 
-      <TwitterShareButton title={shareTitle} url={shareUrl} hashtags={shareHashtags}>
+      <TwitterShareButton className="ms-1" title={shareTitle} url={shareUrl} hashtags={shareHashtags}>
         <TwitterIcon round size={iconSize} />
       </TwitterShareButton>
     </div>
