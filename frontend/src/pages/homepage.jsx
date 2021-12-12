@@ -53,7 +53,7 @@ const Homepage = () => {
     <div className="Homepage">
       <div>
         <h1 className="title">Welcome to Poll Master!</h1>
-        <h2 className="detail"> A platform to create and share polls quickly and efficently.</h2>
+        <h2 className="detail"> A platform to create and share polls quickly and efficiently.</h2>
 
         {/* {pollList && <PollCarousel polls={pollList} />} */}
         <Row>
