@@ -77,6 +77,6 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
   - poll page
   - poll list
   - home page
-## [Video Demostration](https://youtu.be/UhnM5_0owlo)
-## [Class Demonsrtation]
+## [Public Video Demostration](https://youtu.be/UhnM5_0owlo)
+## [Class Video Demonsrtation](https://www.youtube.com/watch?v=fee3xt_78wA)
 ## [Slides](https://docs.google.com/presentation/d/1vuoCM38WQt_NlAhMV9_1cfVgfdoTo_Eo/edit?usp=sharing&ouid=114664354331916404538&rtpof=true&sd=true)
