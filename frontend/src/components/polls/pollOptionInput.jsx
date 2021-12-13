@@ -5,9 +5,22 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../../stylesheets/polls/pollOptionInput.css";
 import PropTypes from "prop-types";
 
-const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, focus, index, onDeletePollOption }) => {
+const PollOptionInput = ({
+  defaultValue,
+  onOptionValueChange,
+  deletable,
+  focus,
+  index,
+  onDeletePollOption,
+  onDrag,
+  setDropTarget,
+  onDrop,
+}) => {
   let [value, setValue] = useState(defaultValue);
   let ref = useRef();
+  let [dragging, setDragging] = useState(false);
+  let [dropping, setDropping] = useState(false);
+  let [dragCounter, setDragCounter] = useState(0);
   const onValueChange = (event) => {
     onOptionValueChange(index, event.target.value);
     setValue(event.target.value);
@@ -23,8 +36,53 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, focus, 
     setValue(defaultValue);
   }, [defaultValue]);
 
+  const generateClassName = () => {
+    let name = "PollOptionInput poll-option";
+    if (dragging) return name + " drag";
+    if (dropping) return name + " drop";
+    else return name;
+  };
+
+  useEffect(() => {
+    if (dragCounter === 0) {
+      setDropping(false);
+    } else {
+      setDropping(true);
+    }
+  }, [dragCounter]);
+
   return (
-    <div className="PollOptionInput poll-option">
+    <div
+      // className="PollOptionInput poll-option"
+      className={generateClassName()}
+      draggable={true}
+      onDragStart={() => {
+        onDrag(index);
+        setDragging(true);
+        // console.log("started dragging");
+      }}
+      onDragEnter={(e) => {
+        e.preventDefault();
+        setDragCounter(dragCounter + 1);
+        setDropTarget(index);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        setDragCounter(dragCounter - 1);
+      }}
+      onDragEnd={(e) => {
+        e.preventDefault();
+        setDragging(false);
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        onDrop();
+        setDragCounter(0);
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+    >
       {deletable ? (
         <Button
           aria-label="Remove option"
@@ -43,6 +101,11 @@ const PollOptionInput = ({ defaultValue, onOptionValueChange, deletable, focus, 
         <Form.Group className="mb-3" controlId={`pollOption-${index}`}>
           <Form.Label className="poll-text">Option {index + 1}</Form.Label>
           <Form.Control
+            draggable={true}
+            onDragStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             className="poll-text"
             required
             ref={ref}
@@ -66,6 +129,9 @@ PollOptionInput.propTypes = {
   focus: PropTypes.bool,
   index: PropTypes.number,
   onDeletePollOption: PropTypes.func,
+  onDrag: PropTypes.func,
+  setDropTarget: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
 export default PollOptionInput;

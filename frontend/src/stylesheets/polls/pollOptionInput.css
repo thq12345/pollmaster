@@ -10,7 +10,20 @@
 .PollOptionInput.poll-option {
   display: flex;
 }
+
+.PollOptionInput.poll-option:hover {
+  cursor: grab;
+}
+
 .PollOptionInput .poll-option-field {
   width: 100%;
   margin-left: 1em;
+}
+
+.PollOptionInput.drag {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.PollOptionInput.drop {
+  background-color: rgba(120, 81, 169, 0.3);
 }

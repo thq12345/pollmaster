@@ -29,9 +29,21 @@ const CreatePollPage = ({ hasUser }) => {
   let [publicityMsg, setPublicityMsg] = useState(PUBLICMSG);
   let [isDisable, setDisableButton] = useState(false);
   let [focus, setFocus] = useState(-1);
+  let [dragIdx, setDragIdx] = useState(-1);
+  let [dropTarget, setDropTarget] = useState(-1);
 
   let formRef = useRef();
   let navigate = useNavigate();
+
+  const moveToTargetIdx = (dragIdx, dropTarget) => {
+    let newOptions = [...options];
+    newOptions.splice(dropTarget, 0, newOptions.splice(dragIdx, 1)[0]);
+    setOptions(newOptions);
+  };
+  const handleDrop = () => {
+    // swap(dragIdx, dropTarget);
+    moveToTargetIdx(dragIdx, dropTarget);
+  };
 
   const handleRedirect = (to, redirectState) => {
     if (timeout) clearTimeout(timeout);
@@ -69,6 +81,9 @@ const CreatePollPage = ({ hasUser }) => {
           focus={idx === focus}
           index={idx}
           onDeletePollOption={handleDeletePollOption}
+          onDrag={setDragIdx}
+          setDropTarget={setDropTarget}
+          onDrop={handleDrop}
         />
       );
     });
@@ -119,8 +134,8 @@ const CreatePollPage = ({ hasUser }) => {
       } catch (e) {
         setError("Unable to connect to server, please try again later");
       }
+      setDisableButton(false);
     }
-    setDisableButton(false);
   };
 
   return (
@@ -142,7 +157,6 @@ const CreatePollPage = ({ hasUser }) => {
             />
             <Form.Control.Feedback type="invalid">Please fill in the title / question</Form.Control.Feedback>
           </Form.Group>
-
           <div className="poll-options mt-5 mb-1">{renderPollOptions()}</div>
 
           <Form.Group className="mb-3" style={{ marginLeft: "3.25em" }} controlId="placeholderInput">
@@ -152,7 +166,7 @@ const CreatePollPage = ({ hasUser }) => {
               value=""
               onChange={throttle((e) => {
                 addPollOptions(e.currentTarget.value);
-              }, 500)}
+              }, 150)}
               placeholder="Type here to start new option"
             />
           </Form.Group>

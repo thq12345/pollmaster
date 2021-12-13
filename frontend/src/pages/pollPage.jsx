@@ -90,6 +90,7 @@ const PollPage = () => {
     setDisabled(true);
     if (selectedIdx === -1) {
       setMessage("Please select one of the options to vote");
+      setDisabled(false);
       return;
     }
     try {
@@ -113,8 +114,8 @@ const PollPage = () => {
       }
     } catch (e) {
       setError("Unable to connect to server, please try again later");
+      setDisabled(false);
     }
-    setDisabled(false);
   };
 
   // Problem: Post deleted but keep render in the backend
