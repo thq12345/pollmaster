@@ -20,7 +20,7 @@ const PollsListPage = () => {
 
       if (searchString) {
         json = json.filter((el) => {
-          return el.title.toLowerCase().startsWith(searchString.toLowerCase());
+          return el.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
         });
       }
 
@@ -36,10 +36,7 @@ const PollsListPage = () => {
 
   return (
     <div className="PollListPage">
-      <div
-        className="centering"
-        // style={{ width: "80%", margin: "0 auto" }}
-      >
+      <div className="centering">
         <BackButton to="/" />
       </div>
       <h1 className="text-center">Public Polls</h1>

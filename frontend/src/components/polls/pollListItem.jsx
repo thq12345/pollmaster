@@ -1,6 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import useQuery from "../../hooks/useQuery";
 import "../../stylesheets/polls/pollListItem.css";
 import PropTypes from "prop-types";
 
@@ -8,16 +9,27 @@ const findDaysRemaining = (endTime) => {
   return Math.ceil((endTime - new Date()) / 1000 / 60 / 60 / 24);
 };
 
-// const renderDateString = (unixTime) => {
-//   return new Date(unixTime).toLocaleDateString();
-// };
-
 const PollListItem = ({ onHover, hover, poll, idx }) => {
   let navigate = useNavigate();
+  let query = useQuery().get("search");
 
   const generateClassName = () => {
     if (findDaysRemaining(poll.ttl) < 0) return hover ? "expired-hover" : "expired";
     return hover ? " hover" : "";
+  };
+
+  const renderPollTitle = (title, searchString) => {
+    if (!searchString || searchString === "") return title;
+    let idx = title.toLowerCase().indexOf(searchString.toLowerCase());
+    return (
+      <>
+        {title.substring(0, idx)}
+        <span style={{ fontWeight: "800", backgroundColor: "yellow" }}>
+          {title.substring(idx, idx + searchString.length)}
+        </span>
+        {title.substring(idx + searchString.length)}
+      </>
+    );
   };
 
   return (
@@ -36,7 +48,7 @@ const PollListItem = ({ onHover, hover, poll, idx }) => {
       }}
     >
       <div>
-        <div className="inline-block poll-title">{poll.title}</div>
+        <div className="inline-block poll-title">{renderPollTitle(poll.title, query)}</div>
         <div className="inline-block float-right">
           <span className="me-1 numbers">{poll.totalVotes}</span> people participated
         </div>
