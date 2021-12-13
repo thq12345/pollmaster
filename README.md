@@ -3,7 +3,7 @@
 <br>Polling platform<br/>
 <br>Author: Fengrui Gan, Felix Chung<br/>
 
-Website for Final Project in [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_fall_2021/).
+Website for Project 3 in [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_fall_2021/).
 
 ## Project Objective
 
@@ -24,7 +24,6 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
 ![Demo of poll page](/images/poll_page_ss.png)
 ![Demo of create poll page](/images/create_poll_ss.png)
 ![Demo of poll list page](/images/poll_list_ss.png)
-![Demo of registration page](/images/registration.png)
 
 
 
@@ -78,5 +77,4 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
   - poll list
   - home page
 ## [Video Demostration](https://youtu.be/UhnM5_0owlo)
-## [Class Demonsrtation]
-## [Slides](https://docs.google.com/presentation/d/1vuoCM38WQt_NlAhMV9_1cfVgfdoTo_Eo/edit?usp=sharing&ouid=114664354331916404538&rtpof=true&sd=true)
+## [Slides](https://docs.google.com/presentation/d/11g2Sy5gFv_I6nJkTrUKNp_-aYJhoCmP0PKw2ixyhpb4/edit?usp=sharing)
