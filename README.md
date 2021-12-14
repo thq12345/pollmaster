@@ -7,6 +7,9 @@ Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/
 
 ## Project Objective
 
+This branch is for project 3,
+For project 4, checkout the final branch
+
 <br>The objective is to build platform for people to create and to participate in polls<br/>
 <br>This should be a React application.<br/>
 
