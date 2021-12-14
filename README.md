@@ -3,7 +3,7 @@
 <br>Polling platform<br/>
 <br>Author: Fengrui Gan, Felix Chung<br/>
 
-Website for project 3 in [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_fall_2021/).
+Website for Project 3 in [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_fall_2021/).
 
 ## Project Objective
 
