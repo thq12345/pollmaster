@@ -7,6 +7,9 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
 
 ## Project Objective
 
+This branch is the branch for final project,
+For project 3, checkout the main branch
+
 <br>The objective is to build platform for people to create and to participate in polls<br/>
 <br>This should be a React application.<br/>
 
@@ -18,15 +21,13 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
 4. Each poll will have an expiration time
 5. Poll result should be updated automatically.
 
-[Link to landing page](https://poll-master.herokuapp.com/)
+[Link to landing page](https://poll-master-2.herokuapp.com/)
 
 ![Home page of website](/images/main_page_ss.png)
 ![Demo of poll page](/images/poll_page_ss.png)
 ![Demo of create poll page](/images/create_poll_ss.png)
 ![Demo of poll list page](/images/poll_list_ss.png)
 ![Demo of registration page](/images/registration.png)
-
-
 
 
 ## Tech requirements
@@ -77,6 +78,6 @@ Website for Final Project in [CS5610 Web Development](https://johnguerra.co/clas
   - poll page
   - poll list
   - home page
-## [Public Video Demostration](https://youtu.be/UhnM5_0owlo)
+## [Public Video Demostration](https://youtu.be/9RjcNREjadg)
 ## [Class Video Demonsrtation](https://www.youtube.com/watch?v=fee3xt_78wA)
 ## [Slides](https://docs.google.com/presentation/d/1vuoCM38WQt_NlAhMV9_1cfVgfdoTo_Eo/edit?usp=sharing&ouid=114664354331916404538&rtpof=true&sd=true)
