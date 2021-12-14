@@ -137,11 +137,9 @@ const UserLoginPage = ({ hasUser, setLogin }) => {
                 Log In
               </Button>
             </Form>
-            {/* <Nav className="create-account"> */}
             <Link to="/registration" id="createAccountText">
               Click to Create an Account
             </Link>
-            {/* </Nav> */}
           </div>
         </Col>
       </Row>

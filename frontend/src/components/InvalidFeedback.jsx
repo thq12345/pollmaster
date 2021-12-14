@@ -8,12 +8,7 @@ message: String, this will show as invalid message
 return div of invalid message
 */
 const InvalidFeedback = ({ message }) => {
-  return (
-    <Form.Control.Feedback type="invalid">
-      {message}
-      {/* <div className="invalid-feedback">{message}</div> */}
-    </Form.Control.Feedback>
-  );
+  return <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>;
 };
 
 InvalidFeedback.propTypes = {

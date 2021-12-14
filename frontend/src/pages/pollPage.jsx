@@ -118,7 +118,6 @@ const PollPage = () => {
     }
   };
 
-  // Problem: Post deleted but keep render in the backend
   const deletePoll = async () => {
     if (user && poll && poll.owner === user._id) {
       let res = await fetch(`/api/polls/${pollId}`, { method: "delete" });
@@ -158,7 +157,6 @@ const PollPage = () => {
                     style={{ width: `${votesRatio[idx]}%` }}
                   ></div>
                 </div>
-                {/* <ProgressBar now={votesRatio[idx]} /> */}
               </Col>
               <Col xs={1}>
                 <div className="vote-count">{el.votes}</div>
@@ -231,7 +229,6 @@ const PollPage = () => {
 
   return (
     <div className="PollPage">
-      {/* <div className="back-button"> */}
       <div className="top-buttons mb-4">
         <BackButton onRedirect={handleRedirect} to="/polls" />
         {user && poll && poll.owner === user._id ? (
@@ -240,7 +237,6 @@ const PollPage = () => {
           </Button>
         ) : null}
       </div>
-      {/* </div> */}
       {renderPoll()}
       {message ? <ToastMessage show={true} message={message} setMessage={setMessage} type="Info" /> : null}
       {success ? <ToastMessage show={true} message={success} setMessage={setSuccess} type="Success" /> : null}

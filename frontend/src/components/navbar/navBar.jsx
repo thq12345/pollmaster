@@ -17,7 +17,6 @@ const NavigationBar = ({ userIsLogin, userLogout }) => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-            {/* <Nav.Link href="/">Home</Nav.Link> */}
             <Link className="nav-link" to="/polls">
               All polls
             </Link>

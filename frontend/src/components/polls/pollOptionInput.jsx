@@ -53,13 +53,11 @@ const PollOptionInput = ({
 
   return (
     <div
-      // className="PollOptionInput poll-option"
       className={generateClassName()}
       draggable={true}
       onDragStart={() => {
         onDrag(index);
         setDragging(true);
-        // console.log("started dragging");
       }}
       onDragEnter={(e) => {
         e.preventDefault();

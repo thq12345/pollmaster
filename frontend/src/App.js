@@ -26,10 +26,6 @@ function App() {
     setLogin(false);
   };
 
-  // const directToNotFound = () => {
-  //   useNavigate("/NotFound");
-  // };
-
   return (
     <div className="App">
       <Router>

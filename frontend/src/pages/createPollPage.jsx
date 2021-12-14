@@ -37,11 +37,10 @@ const CreatePollPage = ({ hasUser }) => {
 
   const moveToTargetIdx = (dragIdx, dropTarget) => {
     let newOptions = [...options];
-    newOptions.splice(dropTarget, 0, newOptions.splice(dragIdx, 1)[0]);
+    newOptions.splice(dropTarget, 0, newOptions.splice(dragIdx, 1)[0]); // this amazing one liner is from StackOverflow
     setOptions(newOptions);
   };
   const handleDrop = () => {
-    // swap(dragIdx, dropTarget);
     moveToTargetIdx(dragIdx, dropTarget);
   };
 

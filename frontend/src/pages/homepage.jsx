@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-// import PollCarousel from "../components/polls/pollCarousel";
 import PollList from "../components/polls/pollList";
 import Loader from "../components/loader";
 import "../stylesheets/homepage.css";
@@ -54,8 +53,6 @@ const Homepage = () => {
       <div>
         <h1 className="title">Welcome to Poll Master!</h1>
         <h2 className="detail"> A platform to create and share polls quickly and efficiently.</h2>
-
-        {/* {pollList && <PollCarousel polls={pollList} />} */}
         <Row>
           <Col className="prompt" xs={6}>
             <Link className="btn btn-primary" to="/polls/new-poll">
@@ -79,12 +76,7 @@ const Homepage = () => {
           <Loader />
         </div>
       )}
-      {/* {pollList && <PollCarousel polls={pollList} />} */}
-      {pollList && (
-        // <div style={{ width: "85%", margin: "0 auto" }}>
-        <PollList polls={pollList} pagesize={5} />
-        // </div>
-      )}
+      {pollList && <PollList polls={pollList} pagesize={5} />}
       {error && <ToastMessage show={true} message={error} setMessage={setError} type="Error" />}
       {!connected && <div className="text-center">Unable to load polls</div>}
     </div>

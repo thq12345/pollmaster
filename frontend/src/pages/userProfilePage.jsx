@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { Container } from "react-bootstrap";
 import PollList from "../components/polls/pollList";
 import "../stylesheets/userProfilepage.css";
 
