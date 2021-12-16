@@ -36,6 +36,7 @@ const read = async (collectionName, query, callbackChain) => {
   return await res;
 };
 
+
 const update = async (collectionName, queryFilter, updatedDoc) => {
   if (typeof queryFilter !== "object") {
     throw new TypeError("Filter Expression is not an object");
