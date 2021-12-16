@@ -48,7 +48,6 @@ For project 3, checkout the main branch
 - To start back end, run `yarn start` at repo root, the default port for back end server is 3001
 - To start front end server, cd into frontend folder and run `yarn start`, the default port for front end server is 3000
 - To build project, run `yarn run build` at repo root, the build artifact of react is located in the folder frontend/build
-
 ## Database schema
 ### Poll Schema
 - _id: (ObjectId)
